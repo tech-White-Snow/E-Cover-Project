@@ -1,4 +1,4 @@
-# MernStackCourse-Devconnector
+# E-Cover-Project
 
 
-MERN Stack Front to Back Course .
+Create your own beautaful mock-up design.
