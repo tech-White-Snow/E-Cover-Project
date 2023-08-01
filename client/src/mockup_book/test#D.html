@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Three.js Example</title>
+  <style>
+    body { margin: 0; }
+  </style>
+</head>
+<body>
+  <script src="https://threejs.org/build/three.js"></script>
+  <script>
+    // Your Three.js code here
+    // ...
+
+    // Create a scene, camera, renderer, load models, etc.
+    // ...
+    //Create a scene
+    const scene = new THREE.Scene();
+
+    // Create a camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    // Create a renderer
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Step 1: Load the 3D model
+    const loader = new THREE.FBXLoader();
+    loader.load('Name.fbx', function (mesh) {
+      scene.add(mesh);
+
+      // Step 2: Load the texture
+      const textureLoader = new THREE.TextureLoader();
+      textureLoader.load('Layout_1.jpg', function (texture) {
+        const material = new THREE.MeshBasicMaterial({ map: texture });
+        mesh.material = material;
+
+        // Step 3: Generate UV coordinates
+        const geometry = mesh.geometry;
+        THREE.GeometryUtils.generateTextureCoords(geometry);
+
+        // Update the UV coordinates
+        geometry.uvsNeedUpdate = true;
+      });
+    });
+
+    // Render loop
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

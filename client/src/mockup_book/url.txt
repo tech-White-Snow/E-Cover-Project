@@ -1,0 +1,3 @@
+D:\\work\\project\\second_project\\MernStack-dev\\MernStackCourse-Devconnector\\client\\src\\mockup_book\\book_mockup.fbx
+
+D:\\work\\project\\second_project\\MernStack-dev\\MernStackCourse-Devconnector\\client\\src\\texture_book\\Layout_1.jpg
