@@ -561,6 +561,9 @@ video {
     max-width: 1536px;
   }
 }
+.absolute {
+  position: absolute;
+}
 .relative {
   position: relative;
 }

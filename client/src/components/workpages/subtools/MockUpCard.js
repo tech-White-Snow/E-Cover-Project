@@ -4,7 +4,7 @@ import  {selectMockUp}  from "../../../actions/mockups";
 
 const MockUpCard = ({url, setMockupsSelected, index}) => {
     const dispatch = useDispatch()
-    const onClick = () => {
+    const onClick = async () => {
         setMockupsSelected(false);
         dispatch(selectMockUp(url, index));
         console.log(url,index)
