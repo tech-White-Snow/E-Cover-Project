@@ -1,15 +1,17 @@
-import { SET_MOCKUPS } from '../actions/types';
+import { MOCKUP_LOADING, SET_MOCKUPS } from '../actions/types';
 
 const initialState = {
-  url : null
+  data: null,
+  loading: false
 };
 
 function selectMockUp(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case MOCKUP_LOADING :
+        return {...state, loading: true}
     case SET_MOCKUPS :
-        // return {...state, url : payload.url, index : payload.index, width: payload.width, height: payload.height};
-        return {...state, url : payload.url, index : payload.index};
+        return {...state, data : payload, loading: false};
     default : 
         return state;
   }

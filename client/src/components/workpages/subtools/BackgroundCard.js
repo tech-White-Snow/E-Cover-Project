@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import  {selectBackground}  from "../../../actions/background";
 
 const BackgroundCard = ({url, setBgImageSelected, setBackgroundSelected, index}) => {
+    
     const dispatch = useDispatch()
     const onClick = () => {
         setBackgroundSelected(false);
@@ -12,7 +13,7 @@ const BackgroundCard = ({url, setBgImageSelected, setBackgroundSelected, index})
     }
     return (
     <div>
-        <img src = {url} alt="testimg" width={300} height={200} className="image-card" onClick={onClick}/>
+        <img src = {url} alt="testimg"  className="image-card" onClick={onClick}/>
     </div>
     )
 }

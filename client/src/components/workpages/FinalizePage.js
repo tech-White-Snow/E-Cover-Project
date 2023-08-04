@@ -1,50 +1,42 @@
 import React, { useEffect, useState } from "react";
 import './ImagePagesStyle.css'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { render_start } from "../../actions/render";
+import Spinner from "../layout/Spinner";
 
-const MockupsPage = ({bgImageSelected}) => {
+const MockupsPage = () => {
     const backgourndData = useSelector(state => state.selectBackground);
+    const {data} = useSelector(state => state.selectMockUp);
+    const [mockupImage, setMockupImage] = useState();
     const bgIndex = backgourndData.index;
     const bgURL = backgourndData.url;
-    const mockupData = useSelector(state => state.selectMockUp);
-    const muIndex = mockupData.index;
-    const muURL = mockupData.url;
+    const result = useSelector(state => state.render_start);
+    function getMockUpURL(data) {
+        if (data === null) {return null;}
+        else {return data.mockup.image};
+    }
+    const muURL = getMockUpURL(data);
     const [isImg, setIsImg] = useState(false);
-    // const [mockup, setMockup] = useState(0);
+    const dispatch = useDispatch();
     useEffect(() => {
         setIsImg(false);
-        
-
-    }, [bgIndex, muIndex])
-    const render = () => {
-        console.log(bgIndex, bgURL, muIndex, muURL, resultURL)
+        console.log(data)
+        if (data !== null) { setMockupImage(data.mockup.image); }
+    }, [bgIndex, data])
+    const render = async () => {
+        dispatch(render_start(backgourndData, data));
         setIsImg(true);
+        console.log(mockupImage, result.url)
     }
-    // const image1 = (
-    //     <img src="http://192.168.134.125:3000/testdata/image1.jpg" alt="result" style={{width: '150px', height: '200px'}} />
-    // )
-    // const image2 = (
-    //     <img src="http://192.168.134.125:3000/testdata/image2.jpg" alt="result" style={{width: '150px', height: '200px'}} />
-    // )
-    // const image3 = (
-    //     <img src="http://192.168.134.125:3000/testdata/image3.jpg" alt="result" style={{width: '150px', height: '200px'}} />
-    // )
     const noImage = (
         <div style={{width: '150px', height: '200px', backgroundColor: 'white'}}></div>
     )
-    // const mockupImg1 = (
-    //     <img src="http://192.168.134.125:3000/testdata/test_result1.png" alt="result" className="show-results" />
-    // )
-    // const mockupImg2 = (
-    //     <img src="http://192.168.134.125:3000/testdata/test_result2.png" alt="result" className="show-results" />
-    // )
-    // const mockupImg3 = (
-    //     <img src="http://192.168.134.125:3000/testdata/test_result3.png" alt="result" className="show-results" />
-    // )
     const noMockup = (
-        <img src={muURL} alt="result" className="show-results" style={{width: '400px', height: '300px'}} />
+        <img src={mockupImage} alt="result" className="show-results" style={{width: '400px', height: '300px'}} />
     )
-    const resultURL = `http://192.168.134.125:3000/testdata/results/test_result_${muIndex+1}_${bgIndex+1}.png`;
+    const final_mockup = (
+        <img src={result.url} alt="result" style={{width: '400px', height: '300px'}} />
+    )
     return (
         <div>
             <div>
@@ -58,14 +50,13 @@ const MockupsPage = ({bgImageSelected}) => {
             <div>
                 <div className="download-design-header">Download 3D Mockup</div>
                 <div className="download-3Dmockup-body">
-                    {/* {index === 0 && isImg === true ? mockupImg1
-                     : index === 1 && isImg === true ? mockupImg2 
-                     : index === 2 && isImg === true ? mockupImg3 : noMockup} */}
-                    {muURL === null ? <div>Your Mock up is blank</div> : 
-                     isImg === false ? noMockup : 
-                     bgURL === null ? <div>Your Background Image is blank</div> :   
-                    (
-                        <img src={resultURL} alt="result" style={{width: '400px', height: '300px'}} />
+                    {result.loading === true ? <div style={{height: '300px'}}><Spinner /></div> : (
+                        <div className="download-3Dmockup-body">
+                            {
+                                muURL === null ? <div>Your Mock up is blank</div> : 
+                                isImg === false ? noMockup : final_mockup
+                            }
+                        </div>
                     )}
                     <div className="render-button" onClick={render}>Render Mockup</div>
                 </div>

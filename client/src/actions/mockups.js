@@ -1,21 +1,18 @@
-import { SET_MOCKUPS } from './types';
+import { MOCKUP_LOADING, SET_MOCKUPS } from './types';
 import axios from 'axios';
 
-export const selectMockUp = (url, index) => async (dispatch) => {
-
-  // const data = {
-  //   dataSource: `D:\\work\\project\\second_project\\ecoverproject\\perfectdesign\\testdata\\psdSources\\test${index+1}.psd`
-  // }  
-  // // const dataSource = `D:\\work\\project\\second_project\\ecoverproject\\perfectdesign\\testdata\\psdSources\\test${index+1}.psd`;
-  // const res = await axios.post('/api/ag-psd/mock-up-info', data);
-  // const width = res.data.width;
-  // const height = res.data.height;
-  // console.log(width, height);
-  
-  console.log(index)
+export const selectMockUp = (nr) => async (dispatch) => {
+  dispatch({
+    type: MOCKUP_LOADING
+  })
+  const options = {
+    method: 'GET',
+    url: `https://api.mediamodifier.com/mockup/nr/${nr}`,
+    headers: {Accept: 'application/json', api_key: '3b9a8454-342b-4f2d-810f-26098524e34d'}
+  };
+  const {data} = await axios.request(options);
   dispatch({
     type: SET_MOCKUPS,
-    // payload: {url, index, width, height}
-    payload: {url, index}
+    payload: data
   })
 };

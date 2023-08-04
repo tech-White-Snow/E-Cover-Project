@@ -24,3 +24,7 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const SET_BACKGROUND = 'SET_BACKGROUND';
 export const SET_MOCKUPS = 'SET_MOCKUPS';
+export const BG_LOADING = 'BG_LOADING';
+export const FINAL_LOADING = 'FINAL_LOADING';
+export const MOCKUP_LOADING = 'MOCKUP_LOADING';
+export const RENDER = 'RENDER';
