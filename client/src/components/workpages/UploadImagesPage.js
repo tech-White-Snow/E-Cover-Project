@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadImage, getUploadImages } from "../../actions/uploadImage";
 import UploadImageCard from "./subtools/UploadImageCard";
+import Spinner from "../layout/Spinner";
 
 const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected}) => {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected}) => {
     // }
     const {urls} = useSelector(state => state.uploadImage);
     const {url} = useSelector(state => state.uploadImage);
+    const {loading} = useSelector(state => state.uploadImage);
     useEffect(() => {
         dispatch(getUploadImages());
     },[dispatch, url])
@@ -29,7 +31,10 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected}) => {
                 </div>
             </div>
             <div className="upload-page-body">
-                {urls.map((image, index) => <UploadImageCard url={image.url} setBgImageSelected={setBgImageSelected} setUploadImagesSelected={setUploadImagesSelected} index={index} />)}
+                {loading === true ? <div className="loading-spinner"><Spinner /></div> : (
+                    urls.map((image, index) => <UploadImageCard url={image.url} setBgImageSelected={setBgImageSelected} setUploadImagesSelected={setUploadImagesSelected} index={index} />)
+                )}
+                
             </div>
         </div>
     )

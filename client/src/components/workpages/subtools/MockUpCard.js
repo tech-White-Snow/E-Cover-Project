@@ -9,7 +9,7 @@ const MockUpCard = ({nr, setMockupsSelected}) => {
         const options = {
             method: 'GET',
             url: `https://api.mediamodifier.com/mockup/nr/${nr}`,
-            headers: {Accept: 'application/json', api_key: '3b9a8454-342b-4f2d-810f-26098524e34d'}
+            headers: {Accept: 'application/json', api_key: '7279b6bf-f931-4b94-a7bd-05deb552e3cb'}
         };
         const {data} = await axios.request(options);
         console.log(data)

@@ -11,7 +11,7 @@ export const render_start = (bg, mu) => async (dispatch) => {
         method: 'POST',
         url: 'https://api.mediamodifier.com/v2/mockup/render',
         headers: {
-            api_key: '3b9a8454-342b-4f2d-810f-26098524e34d',
+            api_key: '7279b6bf-f931-4b94-a7bd-05deb552e3cb',
             'Content-Type': 'application/json',
             Accept: 'application/json'
         },
