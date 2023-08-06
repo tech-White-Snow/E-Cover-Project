@@ -6,6 +6,7 @@ import post from './post';
 import selectBackground from './selectBackground';
 import selectMockUp from './selectMockUp';
 import render_start from './render';
+import uploadImage from './uploadImage';
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
   post,
   selectBackground,
   selectMockUp,
-  render_start
+  render_start,
+  uploadImage
 });

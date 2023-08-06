@@ -28,3 +28,6 @@ export const BG_LOADING = 'BG_LOADING';
 export const FINAL_LOADING = 'FINAL_LOADING';
 export const MOCKUP_LOADING = 'MOCKUP_LOADING';
 export const RENDER = 'RENDER';
+export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
+export const UPLOAD_IMAGE_LOADING = 'UPLOAD_IMAGE_LOADING';
+export const GET_UPLOAD_IMAGES = 'GET_UPLOAD_IMAGES';

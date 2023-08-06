@@ -33,13 +33,16 @@ const DefaultPage = ({bgImageSelected}) => {
     
     bgWidth = 600;
     bgHeight = 600 / bgInfo.width * bgInfo.height;
-    dx = (muWidth - bgWidth) / 2;
-    dy = (muHeight - bgHeight) /2;
+    if(loading === false) {
+        dx = (muWidth - bgWidth) / 2;
+        dy = (muHeight - bgHeight) /2;
+    }
+    
     
     const noImage = (
         <>
             {loading === true ? (
-                <div  className="loading-spinner">
+                <div className="loading-spinner">
                     <Spinner />
                 </div>
             ) : (
@@ -64,7 +67,7 @@ const DefaultPage = ({bgImageSelected}) => {
                         {noImage}
                       </div>
                       {bg_loading === true ? (   
-                            <div  className="loading-spinner">
+                            <div  className="loading-spinner" style={{zIndex: '100', position: 'absolute'}}>
                                 <Spinner />
                             </div>
                         ) : (

@@ -238,7 +238,7 @@ const CreateCover = () => {
   const uploadImagePage = (
     uploadImagesSelected === true ? (
       <div className='show-extrapage'>
-        <UploadImagePage />
+        <UploadImagePage setBgImageSelected = {setBgImageSelected} setUploadImagesSelected = {setUploadImagesSelected} />
       </div>
     ) : (
       <div className='hidden-extrapage'>

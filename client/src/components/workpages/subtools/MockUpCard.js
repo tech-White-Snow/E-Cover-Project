@@ -15,7 +15,7 @@ const MockUpCard = ({nr, setMockupsSelected}) => {
         console.log(data)
         setUrl(data.mockup.image);
     }; getMockup()}, []);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const onClick = async () => {
         setMockupsSelected(false);
         dispatch(selectMockUp(nr));
