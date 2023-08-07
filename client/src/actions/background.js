@@ -1,4 +1,4 @@
-import { BG_LOADING, SET_BACKGROUND } from './types';
+import { BG_LOADING, SET_BACKGROUND, SET_COLOR } from './types';
 import axios from 'axios';
 
 export const selectBackground = (url, index) => async (dispatch) => {
@@ -17,3 +17,11 @@ export const selectBackground = (url, index) => async (dispatch) => {
     payload: {url, index, width, height}
   });
 };
+
+export const selectColor = (color) => async (dispatch) => {
+  dispatch({
+    type: SET_COLOR,
+    payload: color
+  });
+
+}

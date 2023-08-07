@@ -62,17 +62,14 @@ const CreateCover = () => {
     setFinalizeSelected(false);
     setBackgroundSelected(!backgoundSelected);
   }
+  // const addTextHovered = () => {
+  //   setAddTextSelected(true);
+  // }
+  // const addTextOut = () => {
+  //   setAddTextSelected(false);
+  // }
   const addTextClicked = () => {
-    console.log('Add Text clicked');
-    setMyConversSelected(false);
-    setMockupsSelected(false);
     setAddTextSelected(!addTextSelected);
-    setAIImagesSelected(false);
-    setInsertImagesSelected(false);
-    setStockImagesSelected(false);
-    setUploadImagesSelected(false);
-    setFinalizeSelected(false);
-    setBackgroundSelected(false);
   }
   const aiImagesClicked = () => {
     console.log('AI Images clicked');
@@ -173,7 +170,7 @@ const CreateCover = () => {
   const backgroundPage = (
     backgoundSelected === true ? (
       <div className='show-extrapage'>
-        <BackgroundPage setBgImageSelected = {setBgImageSelected} setBackgroundSelected = {setBackgroundSelected} />
+        <BackgroundPage setBgImageSelected = {setBgImageSelected} setBackgroundSelected = {setBackgroundSelected} setUploadImagesSelected = {setUploadImagesSelected} />
       </div>
     ) : (
       <div className='hidden-extrapage'>
@@ -185,11 +182,21 @@ const CreateCover = () => {
   //Create Add Text Page
   const addTextPage = (
     addTextSelected === true ? (
-      <div className='show-extrapage'>
-        <AddTextPage />
+      <div className='show-text-component'>
+        <AddTextPage
+            setAddTextSelected={setAddTextSelected}
+            setMyConversSelected={setMyConversSelected}
+            setMockupsSelected={setMockupsSelected}
+            setAIImagesSelected={setAIImagesSelected}
+            setInsertImagesSelected={setInsertImagesSelected}
+            setStockImagesSelected={setStockImagesSelected}
+            setUploadImagesSelected={setUploadImagesSelected}
+            setFinalizeSelected={setFinalizeSelected}
+            setBackgroundSelected={setBackgroundSelected}
+         />
       </div>
     ) : (
-      <div className='hidden-extrapage'>
+      <div className='hidden-text-component'>
         
       </div>
     )
@@ -285,7 +292,7 @@ const CreateCover = () => {
               Background
             </small>
           </div>
-          <div className='myicons justify-center text-center items-center' onClick={addTextClicked}>
+          <div className='myicons justify-center text-center items-center' onClick={addTextClicked} >
             <img src='https://app.myecovermaker.com/app/images/icons/text.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' />
             <small className='text-sky-600'>
               Add Text

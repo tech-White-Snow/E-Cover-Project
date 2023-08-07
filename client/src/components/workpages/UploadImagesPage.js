@@ -4,7 +4,7 @@ import { uploadImage, getUploadImages } from "../../actions/uploadImage";
 import UploadImageCard from "./subtools/UploadImageCard";
 import Spinner from "../layout/Spinner";
 
-const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected}) => {
+const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected, setBackgroundSelected}) => {
     const dispatch = useDispatch();
     const selectImage = async (e) => {
         const image = e.target.files[0];
@@ -32,7 +32,7 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected}) => {
             </div>
             <div className="upload-page-body">
                 {loading === true ? <div className="loading-spinner"><Spinner /></div> : (
-                    urls.map((image, index) => <UploadImageCard url={image.url} setBgImageSelected={setBgImageSelected} setUploadImagesSelected={setUploadImagesSelected} index={index} />)
+                    urls.map((image, index) => <UploadImageCard url={image.url} setBackgroundSelected={setBackgroundSelected} setBgImageSelected={setBgImageSelected} setUploadImagesSelected={setUploadImagesSelected} index={index} />)
                 )}
                 
             </div>

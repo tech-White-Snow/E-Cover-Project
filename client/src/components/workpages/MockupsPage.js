@@ -8,7 +8,7 @@ const MockupsPage = ({setMockupsSelected}) => {
             <div className="background-page-header">
                 Choose Mockup Page
             </div>
-            <div className="background-page-body p-1">
+            <div className="bg-library-page-body p-1">
                 {nr.map((nr) => {
                     return (<MockUpCard nr = {nr} setMockupsSelected={setMockupsSelected} />)
                 })}

@@ -6,12 +6,8 @@ import Spinner from '../layout/Spinner';
 const DefaultPage = ({bgImageSelected}) => {
     const [muWidth, setMuWidth] = useState(0);
     const [muHeight, setMuHeight] = useState(0);
-    // const [bgWidth, setBgWidth] = useState(0);
-    // const [bgHeight, setBgHeight] = useState(0);
     let bgWidth;
     let bgHeight;
-    // const [dx, setDx] = useState(0);
-    // const [dy, setDy] = useState(0);
     let dx;
     let dy;
     const {data} = useSelector(state => state.selectMockUp);
@@ -20,6 +16,7 @@ const DefaultPage = ({bgImageSelected}) => {
     const bg_loading = bgInfo.loading;
     useEffect(() => {
             console.log(data);
+            console.log(bgInfo.color + "+++++++++++++")
             if(data !== null) {
                 console.log('errororororo')
                 const image_layer = data.mockup.layers.find(layer => layer.type === 'image');
@@ -54,9 +51,20 @@ const DefaultPage = ({bgImageSelected}) => {
     )
 
     const image = (
-        // <div  style={{position: 'relative'}}>
-            <img src={bgInfo.url} alt="result" style={{zIndex: '100', position: 'absolute', width: `${bgWidth}px`, height: `${bgHeight}px`}} />
-        // </div>
+        bgInfo.color === null ? 
+            (
+                <div style={{zIndex: '100', position: 'absolute', top: `${dy}px`, left: `${dx}px`, width: `${bgWidth}px`, height: `${bgHeight}px`, opacity: '0.5'}}>
+                    <img src={bgInfo.url} alt="result" style={{zIndex: '100', position: 'absolute', width: `${bgWidth}px`, height: `${bgHeight}px`}} />
+                </div>
+            ) :
+        bgInfo.url === null ?
+            (
+                <div style={{zIndex: '100', position: 'absolute', top: `-20px`, left: `-20px`, width: `${bgWidth}px`, height: `${bgHeight}px`, opacity: '0.5'}}>
+                    <div style={{zIndex: '100', position: 'absolute', width: `${muWidth+40}px`, height: `${muHeight+40}px`, backgroundColor: bgInfo.color}}></div>
+                </div>
+                
+            ) :
+            <></>
     )
     const loadedPage = (
         <div style={{alignItems: "center", justifyContent: "center", zIndex: '0'}}>
@@ -71,9 +79,7 @@ const DefaultPage = ({bgImageSelected}) => {
                                 <Spinner />
                             </div>
                         ) : (
-                            <div style={{zIndex: '100', position: 'absolute', top: `${dy}px`, left: `${dx}px`,  width: `${bgWidth}px`, height: `${bgHeight}px`, opacity: '0.5'}}>
-                                {image}
-                            </div>
+                                image
                         )}
                       
                     </div>

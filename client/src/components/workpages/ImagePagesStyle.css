@@ -5,17 +5,16 @@
     border-bottom: 1px solid black;
     font-weight: bold;
     padding: 5px;
+    padding-left: 15px;
 }
 .background-page-body {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: block;
+    margin-left: 15px;
 }
 .image-card {
-    width: 150px;
-    height: 105px;
-    margin: 5px;
+    width: 175px;
+    height: 110px;
+    margin: 3px;
 }
 .image-card:hover {
     cursor: pointer;
@@ -120,4 +119,162 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+#pick-color-board {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.color-card-custom:hover {
+    cursor: pointer;
+}
+.color-card-custom {
+    height: 40px;
+    width: 5vw;
+    border: 1px solid black;
+}
+.color-card {
+    height: 40px;
+    width: 5vw;
+    border: 1px solid black;
+}
+.color-card:hover {
+    cursor: pointer;
+    transform: translateY(-10px);
+    transition-duration: 250ms;
+}
+.select-bg-class {
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+}
+#select-bg-class-library {
+    border-top-left-radius: 10px;
+    background-color: #525454;
+    padding: 5px;
+    width: 100px;
+    font-size: small;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+#select-bg-class-library:hover {
+    cursor: pointer;
+    background-color: #85ce00;
+}
+#select-bg-class-stock {
+    background-color: #525454;
+    padding: 5px;
+    width: 150px;
+    font-size: small;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+#select-bg-class-stock:hover {
+    cursor: pointer;
+    background-color: #85ce00;
+}
+#select-bg-class-upload {
+    border-top-right-radius: 10px;
+    background-color: #525454;
+    padding: 5px;
+    width: 140px;
+    font-size: small;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+#select-bg-class-upload:hover {
+    cursor: pointer;
+    background-color: #85ce00;
+}
+.bg-library-page-header {
+    background-color: #2b2b2b;
+    border-top: 1px solid #525454;
+    border-bottom: 1px solid #525454;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    color: white;
+    padding-right: 30px;
+}
+.bg-library-page-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.add-text {
+    width: 100px;
+    height: 33vh;
+    background-color: #0e0e0e;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+}
+.add-text-sub {
+    width: 100%;
+    height: 11vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+.add-text-sub:hover {
+    cursor: pointer;
+}
+.insert-image-page {
+    padding: 15px;
+    display: block;
+}
+.insert-image-page-header {
+    display: flex;
+    flex-direction: row;
+}
+#insert-image-page-header-graphics {
+    width: 49%;
+    margin-right: 2%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #50abff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: x-large;
+}
+#insert-image-page-header-shapes {
+    width: 49%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #50abff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: x-large;
+}
+.insert-image-page-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 15px;
 }

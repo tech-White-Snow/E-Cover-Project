@@ -37,7 +37,7 @@
     padding-top: 5px;
 }
 .myicons:hover {
-    background-color: black;
+    background-color: #0e0e0e;
     cursor: pointer;
 }
 .default-page {
@@ -68,6 +68,25 @@
     right: -100px;
     transform: translateX(100%);
     z-index: 100;
+    transition-duration: 400ms;
+}
+.show-text-component {
+    width: 100px;
+    left: -100px;
+    overflow: hidden;
+    position: absolute;
+    transform: translateX(97%);
+    z-index: 999;
+    transition-duration: 400ms;
+    top: 200px;
+}
+.hidden-text-component {
+    width: 100px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    transform: translateX(-100%);
+    z-index: 999;
     transition-duration: 400ms;
 }
 .show-finalizepage {

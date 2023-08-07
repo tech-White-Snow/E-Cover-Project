@@ -31,3 +31,4 @@ export const RENDER = 'RENDER';
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 export const UPLOAD_IMAGE_LOADING = 'UPLOAD_IMAGE_LOADING';
 export const GET_UPLOAD_IMAGES = 'GET_UPLOAD_IMAGES';
+export const SET_COLOR = 'SET_COLOR';
