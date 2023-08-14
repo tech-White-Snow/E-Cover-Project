@@ -20,6 +20,23 @@ connectDB();
 app.use(express.json ({ extended: false }));
 
 
+// var PSD = require('psd');
+// var psd = PSD.fromFile("./mockupfiles/Laptop 2.psd");
+// psd.parse();
+
+// console.log("-fromFile", psd);
+// console.log("fromFile --", psd.tree().export());
+// //console.log(psd.tree().childrenAtPath('A/B/C')[0].export());
+
+// // You can also use promises syntax for opening and parsing
+// PSD.open("./mockupfiles/Laptop 2.psd").then(function (psd) {
+//   console.log("Open function", psd);
+//   return psd.image.saveAsPng('./output.png');
+// }).then(function () {
+//   console.log("Finished!");
+// });
+
+
 
 app.get('/', (req, res) => res.send('API Running'));
 
