@@ -1,9 +1,9 @@
 import React from "react";
 
-const MockupsPage = () => {
+const StockImagesPage = () => {
     return (
         <></>
     )
 }
 
-export default MockupsPage;
+export default StockImagesPage;

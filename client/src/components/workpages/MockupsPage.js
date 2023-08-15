@@ -35,7 +35,6 @@ const MockupsPage = ({setMockupsSelected}) => {
                             console.log("--group", mockup);
                             return (
                                 <div>
-                                    
                                     <MockUpCard 
                                         mockup={mockup}
                                         setMockupsSelected={setMockupsSelected} />
