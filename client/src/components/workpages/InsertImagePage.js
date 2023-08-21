@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InsertCard from "./subtools/InsertCard";
 
-const MockupsPage = () => {
+const InsertImagePage = () => {
     const [status, setStatus] = useState(1);
 
     const activeStatus = () => {
@@ -55,4 +55,4 @@ const MockupsPage = () => {
     )
 }
 
-export default MockupsPage;
+export default InsertImagePage;

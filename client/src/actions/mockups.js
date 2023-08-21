@@ -1,7 +1,7 @@
 import { MOCKUP_LOADING, SET_MOCKUPS } from './types';
 import axios from 'axios';
 
-export const selectMockUp = (nr) => async (dispatch) => {
+export const selectMockUp = (data) => async (dispatch) => {
   dispatch({
     type: MOCKUP_LOADING
   })

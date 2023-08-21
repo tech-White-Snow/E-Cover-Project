@@ -21,9 +21,11 @@ const DefaultPage = ({bgImageSelected}) => {
             console.log(bgInfo.color + "+++++++++++++")
             if(data !== null) {
                 console.log('errororororo')
-                const image_layer = data.mockup.layers.find(layer => layer.type === 'image');
+                //const image_layer = data.mockup.layers.find(layer => layer.type === 'image');
+                var height1 = 600;
                 setMuWidth(400);
-                setMuHeight((400 / image_layer.placeholder.width) * image_layer.placeholder.height);
+                //setMuHeight((400 / image_layer.placeholder.width) * image_layer.placeholder.height);
+                setMuHeight(height1);
             } else {
                 setMuWidth(0);
                 setMuHeight(0);

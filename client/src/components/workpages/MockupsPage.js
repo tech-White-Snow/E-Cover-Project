@@ -1,7 +1,10 @@
 import React from "react";
 import MockUpCard from './subtools/MockUpCard';
 import {Divider} from '@mui/material';
+<<<<<<< HEAD
 import './MockupsPage.css'
+=======
+>>>>>>> beeadcb0a9e5f393907acb317890ec584253c841
 
 const MockupsPage = ({setMockupsSelected}) => {
     //const nr = [7981, 7944, 5868, 2328, 1980, 1899, 1665, 1503, 1438, 1404, 1215, 1191, 968, 964, 520, 479, 192, 25, 7];

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { render_start } from "../../actions/render";
 import Spinner from "../layout/Spinner";
 
-const MockupsPage = () => {
+const FinalizePage = () => {
     const backgourndData = useSelector(state => state.selectBackground);
     const {data} = useSelector(state => state.selectMockUp);
     const [mockupImage, setMockupImage] = useState();
@@ -13,7 +13,7 @@ const MockupsPage = () => {
     const result = useSelector(state => state.render_start);
     function getMockUpURL(data) {
         if (data === null) {return null;}
-        else {return data.mockup.image};
+        else {return data.image};
     }
     const muURL = getMockUpURL(data);
     const [isImg, setIsImg] = useState(false);
@@ -21,10 +21,10 @@ const MockupsPage = () => {
     useEffect(() => {
         setIsImg(false);
         console.log(data)
-        if (data !== null) { setMockupImage(data.mockup.image); }
+        if (data !== null) { setMockupImage(data.image); }
     }, [bgIndex, data])
     const render = async () => {
-        dispatch(render_start(backgourndData, data));
+        //dispatch(render_start(backgourndData, data));
         setIsImg(true);
         console.log(mockupImage, result.url)
     }
@@ -65,4 +65,4 @@ const MockupsPage = () => {
     )
 }
 
-export default MockupsPage;
+export default FinalizePage;

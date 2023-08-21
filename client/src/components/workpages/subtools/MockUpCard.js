@@ -33,14 +33,15 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
       );
 
       const imageSrc = `data:image/jpeg;base64,${base64Image}`;
-      console.log(res)
+      console.log("--respond", res);
+      console.log("--imageSrc", imageSrc);
       setUrl(imageSrc);
 
     }; getMockup()}, []);
     const dispatch = useDispatch();
     const onClick = async () => {
         setMockupsSelected(false);
-        //dispatch(selectMockUp(nr));
+        dispatch(selectMockUp(url));
     }
 
     return (
@@ -49,7 +50,7 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
                 src = {url} 
                 alt="testimg" 
                 width={300} 
-                height={200} 
+                //height={200} 
                 className="image-card" 
                 onClick={onClick}
                 backgroundColor={"#dedede"}
