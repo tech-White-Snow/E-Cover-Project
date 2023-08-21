@@ -3,6 +3,8 @@ import './ImagePagesStyle.css';
 import { useSelector } from "react-redux";
 import Spinner from '../layout/Spinner';
 
+import ImageEditor from "../imageeditor/ImageEditor";
+
 const DefaultPage = ({bgImageSelected}) => {
     const [muWidth, setMuWidth] = useState(0);
     const [muHeight, setMuHeight] = useState(0);
@@ -92,10 +94,10 @@ const DefaultPage = ({bgImageSelected}) => {
         </div>
     )
     return (
-        <div>
+        <div style = {{width: '100%'}}>
             
             {loadedPage}
-            
+            <ImageEditor />
         </div>
     )
 }

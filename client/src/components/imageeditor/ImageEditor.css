@@ -1,0 +1,37 @@
+.button {
+    margin-bottom: 10px;
+}
+
+svg{
+    width: 27px!important;
+    height: 27px!important;
+}
+
+canvas{
+    height: auto!important;
+}
+
+.FIE_tabs{
+display: none;
+}
+
+.FIE_topbar-save-button{
+    display: none!important;
+}
+
+.FIE_topbar-close-button{
+    display: none!important;
+}
+
+.fhHeHN{
+    padding: 0!important;
+}
+
+.FIE_root, .FIE_main-container, .FIE_editor-content, .FIE_canvas-container, .FIE_canvas-node{
+    background-color: black!important;
+}
+
+.SfxLabel-text{
+    color: white;
+}
+

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
@@ -9,14 +9,17 @@ import Education from './Education';
 import { deleteAccount, getCurrentProfile } from '../../actions/profile';
 
 const DashBoard = ({
-  getCurrentProfile,
-  deleteAccount,
-  auth: { user },
+   auth: { user },
   profile: { profile, loading },
+  isAuthenticated
 }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
+
+  // if (isAuthenticated) {
+  //   return <Navigate to='/dashboard' />;
+  // }
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -56,10 +59,12 @@ DashBoard.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(

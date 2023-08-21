@@ -2,7 +2,8 @@ import { MOCKUP_LOADING, SET_MOCKUPS } from '../actions/types';
 
 const initialState = {
   data: null,
-  loading: false
+  loading: false,
+  set_mockup: false,
 };
 
 function selectMockUp(state = initialState, action) {
@@ -11,7 +12,7 @@ function selectMockUp(state = initialState, action) {
     case MOCKUP_LOADING :
         return {...state, loading: true}
     case SET_MOCKUPS :
-        return {...state, data : payload, loading: false};
+        return {...state, set_mockup : payload, loading: false};
     default : 
         return state;
   }

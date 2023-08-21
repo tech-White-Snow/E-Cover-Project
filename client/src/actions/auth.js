@@ -57,6 +57,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 
 // Login User
 export const login = (email, password) => async (dispatch) => {
+  console.log(email, password);
   const config = {
     headers: {
       'Content-Type': 'application/json',

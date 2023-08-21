@@ -1193,3 +1193,7 @@ button {
     padding: 0.3rem 0.4rem;
   }
 }
+
+.btn, .btn-primary{
+  background-color: #17A2B8!important;
+}

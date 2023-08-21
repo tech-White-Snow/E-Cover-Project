@@ -286,7 +286,7 @@ const CreateCover = () => {
               Mockups
             </small>
           </div>
-          <div className='myicons justify-center text-center items-center' onClick={backgroundClicked}>
+          {/* <div className='myicons justify-center text-center items-center' onClick={backgroundClicked}>
             <img src='https://app.myecovermaker.com/app/images/icons/backgrounds.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' />
             <small className='text-sky-600'>
               Background
@@ -315,7 +315,7 @@ const CreateCover = () => {
             <small className='text-sky-600'>
               Stock Images
             </small>
-          </div>
+          </div> */}
           <div className='myicons justify-center text-center items-center' onClick={uploadImagesClicked}>
             <img src='https://app.myecovermaker.com/app/images/icons/upload.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' />
             <small className='text-sky-600'>

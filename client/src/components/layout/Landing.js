@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 export const Landing = ({ isAuthenticated }) => {
+  const navigate = useNavigate();
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    navigate('/dashboard');
+    return null;
   }
   return (
     <section className='landing'>

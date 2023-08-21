@@ -1,0 +1,12 @@
+.divider>span{
+    color: #ffffff;
+}
+
+.bg-library-page-body{
+    display: block!important;
+}
+
+.mockupGroup{
+    display: flex;
+    flex-wrap: wrap;
+}
