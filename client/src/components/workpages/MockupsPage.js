@@ -1,25 +1,35 @@
 import React from "react";
 import MockUpCard from './subtools/MockUpCard';
 import {Divider} from '@mui/material';
-<<<<<<< HEAD
 import './MockupsPage.css'
-=======
->>>>>>> beeadcb0a9e5f393907acb317890ec584253c841
 
 const MockupsPage = ({setMockupsSelected}) => {
     //const nr = [7981, 7944, 5868, 2328, 1980, 1899, 1665, 1503, 1438, 1404, 1215, 1191, 968, 964, 520, 479, 192, 25, 7];
     const mockups = [
         {
             group: "Laptop",
-            mockups: ["Laptop 2"] 
+            mockups: ["Laptop (1)"] 
         },
         {
             group: "Book",
-            mockups: ["Software Book Design 1_Side View 1", "Software Book Design 1_Front View", "Software Book Design 1_Side View 2"] 
+            mockups: [
+                    "Book (1)",
+                    "Book (2)",
+                    "Book (3)",
+                    "Book (4)",
+                    "Book (5)",
+                    "Book (6)",
+                    "Book (7)",
+                    "Book (8)",
+                    "Book (8)",
+                    "Book (10)",
+                    "Book (11)",
+                    "Book (12)"
+                ] 
         },
         {
-            group: "IPad",
-            mockups: [] 
+            group: "Mug",
+            mockups: ["Mug (1)", "Mug (2)"] 
         },
         
     ];
