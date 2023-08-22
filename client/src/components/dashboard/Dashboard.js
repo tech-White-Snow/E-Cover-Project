@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
@@ -9,17 +9,20 @@ import Education from './Education';
 import { deleteAccount, getCurrentProfile } from '../../actions/profile';
 
 const DashBoard = ({
-   auth: { user },
+  auth: { user },
   profile: { profile, loading },
   isAuthenticated
 }) => {
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getCurrentProfile();
+    dispatch(getCurrentProfile());
   }, [getCurrentProfile]);
 
-  // if (isAuthenticated) {
-  //   return <Navigate to='/dashboard' />;
-  // }
+  if (!isAuthenticated) {
+    return <Navigate to='/login' />;
+  }
   return loading && profile === null ? (
     <Spinner />
   ) : (
