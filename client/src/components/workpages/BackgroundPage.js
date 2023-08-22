@@ -43,9 +43,9 @@ const BackgroundPage = ({setBgImageSelected, setBackgroundSelected, setUploadIma
     }
 
     const libraries = [
-        'https://m.aplus.io/app/backgrounds/colorful/024.jpg',
-        'https://m.aplus.io/app/backgrounds/colorful/030.jpg',
-        'https://img.freepik.com/free-photo/gelato-ice-cream-shop-logo-with-wrinkled-paper-texture-remixed-media_53876-126835.jpg?size=626&ext=jpg&uid=R110516327&ga=GA1.1.552866607.1689920344&semt=sph'
+        // 'https://m.aplus.io/app/backgrounds/colorful/024.jpg',
+        // 'https://m.aplus.io/app/backgrounds/colorful/030.jpg',
+        // 'https://img.freepik.com/free-photo/gelato-ice-cream-shop-logo-with-wrinkled-paper-texture-remixed-media_53876-126835.jpg?size=626&ext=jpg&uid=R110516327&ga=GA1.1.552866607.1689920344&semt=sph'
     ];
     const colors = [
         '#cacaca',
@@ -71,9 +71,9 @@ const BackgroundPage = ({setBgImageSelected, setBackgroundSelected, setUploadIma
                 Click on an image to set as your background
             </div>
             <div className="bg-library-page-body">
-                {libraries.map((url, index) => {
+                {/* {libraries.map((url, index) => {
                     return (<BackgroundCard url = {url} setBgImageSelected={setBgImageSelected} setBackgroundSelected={setBackgroundSelected} index={index} />)
-                })}
+                })} */}
             </div>
         </div>
     );
@@ -84,7 +84,7 @@ const BackgroundPage = ({setBgImageSelected, setBackgroundSelected, setUploadIma
     );
     const uploadPage = (
         <div className="background-page-body">
-            <UploadImagesPage setUploadImagesSelected={setUploadImagesSelected} setBackgroundSelected={setBackgroundSelected} setBgImageSelected={setBgImageSelected} />
+            {/* <UploadImagesPage setUploadImagesSelected={setUploadImagesSelected} setBackgroundSelected={setBackgroundSelected} setBgImageSelected={setBgImageSelected} /> */}
         </div>
     )
     

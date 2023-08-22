@@ -1,5 +1,6 @@
 import { UPLOAD_IMAGE, UPLOAD_IMAGE_LOADING, GET_UPLOAD_IMAGES } from './types';
 import axios from 'axios';
+import { backendUrl } from '../utils/Constant';
 
 export const uploadImage = (image) => async (dispatch) => {
   dispatch({
@@ -7,7 +8,7 @@ export const uploadImage = (image) => async (dispatch) => {
   });
   const formData = new FormData();
   formData.append('file', image);
-  const res = await axios.post('/api/ag-psd/upload-image', formData);
+  const res = await axios.post(`${backendUrl}/api/ag-psd/upload-image`, formData);
   console.log(res.data.url);
   dispatch({
     type: UPLOAD_IMAGE,
@@ -16,13 +17,13 @@ export const uploadImage = (image) => async (dispatch) => {
 };
 
 export const getUploadImages = () => async (dispatch) => {
-  dispatch({
-    type: UPLOAD_IMAGE_LOADING
-  });
-  const res = await axios.get('/api/ag-psd/all-upload-image');
-  console.log(res.data);
-  dispatch({
-    type: GET_UPLOAD_IMAGES,
-    payload: res.data
-  });
+  // dispatch({
+  //   type: UPLOAD_IMAGE_LOADING
+  // });
+  // const res = await axios.get(`${backendUrl}/api/ag-psd/all-upload-image`);
+  // console.log(res.data);
+  // dispatch({
+  //   type: GET_UPLOAD_IMAGES,
+  //   payload: res.data
+  // });
 }

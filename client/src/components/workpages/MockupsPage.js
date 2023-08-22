@@ -8,7 +8,7 @@ const MockupsPage = ({setMockupsSelected}) => {
     const mockups = [
         {
             group: "Laptop",
-            mockups: ["Laptop (1)"] 
+            mockups: ["Laptop (1)", "Laptop (2)"] 
         },
         {
             group: "Book",
@@ -21,7 +21,7 @@ const MockupsPage = ({setMockupsSelected}) => {
                     "Book (6)",
                     "Book (7)",
                     "Book (8)",
-                    "Book (8)",
+                    "Book (9)",
                     "Book (10)",
                     "Book (11)",
                     "Book (12)"
@@ -51,6 +51,7 @@ const MockupsPage = ({setMockupsSelected}) => {
                                 <div>
                                     
                                     <MockUpCard 
+                                        key={key}
                                         mockup={mockup}
                                         setMockupsSelected={setMockupsSelected} />
                                 </div>

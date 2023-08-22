@@ -1,6 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
-//const cors = require('cors')
+const cors = require('cors')
 
 const app = express();
 
@@ -12,9 +12,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Parse JSON bodies
 app.use(bodyParser.json());
 
-// app.use(cors({
-//     origin: 'http://localhost:3000'
-//   }));
+app.use(cors({
+    origin: 'http://localhost:3000'
+  }));
 
 
 

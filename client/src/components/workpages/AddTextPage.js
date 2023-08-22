@@ -50,7 +50,7 @@ const AddTextPage = ({  setAddTextSelected,
     }
     return (
         <div className="add-text">
-            <div className="add-text-sub" onClick={headingClicked}>
+            {/* <div className="add-text-sub" onClick={headingClicked}>
                 <img src="https://app.myecovermaker.com/app/images/icons/headlines.png" style={{width:'61px', height:'46px'}}  alt="heading" />
                 <small>Heading</small>
             </div>
@@ -61,7 +61,7 @@ const AddTextPage = ({  setAddTextSelected,
             <div className="add-text-sub" onClick={content}>
                 <img src="https://app.myecovermaker.com/app/images/icons/content.png" style={{width:'61px', height:'46px'}} alt="subheading" />
                 <small>Contents</small>
-            </div>
+            </div> */}
         </div>
     )
 }

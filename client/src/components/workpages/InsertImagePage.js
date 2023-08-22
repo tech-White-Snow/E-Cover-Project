@@ -26,11 +26,13 @@ const InsertImagePage = () => {
         activeStatus();
     }, [status]);
 
-    const graphics = [
-        'https://m.aplus.io/app/images/library/graphics/553.png',
-        'https://m.aplus.io/app/images/library/graphics/554.png'
-    ];
-    const shapes = ['https://m.aplus.io/app/images/library/shapes/927.png'];
+    // const graphics = [
+    //     'https://m.aplus.io/app/images/library/graphics/553.png',
+    //     'https://m.aplus.io/app/images/library/graphics/554.png'
+    // ];
+    const graphics = [];
+    const shapes = [];
+    // const shapes = ['https://m.aplus.io/app/images/library/shapes/927.png'];
 
     const graphicsPage = (
         graphics.map(graphic => <InsertCard insertImage={graphic} />)
@@ -41,12 +43,12 @@ const InsertImagePage = () => {
     return (
         <div className="insert-image-page">
             <div className="insert-image-page-header">
-                <div id="insert-image-page-header-graphics" onClick={graphicsClicked}>
+                {/* <div id="insert-image-page-header-graphics" onClick={graphicsClicked}>
                     Graphics
                 </div>
                 <div id="insert-image-page-header-shapes" onClick={shapesClicked}>
                     Shapes
-                </div>
+                </div> */}
             </div>
             <div className="insert-image-page-body">
                 {status === 1 ? graphicsPage : shapesPage}

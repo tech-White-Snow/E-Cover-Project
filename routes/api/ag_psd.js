@@ -36,21 +36,21 @@ router.get('/mockup/:mockup', async (req, res) => {
   const filename = req.params.mockup;
   console.log(filename);
   
-  var PSD = require('psd');
-  var psd = PSD.fromFile(`./mockupfiles/psd/${filename}.psd`);
-  psd.parse();
+  // var PSD = require('psd');
+  // var psd = PSD.fromFile(`./mockupfiles/psd/${filename}.psd`);
+  // psd.parse();
 
-  // console.log("-fromFile", psd.image);
-  // console.log("fromFile --", psd.tree().export());
-  //console.log(psd.tree().childrenAtPath('A/B/C')[0].export());
+  // // console.log("-fromFile", psd.image);
+  // // console.log("fromFile --", psd.tree().export());
+  // //console.log(psd.tree().childrenAtPath('A/B/C')[0].export());
 
-  // You can also use promises syntax for opening and parsing
-  PSD.open(`./mockupfiles/psd/${filename}.psd`).then(function (psd) {
-    //console.log("Open function", psd);
-    return psd.image.saveAsPng('./output.png');
-  }).then(function () {
-    console.log("Finished!");
-  });
+  // // You can also use promises syntax for opening and parsing
+  // PSD.open(`./mockupfiles/psd/${filename}.psd`).then(function (psd) {
+  //   //console.log("Open function", psd);
+  //   return psd.image.saveAsPng('./output.png');
+  // }).then(function () {
+  //   console.log("Finished!");
+  // });
 
   //const absolutePath = path.resolve('./output.png');
   const imagePath = path.join(__dirname, '../../mockupfiles/image', `${filename}.png`);

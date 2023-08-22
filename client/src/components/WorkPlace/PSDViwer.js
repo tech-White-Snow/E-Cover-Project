@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { backendUrl } from '../../utils/Constant';
 
 const PSDViewer = () => {
   const handleReplaceLayer = async () => {
     try {
-      const response = await axios.get('/api/replace-layer');
+      const response = await axios.get(`${backendUrl}/api/replace-layer`);
       if (response.ok) {
         console.log('---Layer replaced successfully!');
       } else {

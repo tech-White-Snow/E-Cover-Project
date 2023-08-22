@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import  {selectMockUp}  from "../../../actions/mockups";
 import axios from "axios";
+import { backendUrl } from "../../../utils/Constant";
 
 const MockUpCard = ({mockup, setMockupsSelected}) => {
     const [url, setUrl] = useState();
@@ -19,7 +20,7 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
 
     //     console.log('request');
       console.log(mockup);
-      const res = await axios.get(`/api/ag-psd/mockup/${mockup}`, { responseType: 'arraybuffer' });
+      const res = await axios.get(`${backendUrl}/api/ag-psd/mockup/${mockup}`, { responseType: 'arraybuffer' });
     //     console.log(res);
     //    // const imageURL = URL.createObjectURL(res.data.image.obj);
     //     setUrl(res.data);
