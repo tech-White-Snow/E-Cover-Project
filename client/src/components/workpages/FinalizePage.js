@@ -6,6 +6,8 @@ import Spinner from "../layout/Spinner";
 
 const FinalizePage = () => {
     const backgourndData = useSelector(state => state.selectBackground);
+    const {imageUrl, Selected} = useSelector(state=>state.workingMockup);
+    
     const {data} = useSelector(state => state.selectMockUp);
     const [mockupImage, setMockupImage] = useState();
     const bgIndex = backgourndData.index;
@@ -32,7 +34,7 @@ const FinalizePage = () => {
         <div style={{width: '150px', height: '200px', backgroundColor: 'white'}}></div>
     )
     const noMockup = (
-        <img src={mockupImage} alt="result" className="show-results" style={{width: '400px', height: '300px'}} />
+        <img src={imageUrl} alt="result" className="show-results" style={{width: '400px', height: '300px'}} />
     )
     const final_mockup = (
         <img src={result.url} alt="result" style={{width: '400px', height: '300px'}} />
@@ -53,7 +55,7 @@ const FinalizePage = () => {
                     {result.loading === true ? <div style={{height: '300px'}}><Spinner /></div> : (
                         <div className="download-3Dmockup-body">
                             {
-                                muURL === null ? <div>Your Mock up is blank</div> : 
+                                Selected === null ? <div>Your Mock up is blank</div> : 
                                 isImg === false ? noMockup : final_mockup
                             }
                         </div>

@@ -1,4 +1,4 @@
-import { MOCKUP_LOADING, SET_MOCKUPS } from './types';
+import { MOCKUP_LOADING, SET_MOCKUPS, SELECT_MOCKUP, LOADING_MOCKUP } from './types';
 import axios from 'axios';
 
 export const selectMockUp = (data) => async (dispatch) => {
@@ -17,3 +17,10 @@ export const selectMockUp = (data) => async (dispatch) => {
     payload:  true
   })
 };
+
+export const selectingMockup = (data) => (dispatch) =>{
+  dispatch({
+    type: SELECT_MOCKUP,
+    payload: data
+  })
+}

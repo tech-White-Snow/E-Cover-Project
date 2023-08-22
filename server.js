@@ -12,10 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Parse JSON bodies
 app.use(bodyParser.json());
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-  }));
-
+app.use(cors());
 
 
 // Connect Database

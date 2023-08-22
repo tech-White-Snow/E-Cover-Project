@@ -10,3 +10,13 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.selectedMockup {
+    border: 4px solid lightBlue;
+    border-radius: 10px;
+}
+
+.image-card:hover{
+    border: 2px solid lightBlue;
+    border-radius: 10px;
+}

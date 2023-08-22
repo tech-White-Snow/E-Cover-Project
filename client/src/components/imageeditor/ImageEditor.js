@@ -3,9 +3,15 @@ import FilerobotImageEditor, { TABS, TOOLS} from 'react-filerobot-image-editor';
 import './ImageEditor.css';
 
 import logo from './logo.svg';
+import { useSelector } from 'react-redux';
 
 function ImageEditor() {
     const [isImgEditorShown, setIsImgEditorShown] = useState(true);
+
+    const {Selected, width, height} = useSelector(state=>state.workingMockup);
+    const mockup = useSelector(state=>state.workingMockup);
+    
+
     const image = new Image();
     image.width = 200; // Set the desired width
     image.height = 150; // Set the desired height
@@ -13,21 +19,21 @@ function ImageEditor() {
 
     const openImgEditor = () => {
       setIsImgEditorShown(true);
-      console.log(FilerobotImageEditor);
+      //console.log(FilerobotImageEditor);
     };
 
     useEffect(() => {
         const image1 = new Image();
-        image1.width = 1800; // Set the desired width
-        image1.height = 1700; // Set the desired height
+        image1.width = width; // Set the desired width
+        image1.height = height; // Set the desired height
         // Set any other properties or attributes for the image
         image1.src = createWhiteImage(image.width, image.height);
         image1.alt = 'Image description';
         // Add event listeners or perform any other operations on the image
 
         setSrcImage(image1);
-        console.log(image1);
-    }, []);
+        console.log(Selected, width, height);
+    }, [mockup]);
 
     const createWhiteImage = (width, height) => {
         const canvas = document.createElement('canvas');
@@ -58,13 +64,12 @@ function ImageEditor() {
     return (
       <div style = {{width: '80wh', height: '90vh', margin: 'auto'}}>
        {/* <button onClick={openImgEditor}>Open Filerobot image editor</button> */}
-              {isImgEditorShown && (
+       {console.log(width, height)}
+              {Selected && (
               <FilerobotImageEditor
-              
-                  
                   source={srcImage}
-                  useZoomPresetsMenu = {false}
-                  disableZooming = {true}
+                  useZoomPresetsMenu = {true}
+                  disableZooming = {false}
                   onSave={(editedImageObject, designState) => console.log('saved', editedImageObject, designState)}
                   onClose={closeImgEditor}
                   annotationsCommon={{
@@ -74,70 +79,70 @@ function ImageEditor() {
                     fill: undefined,
                     disableUpload: false,
                     gallery: [
-                        {
-                            originalUrl: logo, // The url of the image in original size to be added in canvas
-                            previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-                        },
-                        {
+                      {
                           originalUrl: logo, // The url of the image in original size to be added in canvas
                           previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
                       },
                       {
                         originalUrl: logo, // The url of the image in original size to be added in canvas
                         previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-                    },
-                    {
-                      originalUrl: logo, // The url of the image in original size to be added in canvas
-                      previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-                  },
-                  {
-                    originalUrl: logo, // The url of the image in original size to be added in canvas
-                    previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-                },
-                {
-                  originalUrl: logo, // The url of the image in original size to be added in canvas
-                  previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-              },
-              {
-                originalUrl: logo, // The url of the image in original size to be added in canvas
-                previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-            },
-            {
-              originalUrl: logo, // The url of the image in original size to be added in canvas
-              previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-          },
-          {
-            originalUrl: logo, // The url of the image in original size to be added in canvas
-            previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-        },
-        {
-          originalUrl: logo, // The url of the image in original size to be added in canvas
-          previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-      },
-      {
-        originalUrl: logo, // The url of the image in original size to be added in canvas
-        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-    },
-    {
-      originalUrl: logo, // The url of the image in original size to be added in canvas
-      previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-  },
-  {
-    originalUrl: logo, // The url of the image in original size to be added in canvas
-    previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-},
-{
-  originalUrl: logo, // The url of the image in original size to be added in canvas
-  previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-},
-{
-  originalUrl: logo, // The url of the image in original size to be added in canvas
-  previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-},
-{
-originalUrl: logo, // The url of the image in original size to be added in canvas
-previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-},
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
+                      {
+                        originalUrl: logo, // The url of the image in original size to be added in canvas
+                        previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+                      },
                     ]
                   }}
                   Text={{  ...annotationsCommon,

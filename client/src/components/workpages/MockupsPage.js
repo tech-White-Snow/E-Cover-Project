@@ -8,7 +8,7 @@ const MockupsPage = ({setMockupsSelected}) => {
     const mockups = [
         {
             group: "Laptop",
-            mockups: ["Laptop (1)", "Laptop (2)"] 
+            mockups: ["Laptop (1)"] 
         },
         {
             group: "Book",
@@ -24,12 +24,18 @@ const MockupsPage = ({setMockupsSelected}) => {
                     "Book (9)",
                     "Book (10)",
                     "Book (11)",
-                    "Book (12)"
+                    "Book (12)",
+                    "Book (13)",
+                    "Book (14)"
                 ] 
         },
         {
             group: "Mug",
             mockups: ["Mug (1)", "Mug (2)"] 
+        },
+        {
+            group: "Ipad",
+            mockups: ["Ipad (1)"] 
         },
         
     ];
@@ -40,16 +46,15 @@ const MockupsPage = ({setMockupsSelected}) => {
             </div>
             <div className="bg-library-page-body p-1">
                 {mockups.map((group, key) => {
-                    console.log("--mockups");
+                  
                     return( 
                         <div style={{ marginTop: '20px' }}>
                         <Divider className="divider" textAlign="left">Mockup Group - {group.group}</Divider>
                         <div className="mockupGroup">
                         {group.mockups.map((mockup, key) => {
-                            console.log("--group", mockup);
+                           
                             return (
                                 <div>
-                                    
                                     <MockUpCard 
                                         key={key}
                                         mockup={mockup}

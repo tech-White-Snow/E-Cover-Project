@@ -13,7 +13,7 @@ const DefaultPage = ({bgImageSelected}) => {
     let dx;
     let dy;
     const {data} = useSelector(state => state.selectMockUp);
-    const {loading} = useSelector(state => state.selectMockUp);
+    const {loading} = useSelector(state => state.workingMockup);
     const bgInfo = useSelector(state => state.selectBackground);
     const bg_loading = bgInfo.loading;
     useEffect(() => {
@@ -98,7 +98,7 @@ const DefaultPage = ({bgImageSelected}) => {
     return (
         <div style = {{width: '100%'}}>
             
-            {loadedPage}
+            {/* {loadedPage} */}
             <ImageEditor />
         </div>
     )
