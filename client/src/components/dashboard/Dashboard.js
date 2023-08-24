@@ -23,9 +23,8 @@ const DashBoard = ({
   if (!isAuthenticated) {
     return <Navigate to='/login' />;
   }
-  return loading && profile === null ? (
-    <Spinner />
-  ) : (
+  
+  return (
     <Fragment>
       <div className='container'>
       <h1 className='large text-primary'>Dashboard</h1>

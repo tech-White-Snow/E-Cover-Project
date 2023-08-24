@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 import { backendUrl } from '../utils/Constant';
+import { getUploadImages } from './uploadImage';
 
 import {
   REGISTER_SUCCESS,
@@ -50,6 +51,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(loadUser());
+    dispatch(getUploadImages());    
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -78,6 +80,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     dispatch(loadUser());
+    dispatch(getUploadImages());    
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

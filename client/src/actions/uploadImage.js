@@ -17,13 +17,13 @@ export const uploadImage = (image) => async (dispatch) => {
 };
 
 export const getUploadImages = () => async (dispatch) => {
-  // dispatch({
-  //   type: UPLOAD_IMAGE_LOADING
-  // });
-  // const res = await axios.get(`${backendUrl}/api/ag-psd/all-upload-image`);
-  // console.log(res.data);
-  // dispatch({
-  //   type: GET_UPLOAD_IMAGES,
-  //   payload: res.data
-  // });
+  dispatch({
+    type: UPLOAD_IMAGE_LOADING
+  });
+  const res = await axios.get(`${backendUrl}/api/ag-psd/all-upload-image`);
+  console.log(res.data);
+  dispatch({
+    type: GET_UPLOAD_IMAGES,
+    payload: res.data
+  });
 }

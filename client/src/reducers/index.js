@@ -7,6 +7,7 @@ import selectMockUp from './selectMockUp';
 import render_start from './render';
 import uploadImage from './uploadImage';
 import workingMockup from './workingMockup';
+import editedImage from './editedImage';
 
 export default combineReducers({
   alert,
@@ -17,4 +18,5 @@ export default combineReducers({
   render_start,
   uploadImage,
   workingMockup,
+  editedImage,
 });

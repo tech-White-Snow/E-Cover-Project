@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MyCoverPage from '../workpages/MyCoverPage'
 import MockupsPage from '../workpages/MockupsPage'
@@ -12,8 +12,22 @@ import InsertImagePage from '../workpages/InsertImagePage'
 import DefaultPage from '../workpages/DefaultPage'
 
 import './designStyle.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { getUploadImages } from '../../actions/uploadImage';
+import { getEditedImage } from '../../actions/editedImage';
 
 const CreateCover = () => {
+  const dispatch = useDispatch();
+ 
+  useEffect(()=>{
+    dispatch(getUploadImages());
+    console.log("_________+++++++++");
+  },[]);
+  // useEffect(()=>{
+  // if (!isAuthenticated) {
+  //   return <Navigate to='/login' />;
+  // }},[isAuthenticated]);
   //Transform pages
   const[backgoundSelected, setBackgroundSelected] = useState(false);
   const[mockupsSelected, setMockupsSelected] = useState(false);
@@ -24,6 +38,7 @@ const CreateCover = () => {
   const[insertImagesSelected, setInsertImagesSelected] = useState(false);
   const[stockImagesSelected, setStockImagesSelected] = useState(false);
   const[uploadImagesSelected, setUploadImagesSelected] = useState(false);
+  
 
   //Transform pages actions
   const myCoversClicked = () => {
@@ -130,10 +145,17 @@ const CreateCover = () => {
     setUploadImagesSelected(false);
     setFinalizeSelected(!finalizeSelected);
     setBackgroundSelected(false);
+    dispatch(getEditedImage());
   }
 
   //Select Attributes
   const[bgImageSelected, setBgImageSelected] = useState(0);
+
+  const {isAuthenticated} = useSelector(state=>state.auth);
+  if (!isAuthenticated) {
+    return <Navigate to='/login' />;
+  }
+
 
   //Create default page
   const defaultPage = (
@@ -319,7 +341,7 @@ const CreateCover = () => {
           <div className='myicons justify-center text-center items-center' onClick={uploadImagesClicked}>
             <img src='https://app.myecovermaker.com/app/images/icons/upload.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' />
             <small className='text-sky-600'>
-              Upload Images
+              Upload Images to Gallery
             </small>
           </div>
           <div className='myicons justify-center text-center items-center' onClick={finalizeClicked}>

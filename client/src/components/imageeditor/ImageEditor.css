@@ -16,7 +16,7 @@ display: none;
 }
 
 .FIE_topbar-save-button{
-    display: none!important;
+    /* display: none!important; */
 }
 
 .FIE_topbar-close-button{
@@ -35,3 +35,13 @@ display: none;
     color: white;
 }
 
+.gkDkOj {
+    text-align: center;
+    max-height: 400px!important;
+    max-width: 820px!important;
+}
+
+.pKKBw {
+    width: 80px!important;
+    height: 80px!important;
+}

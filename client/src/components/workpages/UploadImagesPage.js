@@ -8,7 +8,8 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected, setBackg
     const dispatch = useDispatch();
     const selectImage = async (e) => {
         const image = e.target.files[0];
-        //dispatch(uploadImage(image));
+        console.log(image);
+        dispatch(uploadImage(image));
     };
     // const selectUploadedImage = () => {
 
@@ -16,11 +17,7 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected, setBackg
     const {urls} = useSelector(state => state.uploadImage);
     const {url} = useSelector(state => state.uploadImage);
     const {loading} = useSelector(state => state.uploadImage);
-    useEffect(() => {
-        //dispatch(getUploadImages());
-    },[dispatch, url])
-    console.log(urls);
-    
+       
     return (
         <div className="upload-page">
             <div className="upload-page-header">
@@ -31,9 +28,9 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected, setBackg
                 </div>
             </div>
             <div className="upload-page-body">
-                {/* {loading === true ? <div className="loading-spinner"><Spinner /></div> : (
+                {loading === true ? <div className="loading-spinner"><Spinner /></div> : (
                     urls.map((image, index) => <UploadImageCard url={image.url} setBackgroundSelected={setBackgroundSelected} setBgImageSelected={setBgImageSelected} setUploadImagesSelected={setUploadImagesSelected} index={index} />)
-                )} */}
+                )}
                 
             </div>
         </div>

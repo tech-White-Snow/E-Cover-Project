@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/layout/Navbar';
@@ -25,6 +25,8 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+
+
 
   return (
     <Provider store={store}>

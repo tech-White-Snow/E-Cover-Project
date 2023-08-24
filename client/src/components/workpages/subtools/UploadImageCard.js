@@ -7,15 +7,15 @@ const UploadImageCard = ({url, setBgImageSelected, setUploadImagesSelected,setBa
     const dispatch = useDispatch()
     const onClick = () => {
         setUploadImagesSelected(false);
-        setBgImageSelected(true);
-        setBackgroundSelected(false);
-        dispatch(selectBackground(url, index));
-        console.log(url,index)
+        // setBgImageSelected(true);
+        // setBackgroundSelected(false);
+        // dispatch(selectBackground(url, index));
+        // console.log(url,index)
     }
     return (
-    <div>
-        <img src = {url} alt="testimg"  className="image-card" onClick={onClick}/>
-    </div>
+        <div>
+            <img src = {url} alt="testimg"  className="image-card" onClick={onClick}/>
+        </div>
     )
 }
 

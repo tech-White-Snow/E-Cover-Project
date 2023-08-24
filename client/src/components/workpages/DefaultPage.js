@@ -30,6 +30,7 @@ const DefaultPage = ({bgImageSelected}) => {
                 setMuWidth(0);
                 setMuHeight(0);
             }
+
     }, [data, bgInfo]);
     
     bgWidth = 600;

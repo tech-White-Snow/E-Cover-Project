@@ -5,26 +5,21 @@ import { render_start } from "../../actions/render";
 import Spinner from "../layout/Spinner";
 
 const FinalizePage = () => {
-    const backgourndData = useSelector(state => state.selectBackground);
     const {imageUrl, Selected} = useSelector(state=>state.workingMockup);
     
-    const {data} = useSelector(state => state.selectMockUp);
     const [mockupImage, setMockupImage] = useState();
-    const bgIndex = backgourndData.index;
-    const bgURL = backgourndData.url;
+
+    const changedImage = useSelector(state=>state.editedImage);
+
     const result = useSelector(state => state.render_start);
-    function getMockUpURL(data) {
-        if (data === null) {return null;}
-        else {return data.image};
-    }
-    const muURL = getMockUpURL(data);
+
     const [isImg, setIsImg] = useState(false);
-    const dispatch = useDispatch();
+   
+    const dispatch = useDispatch(); 
     useEffect(() => {
-        setIsImg(false);
-        console.log(data)
-        if (data !== null) { setMockupImage(data.image); }
-    }, [bgIndex, data])
+        console.log(changedImage.img);
+    }, [changedImage.edited])
+
     const render = async () => {
         //dispatch(render_start(backgourndData, data));
         setIsImg(true);
@@ -44,8 +39,8 @@ const FinalizePage = () => {
             <div>
                 <div className="download-design-header">Download your Design</div>
                 <div className="download-design-body">
-                    {bgURL === null ? noImage :
-                        <img src={bgURL} alt="result" style={{width: '150px', height: '200px'}} />
+                    { !changedImage.img ? noImage :
+                        <img src={changedImage.img} alt="result" style={{width: '150px', height: '200px'}} />
                     }
                 </div>
             </div>

@@ -631,3 +631,14 @@ video {
 .main-workboard{
   height: 90vh!important;
 }
+
+.myicons {
+  height: 100px!important;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.myicons> img{
+  margin: 0px!important;
+}
