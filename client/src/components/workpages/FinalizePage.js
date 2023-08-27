@@ -17,7 +17,7 @@ const FinalizePage = () => {
    
     const dispatch = useDispatch(); 
     useEffect(() => {
-        console.log(changedImage.img);
+        //console.log(changedImage.img);
     }, [changedImage.edited])
 
     const render = async () => {

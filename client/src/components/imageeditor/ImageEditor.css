@@ -3,8 +3,8 @@
 }
 
 svg{
-    width: 27px!important;
-    height: 27px!important;
+    width: 20px!important;
+    height: 20px!important;
 }
 
 canvas{
@@ -12,7 +12,9 @@ canvas{
 }
 
 .FIE_tabs{
-display: none;
+    display: none;
+    position: absolute;
+    z-index: 100;
 }
 
 .FIE_topbar-save-button{
@@ -44,4 +46,40 @@ display: none;
 .pKKBw {
     width: 80px!important;
     height: 80px!important;
+}
+
+.jrRyTH {
+    padding: 0px!important;
+}
+
+.hQMVZe {
+    padding: 0px!important;
+}
+
+.hRHTOm{
+    margin: auto!important;
+}
+
+.FIE_topbar-save-wrapper{
+    display: none!important;    
+}
+
+.kkvmGM{
+    margin: 0px!important;
+}
+
+.eHHioP {
+    width: 70px!important;
+    height: 70px!important;
+    background: black!important;
+    border: 0.5px solid white!important;
+    border-radius: 10px!important;
+    margin: 5px!important;
+    color: white;
+}
+
+.eHHioP > svg{
+    color: white!important;
+    width: 30px!important;
+    height: 30px!important;
 }

@@ -97,7 +97,7 @@ const DefaultPage = ({bgImageSelected}) => {
         </div>
     )
     return (
-        <div style = {{width: '100%'}}>
+        <div style = {{width: '100%', heigh: '100%'}}>
             
             {/* {loadedPage} */}
             <ImageEditor />

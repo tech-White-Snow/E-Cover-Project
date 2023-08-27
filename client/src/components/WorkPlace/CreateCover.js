@@ -19,11 +19,14 @@ import { getEditedImage } from '../../actions/editedImage';
 
 const CreateCover = () => {
   const dispatch = useDispatch();
- 
+
   useEffect(()=>{
     dispatch(getUploadImages());
     console.log("_________+++++++++");
   },[]);
+
+
+  
   // useEffect(()=>{
   // if (!isAuthenticated) {
   //   return <Navigate to='/login' />;
@@ -136,6 +139,7 @@ const CreateCover = () => {
   }
   const finalizeClicked = () => {
     console.log('Finalize clicked');
+
     setMyConversSelected(false);
     setMockupsSelected(false);
     setAddTextSelected(false);
@@ -146,6 +150,17 @@ const CreateCover = () => {
     setFinalizeSelected(!finalizeSelected);
     setBackgroundSelected(false);
     dispatch(getEditedImage());
+   
+    const div = document.querySelector('.FIE_text-tool-button');
+
+    console.log(div); 
+    // Trigger the click event
+    const event = new MouseEvent('click', {
+      'view': window,
+      'bubbles': true,
+      'cancelable': true
+    });
+    if(div) div.dispatchEvent(event);
   }
 
   //Select Attributes
@@ -291,7 +306,7 @@ const CreateCover = () => {
 
   return(
     <div className='blackboard w-full flex-col h-full'>
-      <div className='text-white top-toolbar' style={{height: '50px'}}>
+      <div className='text-white top-toolbar' id='editor_container' style={{display: 'none'}}>
         
       </div>
       <div className='flex h-full'>
