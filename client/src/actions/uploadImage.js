@@ -21,7 +21,7 @@ export const getUploadImages = () => async (dispatch) => {
     type: UPLOAD_IMAGE_LOADING
   });
   const res = await axios.get(`${backendUrl}/api/ag-psd/all-upload-image`);
-  console.log(res.data);
+  //console.log(res.data);
   dispatch({
     type: GET_UPLOAD_IMAGES,
     payload: res.data

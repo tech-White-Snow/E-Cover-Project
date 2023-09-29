@@ -61,24 +61,10 @@ function ImageEditor() {
       setEditorGallery(gallery);
     }, [Gallery]);
 
-    useEffect(() => {
-        // console.log(editedImage);
-        const image1 = new Image();
-        image1.width = 1000; // width; // Set the desired width
-        image1.height = 1300; //height; // Set the desired height
-        // Set any other properties or attributes for the image
-        //image1.src = createWhiteImage(image.width, image.height);
-        image1.src = createWhiteImage(300, 400);
-        image1.alt = 'Image description';
-        // Add event listeners or perform any other operations on the image
-
-        setSrcImage(image1);
-    }, [mockup]);
-
     const dispatch = useDispatch();
   
     useEffect(()=>{
-      console.log("__________", edited);
+      //console.log("__________", edited);
       if(edited){
         if(editedImage != null && editedImage.current){
           const imageBase64 = editedImage?.current({}).imageData.imageBase64;
@@ -87,7 +73,7 @@ function ImageEditor() {
           edited.alt = "Edited image";
           dispatch(setEditedImage(imageBase64));
           if(refEditor.current)  refEditor.current.setActiveTab(null);
-          console.log(refEditor);
+          //console.log(refEditor);
           // console.log(refEditor.current.sel());
           // refEditor.current.focus();
         }
@@ -96,18 +82,9 @@ function ImageEditor() {
     }, [edited]);
 
     useEffect(()=>{
-      console.log(refEditor);
-    },[])
-
-    const createWhiteImage = (width, height) => {
-      const canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      const context = canvas.getContext('2d');
-      context.fillStyle = '#ffffff'; // Set the color to white
-      context.fillRect(0, 0, width, height);
-      return canvas.toDataURL();
-    };
+      //console.log(refEditor);
+      //console.log(mockup.editImage)
+    },[mockup.editImage])
 
     const annotationsCommon = {
         fill: '#ff0000',
@@ -130,9 +107,9 @@ function ImageEditor() {
       <div style = {{width: '80wh', height: '90vh', margin: 'auto'}}>
         {/* {console.log(srcImage)} */}
 
-        {Selected  && (
+        {(Selected  && mockup.editImage.length)&& (
           <FilerobotImageEditor
-            source={srcImage}
+            source={mockup.editImage}
             ref={refEditor}
             useZoomPresetsMenu = {true}
             getCurrentImgDataFnRef={editedImage}

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import './ImagePagesStyle.css'
+import './FinalizePage.css'
 import { useDispatch, useSelector } from "react-redux";
-import { render_start } from "../../actions/render";
+import { render_start, render_end } from "../../actions/render";
 import Spinner from "../layout/Spinner";
+import axios from 'axios';
+import { backendUrl } from "../../utils/Constant";
 
 const FinalizePage = () => {
-    const {imageUrl, Selected} = useSelector(state=>state.workingMockup);
+    const {imageUrl, Selected, name} = useSelector(state=>state.workingMockup);
     
     const [mockupImage, setMockupImage] = useState();
-
+    const [renderedImage, setRenderedImage] = useState("");
+    const [rendered, setRendered] = useState(false);
     const changedImage = useSelector(state=>state.editedImage);
 
     const result = useSelector(state => state.render_start);
@@ -16,31 +20,67 @@ const FinalizePage = () => {
     const [isImg, setIsImg] = useState(false);
    
     const dispatch = useDispatch(); 
-    useEffect(() => {
-        //console.log(changedImage.img);
-    }, [changedImage.edited])
 
+    useEffect(()=>{
+        setIsImg(false);
+    }, [imageUrl]);
     const render = async () => {
-        //dispatch(render_start(backgourndData, data));
+        dispatch(render_start());
         setIsImg(true);
-        console.log(mockupImage, result.url)
+        const imageData = changedImage.img;
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          };
+        const body = JSON.stringify({ imageData });
+        const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {imageData, name});
+        
+        console.log(res.data);
+        setRenderedImage(res.data.thumbnail)
+        dispatch(render_end());
+        setRendered(true);
+        setIsImg(true);
     }
+
+    const saveJPG = () =>{
+
+    }
+
+    const savePNG = () =>{
+        
+    }
+
     const noImage = (
         <div style={{width: '150px', height: '200px', backgroundColor: 'white'}}></div>
     )
     const noMockup = (
-        <img src={imageUrl} alt="result" className="show-results" style={{width: '400px', height: '300px'}} />
+        <img src={imageUrl} alt="result" className="show-results" style={{maxWidth: '400px', maxHeight: '300px', width: 'auto', height: 'auto'}} />
     )
     const final_mockup = (
-        <img src={result.url} alt="result" style={{width: '400px', height: '300px'}} />
+        <img src={renderedImage} alt="result" style={{maxWidth: '400px', maxHeight: '300px', width: 'auto', height: 'auto'}} />
     )
+    const save = (
+        <div className="save-image">  
+            <div 
+                className="save-button" 
+                onClick={saveJPG}>
+                    Save as JPG
+            </div>
+            <div 
+                className="save-button" 
+                onClick={savePNG}>
+                    Save as PNG
+            </div>
+        </div>
+    );
     return (
         <div>
             <div>
                 <div className="download-design-header">Download your Design</div>
                 <div className="download-design-body">
                     { !changedImage.img ? noImage :
-                        <img src={changedImage.img} alt="result" style={{width: '150px', height: '200px'}} />
+                        <img src={changedImage.img} alt="result" style={{maxWidth: '350px', maxHeight: '220px', width: 'auto', height: 'auto'}} />
                     }
                 </div>
             </div>
@@ -55,7 +95,8 @@ const FinalizePage = () => {
                             }
                         </div>
                     )}
-                    <div className="render-button" onClick={render}>Render Mockup</div>
+                    <div className="render-button" onClick={render}>{isImg ? "Rerender Mockup" : "Render Mockup"}</div>
+                    {rendered && isImg ? save : ""}
                 </div>
             </div>
         </div>

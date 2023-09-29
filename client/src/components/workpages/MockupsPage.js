@@ -23,10 +23,6 @@ const MockupsPage = ({setMockupsSelected}) => {
                     "Book (8)",
                     "Book (9)",
                     "Book (10)",
-                    "Book (11)",
-                    "Book (12)",
-                    "Book (13)",
-                    "Book (14)"
                 ] 
         },
         {

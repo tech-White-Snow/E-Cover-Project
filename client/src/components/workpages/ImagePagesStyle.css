@@ -278,3 +278,7 @@
     justify-content: flex-start;
     margin-top: 15px;
 }
+
+.image-card{
+    padding: 5px!important;
+}

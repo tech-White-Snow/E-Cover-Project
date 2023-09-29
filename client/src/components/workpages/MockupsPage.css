@@ -16,7 +16,16 @@
     border-radius: 10px;
 }
 
+.image-card{
+    width: 150px!important;
+    height: auto!important;
+}
+
 .image-card:hover{
     border: 2px solid lightBlue;
     border-radius: 10px;
+}
+
+.show-extrapage{
+    overflow: auto!important;
 }

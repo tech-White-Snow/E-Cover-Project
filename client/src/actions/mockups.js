@@ -20,6 +20,9 @@ export const selectMockUp = (data) => async (dispatch) => {
 
 export const selectingMockup = (data) => (dispatch) =>{
   dispatch({
+    type: MOCKUP_LOADING
+  })
+  dispatch({
     type: SELECT_MOCKUP,
     payload: data
   })

@@ -1,0 +1,13 @@
+.save-image{
+    text-align: center;
+    display: flex;
+    margin: 5px;
+}
+.save-button{
+    border-radius: 5px;
+    color: white;
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #0284c7;
+    cursor: pointer;
+}

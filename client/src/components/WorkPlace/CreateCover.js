@@ -22,7 +22,7 @@ const CreateCover = () => {
 
   useEffect(()=>{
     dispatch(getUploadImages());
-    console.log("_________+++++++++");
+    //console.log("_________+++++++++");
   },[]);
 
 
@@ -153,7 +153,7 @@ const CreateCover = () => {
    
     const div = document.querySelector('.FIE_text-tool-button');
 
-    console.log(div); 
+    //console.log(div); 
     // Trigger the click event
     const event = new MouseEvent('click', {
       'view': window,

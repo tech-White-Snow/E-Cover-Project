@@ -8,6 +8,7 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected, setBackg
     const dispatch = useDispatch();
     const selectImage = async (e) => {
         const image = e.target.files[0];
+        if(!image) return;
         console.log(image);
         dispatch(uploadImage(image));
     };

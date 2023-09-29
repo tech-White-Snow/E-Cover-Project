@@ -17,8 +17,8 @@ const DefaultPage = ({bgImageSelected}) => {
     const bgInfo = useSelector(state => state.selectBackground);
     const bg_loading = bgInfo.loading;
     useEffect(() => {
-            console.log(data);
-            console.log(bgInfo.color + "+++++++++++++")
+            // console.log(data);
+            // console.log(bgInfo.color + "+++++++++++++")
             if(data !== null) {
                 console.log('errororororo')
                 //const image_layer = data.mockup.layers.find(layer => layer.type === 'image');

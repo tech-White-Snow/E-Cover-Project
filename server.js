@@ -6,11 +6,11 @@ const app = express();
 
 const bodyParser = require('body-parser');
 
-// Parse URL-encoded bodies
-app.use(bodyParser.urlencoded({ extended: false }));
+// Parse URL-encoded request body
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Parse JSON bodies
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 
 app.use(cors());
 
@@ -20,25 +20,6 @@ connectDB();
 
 // Init Middleware
 app.use(express.json ({ extended: false }));
-
-
-// var PSD = require('psd');
-// var psd = PSD.fromFile("./mockupfiles/Laptop 2.psd");
-// psd.parse();
-
-// console.log("-fromFile", psd);
-// console.log("fromFile --", psd.tree().export());
-// //console.log(psd.tree().childrenAtPath('A/B/C')[0].export());
-
-// // You can also use promises syntax for opening and parsing
-// PSD.open("./mockupfiles/Laptop 2.psd").then(function (psd) {
-//   console.log("Open function", psd);
-//   return psd.image.saveAsPng('./output.png');
-// }).then(function () {
-//   console.log("Finished!");
-// });
-
-
 
 app.get('/', (req, res) => res.send('API Running'));
 
