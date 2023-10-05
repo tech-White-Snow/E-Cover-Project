@@ -1,0 +1,169 @@
+[33mcommit e783e7c4c1c95f3ab95fc6f91be9d6b5aea93e16[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Wed Oct 4 19:38:54 2023 -0400
+
+    update some functionality.
+
+[33mcommit e8111f51c7c7612fb9dd3284782f974277473a46[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Wed Oct 4 19:35:48 2023 -0400
+
+    update some functionality.
+
+[33mcommit 2e23707bfc48d7b5991ef65a5b9fb130dc86e04d[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Wed Oct 4 18:58:36 2023 -0400
+
+    update some functionality
+
+[33mcommit 78e357b1854b58971368392f2ea7fc1b8ca05a72[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Fri Sep 29 15:41:23 2023 -0400
+
+    import node_module
+
+[33mcommit 5c54fda09f6b4e90f4846d8d55cefbdfe8245dd0[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Fri Sep 29 13:49:33 2023 -0400
+
+    backend-url
+
+[33mcommit b53d9a5c5291f6c40c39850af405dc7855390612[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Fri Sep 29 13:45:44 2023 -0400
+
+    render functionality
+
+[33mcommit 45dfc17f1f9db2cbfdb8bffbe42a433048a6c905[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Sun Aug 27 16:16:53 2023 -0400
+
+    fix some errors
+
+[33mcommit c6f2091823f4083af08279d62a386391b7b5e72b[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Thu Aug 24 17:57:52 2023 -0400
+
+    Image uploading & edit preview functionality
+
+[33mcommit 5547b270a3d2ae93f3150260d5121c1f87df549b[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Thu Aug 24 17:55:56 2023 -0400
+
+    Image uploading & edit preview functionality
+
+[33mcommit 78b21312c7c9dbc650f178557a381d45a24ad8e1[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Tue Aug 22 18:06:28 2023 -0400
+
+    display selected mockup in finalize section
+
+[33mcommit 0f09f3770bb16ffd17139dea6622a7db6e84b2a6[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Tue Aug 22 10:32:52 2023 -0400
+
+    fixed login issue
+
+[33mcommit c2bbe95528d57605cf93106f3511a0e8227b660d[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 21 21:26:20 2023 -0400
+
+    update api cors
+
+[33mcommit 6ecacbd7ad892076bcb758a44ac484571954b5f6[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 21 12:16:15 2023 -0400
+
+    install modification
+
+[33mcommit ecaced5e191e0139936b531e3b5b4706d757c107[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 21 10:44:21 2023 -0400
+
+    mockups load
+
+[33mcommit f3eba0a75a9f12c71f962990d4b51c89303c45c3[m
+Merge: de2e3c3a beeadcb0
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 21 08:14:23 2023 -0400
+
+    merge conflict
+
+[33mcommit de2e3c3a7b8a3e245a31ce2b8fcff80452eb3da9[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 21 07:51:51 2023 -0400
+
+    image-editor-functionality
+
+[33mcommit beeadcb0a9e5f393907acb317890ec584253c841[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 14 23:29:53 2023 -0400
+
+    display mockup image
+
+[33mcommit 2af7e72421f6bd778cab364b1aaa79c915e43c2d[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 14 09:40:55 2023 -0400
+
+    added mockup uploading functionality
+
+[33mcommit eac703086a8e5745724375cf53ddcee4147c5443[m
+Author: w3schools-test <test@w3schools.com>
+Date:   Mon Aug 14 07:55:57 2023 -0400
+
+    added mockup uploading functionality
+
+[33mcommit 4ee60ac98ae248b691d5706737042e18504e6d43[m
+Author: tech-White-Snow <tech.whitesnow@gmail.com>
+Date:   Sun Aug 6 18:16:32 2023 -0700
+
+    fix one problem with upload image
+
+[33mcommit abaf215701ac906e5d5367aacff5ec00f96f7ec7[m
+Author: tech-White-Snow <tech.whitesnow@gmail.com>
+Date:   Sun Aug 6 18:07:41 2023 -0700
+
+    add some functionalities except addText, insertImage, stockImage
+
+[33mcommit cd3eb01c235cff69c8ee71b666c103ce5dbcb687[m
+Author: tech-White-Snow <tech.whitesnow@gmail.com>
+Date:   Sun Aug 6 06:56:19 2023 -0700
+
+    add spinner for every loading
+
+[33mcommit 5d6f64016b63814cbef860b5348e890f8b8e3e77[m
+Author: tech-White-Snow <tech.whitesnow@gmail.com>
+Date:   Sun Aug 6 05:43:46 2023 -0700
+
+    add upload image functionality
+
+[33mcommit f7b028b620f2f2e62ddc6a6f8372d1a09de52dfa[m
+Author: tech-White-Snow <tech.whitesnow@gmail.com>
+Date:   Fri Aug 4 08:24:42 2023 -0700
+
+    add several mockups update styles with spinner
+
+[33mcommit 3cf1b5e312c95abfc41e75cca9b643046faa6827[m
+Merge: d9627502 1bf3c38e
+Author: tech-White-Snow <tech.whitesnow@gmail.com>
+Date:   Tue Aug 1 17:19:40 2023 -0700
+
+    Merge branch 'main' of https://github.com/tech-White-Snow/E-Cover-Project
+
+[33mcommit d96275028ef1b5539c3def724ab75308388907f1[m
+Author: tech-White-Snow <tech.whitesnow@gmail.com>
+Date:   Tue Aug 1 17:16:17 2023 -0700
+
+    update results of mockup2
+
+[33mcommit 1bf3c38e6cd418e5145e648e644557fdc1e6cad9[m
+Author: tech-White-Snow <137914203+tech-White-Snow@users.noreply.github.com>
+Date:   Mon Jul 31 18:15:55 2023 -0700
+
+    Update README.md
+
+[33mcommit 74ee2f5235ba5df5851e9e864b409d81930b56c1[m
+Author: StarEugene <katashi.fujino@capiwise.com>
+Date:   Mon Jul 31 17:40:08 2023 -0700
+
+    create ecover project

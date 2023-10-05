@@ -38,23 +38,24 @@
 }
 .download-3Dmockup-body {
     width: 100%;
-    height: 335px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .render-button {
-    width: 30%;
-    height: 50px;
+    width: fit-content;
     background-color: cyan;
     margin-top: 10px;
     text-align: center;
-    display: flex;
     font-weight: bold;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     align-items: center;
     border-radius: 10px;
+    margin: auto;
+    justify-content: center;
+    display: flex;
 }
 .render-button:hover {
     cursor: pointer;

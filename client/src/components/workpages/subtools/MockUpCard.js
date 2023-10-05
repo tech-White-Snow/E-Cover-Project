@@ -11,6 +11,10 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
       width: 0,
       height: 0
     });
+    const [spin, setSpin] = useState({
+      ifSpin: false,
+      spinWidth: 0
+    });
 
     useEffect(() => { async function getMockup() {
 
@@ -26,11 +30,15 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
       // const imageSrc = `data:image/jpeg;base64,${base64Image}`;
       // //console.log("--respond", res);
       //console.log("--imageSrc", imageSrc);
-      setUrl(res.data.thumbnail);
+      setUrl(`data:image/png;base64,${res.data.thumbnail}`);
       console.log(res.data)
       setSize({
         width: res.data.width,
         height: res.data.height
+      })
+      setSpin({
+        ifSpin: res.data.ifSpin,
+        spinWidth: res.data.spinWidth
       })
     }; getMockup()}, []);
 
@@ -43,6 +51,20 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
       const context = canvas.getContext('2d');
       context.fillStyle = '#ffffff'; // Set the color to white
       context.fillRect(0, 0, width, height);
+      if(spin.ifSpin){
+        // Draw the dotted line
+        context.strokeStyle = 'black'; // Set the line color to black
+        context.setLineDash([5, 5]); // Set the line dash pattern
+        context.beginPath();
+        context.moveTo(spin.spinWidth, 0); // Starting point
+        context.lineTo(spin.spinWidth, size.height); // Ending point
+        context.stroke();
+
+        context.font = '24px Arial'; // Set the font size and type
+        context.fillStyle = 'black'; // Set the text color
+        context.textBaseline = 'top'; // Set the vertical alignment
+        context.fillText(`Spin ${spin.spinWidth}px`, spin.spinWidth, 5); // Draw the text on the canvas
+    }
       return canvas.toDataURL();
     };
     
@@ -54,6 +76,8 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
           name: mockup,
           width: size.width,
           height: size.height,
+          ifSpin: spin.ifSpin,
+          spinWidth: spin.spinWidth,
           imageUrl: url,
           editImage: createWhiteImage(size.width, size.height)
         }

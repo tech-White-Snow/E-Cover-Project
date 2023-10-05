@@ -41,7 +41,7 @@ router.post('/bg-info', async (req, res) => {
 
 router.get('/mockup/:mockup', async (req, res) => {
   const filename = req.params.mockup;
-  console.log(filename);
+  //console.log(filename);
   
   // var PSD = require('psd');
   // var psd = PSD.fromFile(`./mockupfiles/psd/${filename}.psd`);
@@ -59,12 +59,15 @@ router.get('/mockup/:mockup', async (req, res) => {
   //   console.log("Finished!");
   // });
 
+  const imageData = await fs.readFileSync(`mockupfiles/image/${filename}.png`);
+  //console.log(imageData);
+
   try{
     const buffer_data = await fs.readFileSync(`mockupfiles/psd/${filename}.psd`);
     const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
     //console.log("get psd image --- ", psd_data.imageResources)
 
-    let width, height;
+    let width, height, spin_width, ifSpin = false;
     if(psd_data.linkedFiles) {
       let psb_data;
       //console.log(psd_data.linkedFiles)
@@ -76,18 +79,28 @@ router.get('/mockup/:mockup', async (req, res) => {
         const psb = readPsd(psb_data);
         width = psb.width;
         height = psb.height;
+        if(psb.children){
+          psb.children.map((child, index)=>{
+            if(child.name == "Spin") {
+              ifSpin = true;
+              spin_width = child.right - child.left;
+            }
+          })
+        }
       }
     }
-
 
     const resData = {
       success: true,
       width: width,
       height: height,
-      thumbnail: psd_data.imageResources.thumbnail.toDataURL(),                              
+      ifSpin: ifSpin,
+      spinWidth: spin_width,
+      // thumbnail: psd_data.canvas.toDataURL(),
+      thumbnail: Buffer.from(imageData).toString('base64')                              
     };
 
-    console.log("----   ", resData.width, resData.height);
+    //console.log("----   ", resData);
     res.json(resData);
   } catch (err){
     console.log("error ------", err.message);
@@ -204,6 +217,7 @@ router.post('/render-image', auth , async (req, res) => {
     }
     const changedMockup = await getImageFromPSD();
     
+    //console.log(changedMockup);
     if(changedMockup.success){
       res.json(changedMockup);
     }else{
@@ -218,13 +232,13 @@ router.post('/render-image', auth , async (req, res) => {
 
 const getImageFromPSD = async () =>{
   try{
-    const buffer_data = await fs.readFileSync('replacedImage.psd');
-    const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
+    const buffer_data = await fs.readFileSync('result.png');
+    //console.log(buffer_data);
+    //const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
     //console.log("get psd image --- ", psd_data.imageResources)
     return({
       success: true,
-      imageData: psd_data.canvas.toDataURL(),
-      thumbnail: psd_data.imageResources.thumbnail.toDataURL()
+      imageData: Buffer.from(buffer_data).toString('base64')
     })
   } catch (err){
     console.log("------- ", err.message);
