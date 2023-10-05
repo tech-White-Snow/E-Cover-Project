@@ -13,7 +13,7 @@ const FinalizePage = () => {
     const {imageUrl, Selected, name} = useSelector(state=>state.workingMockup);
     
     const [mockupImage, setMockupImage] = useState();
-    const [renderedImage, setRenderedImage] = useState("");
+    const [renderedImage, setRenderedImage] = useState(null);
     const [rendered, setRendered] = useState(false);
     const changedImage = useSelector(state=>state.editedImage);
 
@@ -39,18 +39,45 @@ const FinalizePage = () => {
         const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {imageData, name});
         
         //console.log(res.data);
-        setRenderedImage(`data:image/png;base64,${res.data.imageData}`)
+        const base64ImageData = `data:image/png;base64,${res.data.imageData}`;
+       
+        setRenderedImage(res.data.imageData)
         dispatch(render_end());
         setRendered(true);
         setIsImg(true);
     }
 
     const saveJPG = () =>{
-
+        const link = document.createElement('a');
+        link.href = `data:image/jpeg;base64,${renderedImage}`;
+        link.download = 'MockupImage.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     const savePNG = () =>{
-        
+        // if(!renderedImage) return;
+        // const byteCharacters = atob(renderedImage);
+        // const byteNumbers = new Array(byteCharacters.length);
+        // for (let i = 0; i < byteCharacters.length; i++) {
+        //   byteNumbers[i] = byteCharacters.charCodeAt(i);
+        // }
+        // const byteArray = new Uint8Array(byteNumbers);
+        // const blob = new Blob([byteArray], { type: "image/png" });
+        // const url = URL.createObjectURL(blob);
+        // const link = document.createElement("a");
+        // link.href = url;
+        // link.download = "image.png";
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+        const link = document.createElement('a');
+        link.href = `data:image/png;base64,${renderedImage}`;
+        link.download = 'MockupImage.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     const noImage = (
@@ -62,7 +89,7 @@ const FinalizePage = () => {
     //<img src={renderedImage} alt="result" style={{maxWidth: '350px', maxHeight: '300px', width: 'auto', height: 'auto'}} />
         
     const final_mockup = (
-        <ImagePreview imageUrl={renderedImage} />
+        <ImagePreview imageUrl={`data:image/png;base64,${renderedImage}`} />
     )
     const save = (
         <div className="save-image">  
