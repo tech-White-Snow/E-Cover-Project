@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import  {selectMockUp, selectingMockup}  from "../../../actions/mockups";
 import axios from "axios";
 import { backendUrl } from "../../../utils/Constant";
+import mockupsImage from '../../../img/mockups.jpg';
 
 const MockUpCard = ({mockup, setMockupsSelected}) => {
-    const [url, setUrl] = useState();
+    const [url, setUrl] = useState(mockupsImage);
     const {name} = useSelector(state=>state.workingMockup);
     const [size, setSize] = useState({
       width: 0,
@@ -63,7 +64,7 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
         context.font = '24px Arial'; // Set the font size and type
         context.fillStyle = 'black'; // Set the text color
         context.textBaseline = 'top'; // Set the vertical alignment
-        context.fillText(`Spin ${spin.spinWidth}px`, spin.spinWidth, 5); // Draw the text on the canvas
+        context.fillText(`Spine ${spin.spinWidth}px`, spin.spinWidth, 5); // Draw the text on the canvas
     }
       return canvas.toDataURL();
     };

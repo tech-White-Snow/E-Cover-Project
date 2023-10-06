@@ -209,6 +209,7 @@ router.post('/render-image', auth , async (req, res) => {
   try {
     // const {imageData, group, filename} = req.body;
     const {imageData, name} = req.body;
+    console.log(" ----- ", name);
     const result = await replacedImage(imageData, name);
     //console.log(result, "-----")
     if(!(await result).ifSuccess) {

@@ -13,23 +13,23 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to='/mydesign'>
-          <span className='hide-sm'>My Designs</span>
+        <Link to='/mycovers'>
+          <span className='hide-sm'>My Covers</span>
         </Link>
       </li>
       <li>
-        <Link to='/templates'>
-          <span className='hide-sm'>Templates</span>
+        <Link to='/mockups'>
+          <span className='hide-sm'>Mockups</span>
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link to='/createmockup'>
           <span className='hide-sm'>Create Mockups</span>
         </Link>
-      </li>
+      </li> */}
       <li>
-        <Link to='/createdesign'>
-          <span className='hide-sm'>Create Designs</span>
+        <Link to='/create-cover'>
+          <span className='hide-sm'>Create Cover</span>
         </Link>
       </li>
       <li>

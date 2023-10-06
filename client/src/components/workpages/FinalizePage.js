@@ -36,6 +36,7 @@ const FinalizePage = () => {
             },
           };
         const body = JSON.stringify({ imageData });
+        console.log(body);
         const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {imageData, name});
         
         //console.log(res.data);

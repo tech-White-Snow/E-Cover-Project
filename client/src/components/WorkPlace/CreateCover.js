@@ -17,6 +17,11 @@ import { Navigate } from 'react-router-dom';
 import { getUploadImages } from '../../actions/uploadImage';
 import { getEditedImage } from '../../actions/editedImage';
 
+import mycoverImage from '../../img/mycover.jpg';
+import mockupsImage from '../../img/mockups.jpg';
+import uploadImage from '../../img/uploadimage.jpg';
+import finalizeImage from '../../img/finalize.jpg';
+
 const CreateCover = () => {
   const dispatch = useDispatch();
 
@@ -312,13 +317,14 @@ const CreateCover = () => {
       <div className='flex h-full'>
         <div className='flex-col text-white left-toolbar'>
           <div className='myicons justify-center text-center items-center' onClick={myCoversClicked}>
-            <img src='https://app.myecovermaker.com/app/images/icons/mymockups.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' />
+            <img src={mycoverImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='mycovers' />
             <small className='text-sky-600'>
               My Covers
             </small>
           </div>
           <div className='myicons justify-center text-center items-center' onClick={mockupsClicked}>
-            <img src='https://app.myecovermaker.com/app/images/icons/mockups.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' />
+            {/* <img src='https://app.myecovermaker.com/app/images/icons/mockups.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' /> */}
+            <img src={mockupsImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='mockups' />
             <small className='text-sky-600'>
               Mockups
             </small>
@@ -354,13 +360,15 @@ const CreateCover = () => {
             </small>
           </div> */}
           <div className='myicons justify-center text-center items-center' onClick={uploadImagesClicked}>
-            <img src='https://app.myecovermaker.com/app/images/icons/upload.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' />
+            {/* <img src='https://app.myecovermaker.com/app/images/icons/upload.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' /> */}
+            <img src={uploadImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='uploadimage' />
             <small className='text-sky-600'>
               Upload Images to Gallery
             </small>
           </div>
           <div className='myicons justify-center text-center items-center' onClick={finalizeClicked}>
-            <img src='https://app.myecovermaker.com/app/images/icons/finalize.png' style={{width: '45px', height: '35px', marginLeft: '25px'}} alt='mycovers' />
+            {/* <img src='https://app.myecovermaker.com/app/images/icons/finalize.png' style={{width: '45px', height: '35px', marginLeft: '25px'}} alt='mycovers' /> */}
+            <img src={finalizeImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='finalize' />
             <small className='text-sky-600'>
               Finalize
             </small>
