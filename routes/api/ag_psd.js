@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 //const sharp = require('sharp');
 const multer = require('multer');
-const AWS = require('aws-sdk');
+// const AWS = require('aws-sdk');
 const fs = require('fs');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
@@ -12,6 +12,13 @@ const request = require('request');
 const replacedImage = require('../../mockupfiles/change-smart-layer');
 const { writePsdBuffer, readPsd } = require('ag-psd');
 //const { createCanvas, Image } = require('canvas');
+//const imageminJpegtran = require('imagemin-jpegtran');
+// const imagemin = require('imagemin');
+// const imageminPngquant = require('imagemin-pngquant');
+// const imagemin =  require('imagemin');
+// const imageminPngquant = require('imagemin-pngquant');
+
+
 const CircularJSON = require('circular-json');
 
 const initializeCanvas = require("ag-psd/initialize-canvas.js");
@@ -20,12 +27,12 @@ const AWS_ACCESS_KEY_ID = "AKIAVBHONSQBZMPWQAUF";
 const AWS_SECRET_ACCESS_KEY = "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";
 const BUCKET = "fadaimageupload";
 
-AWS.config.update({
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  region: 'us-east-1'
-});
-const s3Content = new AWS.S3();
+// AWS.config.update({
+//   accessKeyId: AWS_ACCESS_KEY_ID,
+//   secretAccessKey: AWS_SECRET_ACCESS_KEY,
+//   region: 'us-east-1'
+// });
+// const s3Content = new AWS.S3();
 const uploadImage = multer({ dest: "upload/image/" });
 
 router.post('/bg-info', async (req, res) => {
@@ -233,13 +240,27 @@ router.post('/render-image', auth , async (req, res) => {
 
 const getImageFromPSD = async () =>{
   try{
-    const buffer_data = await fs.readFileSync('result.png');
+
+    const buffer_data = await fs.readFileSync('result_origin.png');
+    // const files = await imagemin(['result.png'], {
+    //   destination: 'build/images',
+    //   plugins: [
+    //     // imageminJpegtran(),
+    //     imageminPngquant({
+    //       quality: [0.5, 0.9]
+    //     })
+    //   ]
+    // });
+    
+    // console.log(files);
+    
     //console.log(buffer_data);
     //const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
     //console.log("get psd image --- ", psd_data.imageResources)
     return({
       success: true,
       imageData: Buffer.from(buffer_data).toString('base64')
+      //imageData: Buffer.from(files.data).toString('base64')
     })
   } catch (err){
     console.log("------- ", err.message);
