@@ -73,7 +73,7 @@ const FinalizePage = () => {
 
     const render = async () =>{
         dispatch(render_start());
-        setIsImg(true);
+        setIsImg(false);
         const imageData = changedImage.img;
         //console.log(imageData)
         const config = {
