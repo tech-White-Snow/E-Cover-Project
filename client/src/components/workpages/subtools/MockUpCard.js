@@ -10,7 +10,9 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
     const {name} = useSelector(state=>state.workingMockup);
     const [size, setSize] = useState({
       width: 0,
-      height: 0
+      height: 0,
+      psdWidth:0,
+      psdHeight: 0,
     });
     const [spin, setSpin] = useState({
       ifSpin: false,
@@ -35,7 +37,9 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
       //console.log(res.data)
       setSize({
         width: res.data.width,
-        height: res.data.height
+        height: res.data.height,
+        psdWidth: res.data.psdWidth,
+        psdHeight: res.data.psdHeight,
       })
       setSpin({
         ifSpin: res.data.ifSpin,
@@ -77,6 +81,8 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
           name: mockup,
           width: size.width,
           height: size.height,
+          psdHeight: size.psdHeight,
+          psdWidth: size.psdWidth,
           ifSpin: spin.ifSpin,
           spinWidth: spin.spinWidth,
           imageUrl: url,

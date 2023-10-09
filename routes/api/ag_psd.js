@@ -74,6 +74,9 @@ router.get('/mockup/:mockup', async (req, res) => {
     const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
     //console.log("get psd image --- ", psd_data.imageResources)
 
+    const psdWidth = psd_data.width;
+    const psdHeight = psd_data.height;
+
     let width, height, spin_width, ifSpin = false;
     if(psd_data.linkedFiles) {
       let psb_data;
@@ -101,6 +104,8 @@ router.get('/mockup/:mockup', async (req, res) => {
       success: true,
       width: width,
       height: height,
+      psdWidth: psdWidth,
+      psdHeight: psdHeight,
       ifSpin: ifSpin,
       spinWidth: spin_width,
       // thumbnail: psd_data.canvas.toDataURL(),
@@ -246,7 +251,7 @@ const getImageFromPSD = async () =>{
       plugins: [
         // imageminJpegtran(),
         imageminPngquant({
-          quality: [0.5, 0.9]
+          quality: [0.5, 0.7]
         })
       ]
     });
