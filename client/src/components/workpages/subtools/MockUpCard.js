@@ -32,7 +32,7 @@ const MockUpCard = ({mockup, setMockupsSelected}) => {
       // //console.log("--respond", res);
       //console.log("--imageSrc", imageSrc);
       setUrl(`data:image/png;base64,${res.data.thumbnail}`);
-      console.log(res.data)
+      //console.log(res.data)
       setSize({
         width: res.data.width,
         height: res.data.height

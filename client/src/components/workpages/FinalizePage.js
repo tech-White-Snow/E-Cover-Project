@@ -8,6 +8,7 @@ import Spinner from "../layout/Spinner";
 import axios from 'axios';
 import { backendUrl } from "../../utils/Constant";
 import ImagePreview from "./subtools/ImagePreview";
+import Resizer from 'react-image-file-resizer';
 
 const FinalizePage = () => {
     const {imageUrl, Selected, name} = useSelector(state=>state.workingMockup);
@@ -15,7 +16,10 @@ const FinalizePage = () => {
     const [mockupImage, setMockupImage] = useState();
     const [renderedImage, setRenderedImage] = useState(null);
     const [rendered, setRendered] = useState(false);
-    const changedImage = useSelector(state=>state.editedImage);
+    const [changedImage, setChangedImage] = useState({
+        img: '',
+    });
+    const editedImage = useSelector(state=>state.editedImage);
 
     const result = useSelector(state => state.render_start);
 
@@ -24,25 +28,67 @@ const FinalizePage = () => {
     const dispatch = useDispatch(); 
 
     useEffect(()=>{
+        if(editedImage.img){
+        const file = convertDataUrlToFile(editedImage.img, "edited.jpg");
+        //console.log(file);
+        try {
+            Resizer.imageFileResizer(
+              file,
+              3000,
+              3000,
+              "JPEG",
+              80,
+              0,
+              (uri) => {
+                //console.log(uri);
+                setChangedImage({
+                    img: uri})
+              },
+              "base64",
+              200,
+              200
+            );
+          } catch (err) {
+            console.log(err);
+          }
+        }
+    },[editedImage]);
+
+    useEffect(()=>{
         setIsImg(false);
     }, [imageUrl]);
-    const render = async () => {
+    
+    const convertDataUrlToFile = (dataUrl, filename) => {
+        const arr = dataUrl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        const blob = new Blob([u8arr], { type: mime });
+        return new File([blob], filename, { type: mime });
+    }
+
+    const render = async () =>{
         dispatch(render_start());
         setIsImg(true);
         const imageData = changedImage.img;
+        //console.log(imageData)
         const config = {
             headers: {
               'Content-Type': 'application/json',
             },
           };
         const body = JSON.stringify({ imageData });
-        console.log(body);
+        //console.log(body);
         const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {imageData, name});
         
-        //console.log(res.data);
+        //console.log(res.data.imageData);
         const base64ImageData = `data:image/png;base64,${res.data.imageData}`;
        
-        setRenderedImage(res.data.imageData)
+        setRenderedImage(res.data.imageData);
         dispatch(render_end());
         setRendered(true);
         setIsImg(true);

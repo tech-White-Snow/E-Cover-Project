@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator');
-const request = require('request');
-const config = require('config');
-const Profile = require('../../models/Profile');
-const User = require('../../models/User');
-const Post = require('../../models/Post');
+import auth from '../../middleware/auth.js';
+import { check, validationResult } from 'express-validator';
+import request from 'request';
+import config from 'config';
+import Profile from '../../models/Profile.js';
+import User from '../../models/User.js';
+import Post from '../../models/Post.js';
 
 //  @route GET api/profile
 //  @desc Get current users profile
@@ -362,4 +362,5 @@ router.get('/github/:username', (req, res) => {
   }
 });
 
-module.exports = router;
+//module.exports = router;
+export default router;

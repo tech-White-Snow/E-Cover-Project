@@ -1,10 +1,15 @@
-const express = require('express');
-const connectDB = require('./config/db');
-const cors = require('cors')
+import express from'express';
+import connectDB from './config/db.js';
+import cors from'cors'
 
 const app = express();
 
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
+import routerUser from './routes/api/users.js';
+import routerAuth from './routes/api/auth.js';
+import routerPosts from './routes/api/posts.js';
+import routerProfile from './routes/api/profile.js';
+import routerPSD from './routes/api/ag_psd.js';
 
 // Parse URL-encoded request body
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -24,12 +29,12 @@ app.use(express.json ({ extended: false }));
 app.get('/', (req, res) => res.send('API Running'));
 
 //Define Routes
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/users', routerUser);
+app.use('/api/auth', routerAuth);
+app.use('/api/profile', routerProfile);
+app.use('/api/posts', routerPosts);
 
-app.use('/api/ag-psd', require('./routes/api/ag_psd'));
+app.use('/api/ag-psd', routerPSD);
 
 const PORT = process.env.PORT || 5000;
 
