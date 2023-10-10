@@ -4,48 +4,50 @@ import  {selectMockUp, selectingMockup}  from "../../../actions/mockups";
 import axios from "axios";
 import { backendUrl } from "../../../utils/Constant";
 import mockupsImage from '../../../img/mockups.jpg';
+import { PUBLIC_URL } from "../../../utils/Constant";
 
-const MockUpCard = ({mockup, setMockupsSelected}) => {
-    const [url, setUrl] = useState(mockupsImage);
+const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
+    const imagePath = PUBLIC_URL + `/mockup/${mockup}.png`;
+    const [url, setUrl] = useState(imagePath);
     const {name} = useSelector(state=>state.workingMockup);
     const [size, setSize] = useState({
-      width: 0,
-      height: 0,
-      psdWidth:0,
-      psdHeight: 0,
+      width: mockupData.width,
+      height: mockupData.height,
+      psdWidth: mockupData.psdWidth,
+      psdHeight: mockupData.psdHeight,
     });
     const [spin, setSpin] = useState({
-      ifSpin: false,
-      spinWidth: 0
+      ifSpin: mockupData.ifSpin,
+      spinWidth: mockupData.spinWidth
     });
 
-    useEffect(() => { async function getMockup() {
+    // useEffect(() => { async function getMockup() {
+    //   //const res = await axios.get(`${backendUrl}/api/ag-psd/mockup/${mockup}`);
 
-      const res = await axios.get(`${backendUrl}/api/ag-psd/mockup/${mockup}`);
+    //   // const base64Image = btoa(
+    //   //   new Uint8Array(res.data).reduce(
+    //   //     (data, byte) => data + String.fromCharCode(byte),
+    //   //     '',
+    //   //   ),
+    //   // );
 
-      // const base64Image = btoa(
-      //   new Uint8Array(res.data).reduce(
-      //     (data, byte) => data + String.fromCharCode(byte),
-      //     '',
-      //   ),
-      // );
-
-      // const imageSrc = `data:image/jpeg;base64,${base64Image}`;
-      // //console.log("--respond", res);
-      //console.log("--imageSrc", imageSrc);
-      setUrl(`data:image/png;base64,${res.data.thumbnail}`);
-      //console.log(res.data)
-      setSize({
-        width: res.data.width,
-        height: res.data.height,
-        psdWidth: res.data.psdWidth,
-        psdHeight: res.data.psdHeight,
-      })
-      setSpin({
-        ifSpin: res.data.ifSpin,
-        spinWidth: res.data.spinWidth
-      })
-    }; getMockup()}, []);
+    //   // const imageSrc = `data:image/jpeg;base64,${base64Image}`;
+    //   // //console.log("--respond", res);
+    //   //console.log("--imageSrc", imageSrc);
+    //   // setUrl(`data:image/png;base64,${res.data.thumbnail}`);
+    //   //setUrl(imagePath);
+    //   //console.log(res.data)
+    //   setSize({
+    //     width: res.data.width,
+    //     height: res.data.height,
+    //     psdWidth: res.data.psdWidth,
+    //     psdHeight: res.data.psdHeight,
+    //   })
+    //   setSpin({
+    //     ifSpin: res.data.ifSpin,
+    //     spinWidth: res.data.spinWidth
+    //   })
+    // }; getMockup()}, []);
 
     const dispatch = useDispatch();
 

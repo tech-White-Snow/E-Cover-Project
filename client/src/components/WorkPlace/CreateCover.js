@@ -21,12 +21,15 @@ import mycoverImage from '../../img/mycover.jpg';
 import mockupsImage from '../../img/mockups.jpg';
 import uploadImage from '../../img/uploadimage.jpg';
 import finalizeImage from '../../img/finalize.jpg';
+import { setMockupData } from '../../actions/mockups';
+import { mockups } from '../../utils/Constant';
 
 const CreateCover = () => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
     dispatch(getUploadImages());
+    dispatch(setMockupData(mockups));
     //console.log("_________+++++++++");
   },[]);
 
@@ -73,63 +76,63 @@ const CreateCover = () => {
     setFinalizeSelected(false);
     setBackgroundSelected(false);
   }
-  const backgroundClicked = () => {
-    console.log('Background clicked');
-    setMyConversSelected(false);
-    setMockupsSelected(false);
-    setAddTextSelected(false);
-    setAIImagesSelected(false);
-    setInsertImagesSelected(false);
-    setStockImagesSelected(false);
-    setUploadImagesSelected(false);
-    setFinalizeSelected(false);
-    setBackgroundSelected(!backgoundSelected);
-  }
+  // const backgroundClicked = () => {
+  //   console.log('Background clicked');
+  //   setMyConversSelected(false);
+  //   setMockupsSelected(false);
+  //   setAddTextSelected(false);
+  //   setAIImagesSelected(false);
+  //   setInsertImagesSelected(false);
+  //   setStockImagesSelected(false);
+  //   setUploadImagesSelected(false);
+  //   setFinalizeSelected(false);
+  //   setBackgroundSelected(!backgoundSelected);
+  // }
   // const addTextHovered = () => {
   //   setAddTextSelected(true);
   // }
   // const addTextOut = () => {
   //   setAddTextSelected(false);
   // }
-  const addTextClicked = () => {
-    setAddTextSelected(!addTextSelected);
-  }
-  const aiImagesClicked = () => {
-    console.log('AI Images clicked');
-    setMyConversSelected(false);
-    setMockupsSelected(false);
-    setAddTextSelected(false);
-    setAIImagesSelected(!aiImagesSelected);
-    setInsertImagesSelected(false);
-    setStockImagesSelected(false);
-    setUploadImagesSelected(false);
-    setFinalizeSelected(false);
-    setBackgroundSelected(false);
-  }
-  const insertImagesClicked = () => {
-    console.log('Insert Images clicked');
-    setMyConversSelected(false);
-    setMockupsSelected(false);
-    setAddTextSelected(false);
-    setAIImagesSelected(false);
-    setInsertImagesSelected(!insertImagesSelected);
-    setStockImagesSelected(false);
-    setUploadImagesSelected(false);
-    setFinalizeSelected(false);
-    setBackgroundSelected(false);
-  }
-  const stockImagesClicked = () => {
-    console.log('Stock Images clicked');
-    setMyConversSelected(false);
-    setMockupsSelected(false);
-    setAddTextSelected(false);
-    setAIImagesSelected(false);
-    setInsertImagesSelected(false);
-    setStockImagesSelected(!stockImagesSelected);
-    setUploadImagesSelected(false);
-    setFinalizeSelected(false);
-    setBackgroundSelected(false);
-  }
+  // const addTextClicked = () => {
+  //   setAddTextSelected(!addTextSelected);
+  // }
+  // const aiImagesClicked = () => {
+  //   console.log('AI Images clicked');
+  //   setMyConversSelected(false);
+  //   setMockupsSelected(false);
+  //   setAddTextSelected(false);
+  //   setAIImagesSelected(!aiImagesSelected);
+  //   setInsertImagesSelected(false);
+  //   setStockImagesSelected(false);
+  //   setUploadImagesSelected(false);
+  //   setFinalizeSelected(false);
+  //   setBackgroundSelected(false);
+  // }
+  // const insertImagesClicked = () => {
+  //   console.log('Insert Images clicked');
+  //   setMyConversSelected(false);
+  //   setMockupsSelected(false);
+  //   setAddTextSelected(false);
+  //   setAIImagesSelected(false);
+  //   setInsertImagesSelected(!insertImagesSelected);
+  //   setStockImagesSelected(false);
+  //   setUploadImagesSelected(false);
+  //   setFinalizeSelected(false);
+  //   setBackgroundSelected(false);
+  // }
+  // const stockImagesClicked = () => {
+  //   console.log('Stock Images clicked');
+  //   setMyConversSelected(false);
+  //   setMockupsSelected(false);
+  //   setAddTextSelected(false);
+  //   setAIImagesSelected(false);
+  //   setInsertImagesSelected(false);
+  //   setStockImagesSelected(!stockImagesSelected);
+  //   setUploadImagesSelected(false);
+  //   setFinalizeSelected(false);
+  //   setBackgroundSelected(false);
+  // }
   const uploadImagesClicked = () => {
     console.log('Upload Images clicked');
     setMyConversSelected(false);
@@ -203,7 +206,7 @@ const CreateCover = () => {
       </div>
     ) : (
       <div className='hidden-extrapage'>
-        <MockupsPage />
+      
       </div>
     )
   )

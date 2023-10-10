@@ -33,13 +33,15 @@ const FinalizePage = () => {
         if(editedImage.img){
             const file = convertDataUrlToFile(editedImage.img, "edited.jpg");
             //console.log(file);
+            // setChangedImage({
+            //     img: editedImage.img})
             try {
                 Resizer.imageFileResizer(
                 file,
                 8000,
                 8000,
                 "JPEG",
-                80,
+                95,
                 0,
                 (uri) => {
                     //console.log(uri);

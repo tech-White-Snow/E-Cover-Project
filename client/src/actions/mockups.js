@@ -1,5 +1,6 @@
-import { MOCKUP_LOADING, SET_MOCKUPS, SELECT_MOCKUP, LOADING_MOCKUP } from './types';
+import { MOCKUP_LOADING, SET_MOCKUPS, SELECT_MOCKUP, SET_MOCKUPDATA } from './types';
 import axios from 'axios';
+import { backendUrl } from '../utils/Constant';
 
 export const selectMockUp = (data) => async (dispatch) => {
   dispatch({
@@ -25,5 +26,13 @@ export const selectingMockup = (data) => (dispatch) =>{
   dispatch({
     type: SELECT_MOCKUP,
     payload: data
+  })
+}
+
+export const setMockupData = (mockups) => async (dispatch) => {
+  const res = await axios.post(`${backendUrl}/api/ag-psd/all-mockup`, {mockups});
+  dispatch({
+    type: SET_MOCKUPDATA,
+    payload: res.data
   })
 }

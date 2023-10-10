@@ -22,6 +22,7 @@ import imageminPngquant from 'imagemin-pngquant';
 import CircularJSON from 'circular-json';
 
 import initializeCanvas from "ag-psd/initialize-canvas.js";
+import { group } from 'console';
 
 const AWS_ACCESS_KEY_ID = "AKIAVBHONSQBZMPWQAUF";
 const AWS_SECRET_ACCESS_KEY = "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";
@@ -46,6 +47,86 @@ router.post('/bg-info', async (req, res) => {
   //   res.json({width: width, height: height});
 });
 
+// router.post('/all-mockup', async(req, res)=>{
+//   //console.log(req.body);
+//   //res.json({d:'dd'});
+//   let resData = [];
+//   req.body.mockups.map((group, key) =>{
+//     group.mockups.map(async (filename, key1)=>{
+//       resData = [
+//         ...resData,
+//         await getMockupData(filename)
+//       ];
+//     })
+//   })
+
+//   console.log(resData)
+// });
+
+
+router.post('/all-mockup', async(req, res)=>{ 
+  let resData = []; 
+  for (let group of req.body.mockups) { 
+    for (let filename of group.mockups) { 
+      resData.push(await getMockupData(filename)); 
+    } 
+  } 
+  //console.log(resData);
+  res.json(resData);
+});
+
+const getMockupData = async (filename) => {
+  try{
+    const buffer_data = await fs.readFileSync(`mockupfiles/psd/${filename}.psd`);
+    const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
+    //console.log("get psd image --- ", psd_data.imageResources)
+
+    const psdWidth = psd_data.width;
+    const psdHeight = psd_data.height;
+
+    let width, height, spin_width, ifSpin = false;
+    if(psd_data.linkedFiles) {
+      let psb_data;
+      //console.log(psd_data.linkedFiles)
+      psd_data.linkedFiles.map((linked, index)=>{
+        if(typeof linked.name === 'string' && linked.name.includes('Rectangle')) 
+          psb_data = linked.data;
+      })
+      if(psb_data){
+        const psb = readPsd(psb_data);
+        width = psb.width;
+        height = psb.height;
+        if(psb.children){
+          psb.children.map((child, index)=>{
+            if(child.name == "Spin") {
+              ifSpin = true;
+              spin_width = child.right - child.left;
+            }
+          })
+        }
+      }
+    }
+
+    const resData = {
+      success: true,
+      width: width,
+      height: height,
+      psdWidth: psdWidth,
+      psdHeight: psdHeight,
+      ifSpin: ifSpin,
+      spinWidth: spin_width,
+      // thumbnail: psd_data.canvas.toDataURL(),
+      //thumbnail: Buffer.from(imageData).toString('base64')                              
+    };
+
+    //console.log("----   ", resData);
+    return resData;
+  } catch (err){
+    console.log("error ------", err.message);
+    return null;
+  }
+}
+
 router.get('/mockup/:mockup', async (req, res) => {
   const filename = req.params.mockup;
   //console.log(filename);
@@ -66,7 +147,7 @@ router.get('/mockup/:mockup', async (req, res) => {
   //   console.log("Finished!");
   // });
 
-  const imageData = await fs.readFileSync(`mockupfiles/image/${filename}.png`);
+  //const imageData = await fs.readFileSync(`mockupfiles/image/${filename}.png`);
   //console.log(imageData);
 
   try{
@@ -109,7 +190,7 @@ router.get('/mockup/:mockup', async (req, res) => {
       ifSpin: ifSpin,
       spinWidth: spin_width,
       // thumbnail: psd_data.canvas.toDataURL(),
-      thumbnail: Buffer.from(imageData).toString('base64')                              
+      //thumbnail: Buffer.from(imageData).toString('base64')                              
     };
 
     //console.log("----   ", resData);
@@ -246,12 +327,12 @@ router.post('/render-image', auth , async (req, res) => {
 const getImageFromPSD = async () =>{
   try{
 
-    //const buffer_data = await fs.readFileSync('result_origin.png');
+    const buffer_data = await fs.readFileSync('result_origin.png');
     const files = await imagemin(['result_origin.png'], {
       plugins: [
         // imageminJpegtran(),
         imageminPngquant({
-          quality: [0.5, 0.7]
+          quality: [0.9, 1]
         })
       ]
     });
@@ -265,7 +346,7 @@ const getImageFromPSD = async () =>{
     return({
       success: true,
       imageData: Buffer.from(files[0].data).toString('base64')
-      //imageData: Buffer.from(files.data).toString('base64')
+      //imageData: Buffer.from(buffer_data).toString('base64')
     })
   } catch (err){
     console.log("------- ", err.message);

@@ -12,26 +12,17 @@ const DefaultPage = ({bgImageSelected}) => {
     let bgHeight;
     let dx;
     let dy;
-    const {data} = useSelector(state => state.selectMockUp);
     const {loading} = useSelector(state => state.workingMockup);
     const bgInfo = useSelector(state => state.selectBackground);
     const bg_loading = bgInfo.loading;
     useEffect(() => {
             // console.log(data);
             // console.log(bgInfo.color + "+++++++++++++")
-            if(data !== null) {
-                console.log('errororororo')
-                //const image_layer = data.mockup.layers.find(layer => layer.type === 'image');
-                var height1 = 600;
-                setMuWidth(400);
-                //setMuHeight((400 / image_layer.placeholder.width) * image_layer.placeholder.height);
-                setMuHeight(height1);
-            } else {
+          
                 setMuWidth(0);
                 setMuHeight(0);
-            }
 
-    }, [data, bgInfo]);
+    }, [bgInfo]);
     
     bgWidth = 600;
     bgHeight = 600 / bgInfo.width * bgInfo.height;
@@ -74,7 +65,7 @@ const DefaultPage = ({bgImageSelected}) => {
     const loadedPage = (
         <div style={{alignItems: "center", justifyContent: "center", zIndex: '0'}}>
             {
-                bgImageSelected === true && data !== null ? (
+                bgImageSelected === true ? (
                     <div style={{position: 'relative'}}>
                       <div style={{zIndex: '0', position: "relative", top: '0', left: '0'}}>
                         {noImage}
@@ -89,7 +80,7 @@ const DefaultPage = ({bgImageSelected}) => {
                       
                     </div>
                 ) : 
-                data === null && bgImageSelected === false ? (
+                bgImageSelected === false ? (
                     <h1>Please Choose your Mock Up</h1>
                 ) : noImage
             }

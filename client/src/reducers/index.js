@@ -3,7 +3,7 @@ import alert from './alert';
 import auth from './auth';
 import profile from './profile';
 import selectBackground from './selectBackground';
-import selectMockUp from './selectMockUp';
+import mockUpData from './mockUpData';
 import render_start from './render';
 import uploadImage from './uploadImage';
 import workingMockup from './workingMockup';
@@ -14,7 +14,7 @@ export default combineReducers({
   auth,
   profile,
   selectBackground,
-  selectMockUp,
+  mockUpData,
   render_start,
   uploadImage,
   workingMockup,

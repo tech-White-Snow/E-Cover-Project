@@ -13,9 +13,9 @@ export const Landing = ({ isAuthenticated }) => {
     <section className='landing'>
       <div className='dark-overlay'>
         <div className='landing-inner'>
-          <h1 className='x-large'>Perfect ECOVER Design</h1>
+          <h1 className='x-large'>Atomic eCovers</h1>
           <p className='lead'>
-            Create a beautiful E-Book Cover yourself in a few minute, without designer!
+          Craft Stunning 3D Visuals for Your Online Products. 
           </p>
 
           <div className='buttons'>

@@ -1,6 +1,4 @@
-import { BG_LOADING, SET_BACKGROUND, SET_COLOR } from './types';
-import axios from 'axios';
-import { backendUrl } from '../utils/Constant';
+import { SET_COLOR } from './types';
 
 export const selectBackground = (url, index) => async (dispatch) => {
   // dispatch({
