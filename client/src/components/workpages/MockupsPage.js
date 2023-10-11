@@ -26,14 +26,13 @@ const MockupsPage = ({setMockupsSelected}) => {
     //     getMockup();
     // },[]);
     
-    let index = 0;
     return (
         <div className="p-1">
             <div className="background-page-header">
                 Choose Mockup Page
             </div>
             <div className="bg-library-page-body p-1">
-                { mockups.map((group, key) => {
+                { mockUpData.map((group, key) => {
                     return( 
                         <div style={{ marginTop: '20px' }}>
                         <Divider className="divider" textAlign="left">Mockup Group - {group.group}</Divider>
@@ -44,7 +43,7 @@ const MockupsPage = ({setMockupsSelected}) => {
                                     <MockUpCard 
                                         key={key}
                                         mockup={mockup}
-                                        mockupData={mockUpData[index++]} 
+                                        mockupData={group.data[key]} 
                                         setMockupsSelected={setMockupsSelected} />
                                 </div>
                             )

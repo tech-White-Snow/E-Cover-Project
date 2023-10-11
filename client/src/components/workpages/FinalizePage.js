@@ -41,7 +41,7 @@ const FinalizePage = () => {
                 8000,
                 8000,
                 "JPEG",
-                95,
+                90,
                 0,
                 (uri) => {
                     //console.log(uri);
@@ -102,7 +102,7 @@ const FinalizePage = () => {
             const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {imageData, name});
             
             //console.log(res.data.imageData);
-            const base64ImageData = `data:image/png;base64,${res.data.imageData}`;
+            // const base64ImageData = `data:image/png;base64,${res.data.imageData}`;
         
             console.log('Rendered Image Size:', res.data.imageData.length, 'bytes');
             setRenderedImage(res.data.imageData);

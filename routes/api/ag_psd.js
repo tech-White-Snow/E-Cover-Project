@@ -66,10 +66,19 @@ router.post('/bg-info', async (req, res) => {
 
 router.post('/all-mockup', async(req, res)=>{ 
   let resData = []; 
-  for (let group of req.body.mockups) { 
+  for (let group of req.body.mockups) {
+    let group1 = {
+      group: group.group,
+      mockups: group.mockups,
+      data: []
+    };
+    let data1 = [];
     for (let filename of group.mockups) { 
-      resData.push(await getMockupData(filename)); 
-    } 
+      data1.push(await getMockupData(filename));
+      //resData.push(await getMockupData(filename)); 
+    }
+    group1.data = data1;
+    resData.push(group1);
   } 
   //console.log(resData);
   res.json(resData);
@@ -332,7 +341,7 @@ const getImageFromPSD = async () =>{
       plugins: [
         // imageminJpegtran(),
         imageminPngquant({
-          quality: [0.9, 1]
+          quality: [0.7, 0.9]
         })
       ]
     });
