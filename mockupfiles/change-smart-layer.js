@@ -1,59 +1,40 @@
-import winax from 'winax';
 import fs from 'fs';
 import path from 'path';
+import "ag-psd/initialize-canvas.js"; // only needed for reading image data and thumbnails
+import { readPsd, writePsd, writePsdBuffer, writePsdUint8Array } from "ag-psd";
+import { createCanvas, Image } from "canvas";
+import { exec } from 'child_process';
+import { promisify } from 'util';
+const execAsync = promisify(exec);
+
 // import * as util from "util";
 // import * as path from "path";
 
-var app = new winax.Object("Photoshop.Application", { activate: true });
-var descriptor = new winax.Object("Photoshop.ActionDescriptor", { activate: true });
-var pngOptions = new winax.Object("Photoshop.PNGSaveOptions", { activate: true });
-
 const replaceImage =  async (imageData, name) => {
-  const ifSaved = await saveInputImagefile(imageData);
-  if(!ifSaved) {
-    const value = {
-      ifSuccess: false,
-      reason: "Input imageData error."
-    } 
-    return value;
-  }
+  // const ifSaved = await saveInputImagefile(imageData);
+  // if(!ifSaved) {
+  //   const value = {
+  //     ifSuccess: false,
+  //     reason: "Input imageData error."
+  //   } 
+  //   return value;
+  // }
   
   try {
-    //const psd_api = app.Open(path.resolve("sample1.psd"));
-    //console.log(path.resolve(`mockupfiles/psd/${group} (${filename}).psd`))
-    const psd_api = app.Open(path.resolve(`mockupfiles/psd/${name}.psd`));
+    console.log(path.resolve(`mockupfiles/psd/${name}.psd`));
+    const ifChanged = await changeImageByNode(path.resolve(`mockupfiles/psd/${name}.psd`), imageData);
+    const ifExcuted = await executePythonFile();
 
-    //console.log(psd_api)
-    //const layer = psd_api.Layers["Change"];
-    if(!psd_api) {
+    if(!ifChanged || !ifExcuted) {
+      console.log(ifChanged + "\n")
+      console.log(ifExcuted + "\n")
       const value = {
         ifSuccess: false,
-        reason: "Error: open psd."
+        reason: "Error: don't change image."
       } 
       return value;
     }
 
-    const layer = psd_api.Layers["mm_img:Your Image"];
-    //layer.visible = true;
-    select_layer("mm_img:Your Image");
-
-    var idplacedLayerReplaceContents = app.stringIDToTypeID( "placedLayerReplaceContents" );
-    // var idplacedLayerReplaceContents = app.stringIDToTypeID( "revealAll" );
-    
-    var idnull = app.charIDToTypeID( "null" );
-
-    const file = path.resolve('Input.jpg');
-    descriptor.putPath(idnull, file);
-    // console.log(file)
-
-    const ss = app.executeAction(idplacedLayerReplaceContents, descriptor);
-
-    //psd_api.saveAs(path.resolve("replacedImage"));
-    psd_api.saveAs(path.resolve('result_origin.png'), pngOptions, true, 2);
-    //docRef.close(SaveOptions.DONOTSAVECHANGES);
-
-
-    psd_api.Close(2);
     const value = {
       ifSuccess: true,
       reason: "Successfully rendered."
@@ -71,42 +52,7 @@ const replaceImage =  async (imageData, name) => {
   }
 };
 
-const select_layer = async (id, add, viz) =>
-{  
-  console.log("select =")
-  try {
-    var d = new winax.Object("Photoshop.ActionDescriptor", { activate: true });
 
-    if (viz == undefined) viz = false;
-
-    var r = new winax.Object("Photoshop.ActionReference", { activate: true });
-
-    if (typeof(id) == "string") r.putName( app.charIDToTypeID( "Lyr " ), id);
-    else                        r.putIdentifier( app.charIDToTypeID( "Lyr " ), id);
-
-    d.putReference( app.charIDToTypeID( "null" ), r );
-
-    d.putBoolean( app.charIDToTypeID( "MkVs" ), viz );
-
-    if (add == true) d.putEnumerated( app.stringIDToTypeID( "selectionModifier" ), app.stringIDToTypeID( "selectionModifierType" ), app.stringIDToTypeID( "addToSelection" ) );
-    if (add == -1)   d.putEnumerated( app.stringIDToTypeID( "selectionModifier" ), app.stringIDToTypeID( "selectionModifierType" ), app.stringIDToTypeID( "removeFromSelection" ) );
-
-    var ok = true;
-
-    try { app.executeAction( app.charIDToTypeID( "slct" ), d); } 
-    catch(e) { 
-      console.log("execute === ", e)
-      ok = false; 
-    }
-
-    d = null;
-
-    return ok;
-  }
-  catch (e) {
-    console.log("select === ", e);
-  }
-}
 
 const saveInputImagefile =  async (imageData) => {
   try{
@@ -120,12 +66,109 @@ const saveInputImagefile =  async (imageData) => {
     //console.log(buffer);
     //console.log(imagePath)
     fs.writeFileSync(imagePath, buffer);
+    console.log(buffer)
     return true;
   } catch (err){
     return false;
   }
 }
     
+function loadCanvasFromFile(imageData, width, height) {
+  try{
+    const img = new Image();
+  
+    // Remove the data URL prefix to extract only the base64 data
+    const base64Data = imageData.replace(/^data:image\/jpeg;base64,/, '');
+
+    // Convert the base64 data to a buffer
+    const bufferData = Buffer.from(base64Data, 'base64');
+
+    //img.src = base64Data;
+    //console.log(imageData)
+    //console.log(bufferData)
+    img.src = bufferData;
+    
+    const canvas = createCanvas(width, height);
+    canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+    return canvas;
+  }
+  catch(err){
+    console.log(err)
+  }
+  // return new Promise((resolve, reject) => {
+  //   try {
+  //     const img = new Image();
+  //     //const base64Data = imageData.replace(/^data:image\/jpeg;base64,/, '');
+  //     img.onload = () => {
+  //       try {
+  //         const canvas = createCanvas(width, height);
+  //         canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+  //         resolve(canvas);
+  //       } catch (err) {
+  //         reject(err);
+  //       }
+  //     };
+  //     img.onerror = (err) => {
+  //       reject(err);
+  //     };
+  //     //img.src = 'data:image/jpeg;base64,' + base64Data;
+  //     img.src = fs.readFileSync(path.resolve(`1.jpg`));
+  //     //img.src = imageData;
+  //   } catch (err) {
+  //     reject(err);
+  //   }
+  // });
+}
+
+async function changeImageByNode(path, imageData) {
+  try{
+    const buffer = fs.readFileSync(path);
+
+    // read only document structure
+    const psd1 = readPsd(buffer, {});
+    
+    // const smart_object_layer = psd1.children.find((layer) => layer.name === "mm_img:Your Image");
+    // console.log(smart_object_layer)
+    let smart_object_layer;
+    //console.log(psd1)
+    if(psd1.children){
+      psd1.children.map((child, index)=>{
+        if(child.name && child.name==='mm_img:Your Image')  {smart_object_layer = child; return;}
+        
+        //console.log('each_child ===== ', index, child)
+        if(child.children) child.children.map((subchild) => {
+          if(subchild.name && subchild.name==='mm_img:Your Image')  {smart_object_layer = subchild; return;}
+        })
+      })
+    }else{
+      console.log(psd1);
+      return false;
+    }
+    //console.log(smart_object_layer);
+    const canvas1 = loadCanvasFromFile(imageData, smart_object_layer.right - smart_object_layer.left, smart_object_layer.bottom - smart_object_layer.top);
+    smart_object_layer.canvas = canvas1;
+    const new_buffer = writePsdBuffer(psd1, {});
+    
+    fs.writeFileSync('./mockupfiles/output_psd.psd', new_buffer);
+    
+    return true;
+  }catch(err){
+    console.log(err)
+    return false;
+  }
+}
+
+async function executePythonFile() {
+  try {
+    const { stdout, stderr } = await execAsync('python mockupfiles/123.py');
+    console.log(stdout);
+    console.log(stderr);
+    return true;
+  } catch (err) {
+    console.error(`Error executing the Python command: ${err}`);
+    return false;
+  }
+}
 
 export default replaceImage;
 

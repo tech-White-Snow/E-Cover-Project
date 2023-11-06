@@ -24,9 +24,9 @@ import CircularJSON from 'circular-json';
 import initializeCanvas from "ag-psd/initialize-canvas.js";
 import { group } from 'console';
 
-const AWS_ACCESS_KEY_ID = "AKIAVBHONSQBZMPWQAUF";
-const AWS_SECRET_ACCESS_KEY = "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";
-const BUCKET = "fadaimageupload";
+// const AWS_ACCESS_KEY_ID = "AKIAVBHONSQBZMPWQAUF";
+// const AWS_SECRET_ACCESS_KEY = "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";
+// const BUCKET = "fadaimageupload";
 
 // AWS.config.update({
 //   accessKeyId: AWS_ACCESS_KEY_ID,
@@ -316,6 +316,7 @@ router.post('/render-image', auth , async (req, res) => {
     //console.log(result, "-----")
     if(!(await result).ifSuccess) {
       res.json({ result: false, message: (await result).reason });
+      console.log(result.reason)
       return;
     }
     const changedMockup = await getImageFromPSD();
@@ -323,8 +324,10 @@ router.post('/render-image', auth , async (req, res) => {
     //console.log(changedMockup);
     if(changedMockup.success){
       res.json(changedMockup);
+      console.log("send imageData")
     }else{
       res.status(500).send('Server error');
+      console.log("cannot send")
     }
   } catch(err) {
     console.log("error ------", err.message);
@@ -336,8 +339,8 @@ router.post('/render-image', auth , async (req, res) => {
 const getImageFromPSD = async () =>{
   try{
 
-    const buffer_data = await fs.readFileSync('result_origin.png');
-    const files = await imagemin(['result_origin.png'], {
+    //const buffer_data = await fs.readFileSync('result_origin.png');
+    const files = await imagemin(['mockupfiles/result_origin.png'], {
       plugins: [
         // imageminJpegtran(),
         imageminPngquant({
