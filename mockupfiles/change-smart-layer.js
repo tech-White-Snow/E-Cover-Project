@@ -11,14 +11,6 @@ const execAsync = promisify(exec);
 // import * as path from "path";
 
 const replaceImage =  async (imageData, name) => {
-  // const ifSaved = await saveInputImagefile(imageData);
-  // if(!ifSaved) {
-  //   const value = {
-  //     ifSuccess: false,
-  //     reason: "Input imageData error."
-  //   } 
-  //   return value;
-  // }
   
   try {
     console.log(path.resolve(`mockupfiles/psd/${name}.psd`));
@@ -83,9 +75,6 @@ function loadCanvasFromFile(imageData, width, height) {
     // Convert the base64 data to a buffer
     const bufferData = Buffer.from(base64Data, 'base64');
 
-    //img.src = base64Data;
-    //console.log(imageData)
-    //console.log(bufferData)
     img.src = bufferData;
     
     const canvas = createCanvas(width, height);
@@ -95,29 +84,7 @@ function loadCanvasFromFile(imageData, width, height) {
   catch(err){
     console.log(err)
   }
-  // return new Promise((resolve, reject) => {
-  //   try {
-  //     const img = new Image();
-  //     //const base64Data = imageData.replace(/^data:image\/jpeg;base64,/, '');
-  //     img.onload = () => {
-  //       try {
-  //         const canvas = createCanvas(width, height);
-  //         canvas.getContext("2d").drawImage(img, 0, 0, width, height);
-  //         resolve(canvas);
-  //       } catch (err) {
-  //         reject(err);
-  //       }
-  //     };
-  //     img.onerror = (err) => {
-  //       reject(err);
-  //     };
-  //     //img.src = 'data:image/jpeg;base64,' + base64Data;
-  //     img.src = fs.readFileSync(path.resolve(`1.jpg`));
-  //     //img.src = imageData;
-  //   } catch (err) {
-  //     reject(err);
-  //   }
-  // });
+
 }
 
 async function changeImageByNode(path, imageData) {
@@ -172,8 +139,3 @@ async function executePythonFile() {
 
 export default replaceImage;
 
-// const output = fs.createWriteStream('1.txt');
-// import { Console } from "console";
-// const logger = new Console({ stdout: output });
-// logger.log(app);
-// output.end();
