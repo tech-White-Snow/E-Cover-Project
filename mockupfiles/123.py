@@ -19,7 +19,7 @@ def insert_image_into_psd(psd_file, output_file):
     except Exception as err:
         print(f"An error occurred: {err}")
 
-psd_file = "mockupfiles\\output_psd.psd"
+psd_file = "mockupfiles\output_psd.psd"
 output_file = "result_origin"
 
 insert_image_into_psd(psd_file, output_file)

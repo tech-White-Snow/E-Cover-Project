@@ -10,11 +10,11 @@ const execAsync = promisify(exec);
 // import * as util from "util";
 // import * as path from "path";
 
-const replaceImage =  async (imageData, name) => {
+const replaceImage =  async (rectImage, spineImage, name, ifSpin) => {
   
   try {
     console.log(path.resolve(`mockupfiles/psd/${name}.psd`));
-    const ifChanged = await changeImageByNode(path.resolve(`mockupfiles/psd/${name}.psd`), imageData);
+    const ifChanged = await changeImageByNode(path.resolve(`mockupfiles/psd/${name}.psd`), rectImage, spineImage);
     const ifExcuted = await executePythonFile();
 
     if(!ifChanged || !ifExcuted) {
@@ -70,7 +70,7 @@ function loadCanvasFromFile(imageData, width, height) {
     const img = new Image();
   
     // Remove the data URL prefix to extract only the base64 data
-    const base64Data = imageData.replace(/^data:image\/jpeg;base64,/, '');
+    const base64Data = imageData.replace(/^data:image\/png;base64,/, '');
 
     // Convert the base64 data to a buffer
     const bufferData = Buffer.from(base64Data, 'base64');
@@ -87,7 +87,7 @@ function loadCanvasFromFile(imageData, width, height) {
 
 }
 
-async function changeImageByNode(path, imageData) {
+async function changeImageByNode(path, rectImage, spineImage) {
   try{
     const buffer = fs.readFileSync(path);
 
@@ -96,24 +96,33 @@ async function changeImageByNode(path, imageData) {
     
     // const smart_object_layer = psd1.children.find((layer) => layer.name === "mm_img:Your Image");
     // console.log(smart_object_layer)
-    let smart_object_layer;
+    let smart_object_layer, spineLayer;
     //console.log(psd1)
     if(psd1.children){
       psd1.children.map((child, index)=>{
-        if(child.name && child.name==='mm_img:Your Image')  {smart_object_layer = child; return;}
+        if(child.name && child.name==='mm_img:Your Image')  {smart_object_layer = child; }
+        if(child.name && child.name==='mm_img:Spine')  {spineLayer = child; }
         
         //console.log('each_child ===== ', index, child)
         if(child.children) child.children.map((subchild) => {
-          if(subchild.name && subchild.name==='mm_img:Your Image')  {smart_object_layer = subchild; return;}
+          if(subchild.name && subchild.name==='mm_img:Your Image')  {smart_object_layer = subchild; }
+          if(subchild.name && subchild.name==='mm_img:Spine')  {spineLayer = subchild; }
         })
       })
     }else{
-      console.log(psd1);
+      console.log("error: wrong mockup psd file.");
       return false;
     }
     //console.log(smart_object_layer);
-    const canvas1 = loadCanvasFromFile(imageData, smart_object_layer.right - smart_object_layer.left, smart_object_layer.bottom - smart_object_layer.top);
+    //console.log(rectImage)
+    const canvas1 = loadCanvasFromFile(rectImage, smart_object_layer.right - smart_object_layer.left, smart_object_layer.bottom - smart_object_layer.top);
     smart_object_layer.canvas = canvas1;
+
+    if(spineLayer ) { 
+      const canvas2 = loadCanvasFromFile(spineImage, spineLayer.right - spineLayer.left, spineLayer.bottom - spineLayer.top);
+      spineLayer.canvas = canvas2;
+    }
+    
     const new_buffer = writePsdBuffer(psd1, {});
     
     fs.writeFileSync('./mockupfiles/output_psd.psd', new_buffer);

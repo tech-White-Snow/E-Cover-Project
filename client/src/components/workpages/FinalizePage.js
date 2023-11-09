@@ -9,12 +9,25 @@ import axios from 'axios';
 import { backendUrl } from "../../utils/Constant";
 import ImagePreview from "./subtools/ImagePreview";
 import Resizer from 'react-image-file-resizer';
-import { checkSignature } from "ag-psd/dist/psdReader";
+import getPerspectiveImage from './subtools/imageTransform';
 
 const FinalizePage = () => {
-    const {imageUrl, Selected, name, psdWidth, psdHeight} = useSelector(state=>state.workingMockup);
+    const {
+        imageUrl, 
+        Selected, 
+        name, 
+        psdWidth, 
+        psdHeight, 
+        spinWidth, 
+        ifSpin,
+        width,
+        height,
+        rectTransform,
+        spineTransform
+    } = useSelector(state=>state.workingMockup);
     
-    const [mockupImage, setMockupImage] = useState();
+    // const [rectImage1, setRectImage] = useState(null);
+    // const [spineImage1, setSpineImage] = useState(null);
     const [renderedImage, setRenderedImage] = useState(null);
     const [rendered, setRendered] = useState(false);
     const [changedImage, setChangedImage] = useState({
@@ -85,23 +98,35 @@ const FinalizePage = () => {
         return new File([blob], filename, { type: mime });
     }
 
-    const render = async () =>{
+    const render = () => {
+        rendering();
+    }
+    const rendering = async () =>{
         try{
             dispatch(render_start());
             setIsImg(false);
             const imageData = changedImage.img;
             //console.log(imageData)
             console.log('Origin Image Size:', imageData.length, 'bytes');
-            const config = {
-                headers: {
-                'Content-Type': 'application/json',
-                },
-            };
-            const body = JSON.stringify({ imageData });
+            // const config = {
+            //     headers: {
+            //     'Content-Type': 'application/json',
+            //     },
+            // };
+            // const body = JSON.stringify({ imageData });
             //console.log(body);
-            const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {imageData, name});
+            let spineImage, rectImage;
+            if(ifSpin){
+                spineImage = await getPerspectiveImage(imageData, width, 0, spinWidth, height, spineTransform);
+                rectImage = await getPerspectiveImage(imageData, width, spinWidth, width, height, rectTransform);
+            }
+            else rectImage = await getPerspectiveImage(imageData, width, 0, width, height, rectTransform);
+            //console.log(rectImage);
+            // setSpineImage(spineImage);
+            // setRectImage(rectImage);
+            const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {spineImage, rectImage, name, ifSpin});
             
-            //console.log(res.data.imageData);
+            console.log(res.data);
             // const base64ImageData = `data:image/png;base64,${res.data.imageData}`;
         
             console.log('Rendered Image Size:', res.data.imageData.length, 'bytes');
@@ -207,20 +232,20 @@ const FinalizePage = () => {
     const save = (
         <div className="save-image">  
            <div style = {{width: '80%', margin: 'auto', marginTop: '40px'}}>
-                        <Slider
-                            padding="0px"
-                            value={valueSlider}
-                            defaultValue={1}
-                            min={0.5}
-                            step={0.1}
-                            max={2}
-                            // scale={calculateValue}
-                            getAriaValueText={valueLabelFormat}
-                            valueLabelFormat={valueLabelFormat}
-                            onChange={handleSliderChange}
-                            valueLabelDisplay="on"
-                        />
-                    </div>
+                <Slider
+                    padding="0px"
+                    value={valueSlider}
+                    defaultValue={1}
+                    min={0.5}
+                    step={0.1}
+                    max={2}
+                    // scale={calculateValue}
+                    getAriaValueText={valueLabelFormat}
+                    valueLabelFormat={valueLabelFormat}
+                    onChange={handleSliderChange}
+                    valueLabelDisplay="on"
+                />
+            </div>
             <Button
                 variant="contained" 
                 color="success"
@@ -290,8 +315,10 @@ const FinalizePage = () => {
                         onClick={render}
                     >Render Mockup</Button>
                     {rendered && isImg ? save : ""}
-                    
-                </div>
+
+                    {/* <img src = {rectImage1} style = {{maxWidth: '150px'}}></img>
+                    // <img src = {spineImage1} style = {{maxWidth: '150px'}}></img> */}
+                </div>                
             </div>
         </div>
     )

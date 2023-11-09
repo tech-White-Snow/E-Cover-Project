@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import  {selectMockUp, selectingMockup}  from "../../../actions/mockups";
-import axios from "axios";
-import { backendUrl } from "../../../utils/Constant";
-import mockupsImage from '../../../img/mockups.jpg';
+import  { selectingMockup}  from "../../../actions/mockups";
 import { PUBLIC_URL } from "../../../utils/Constant";
 
 const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
@@ -15,6 +12,8 @@ const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
       height: mockupData.height,
       psdWidth: mockupData.psdWidth,
       psdHeight: mockupData.psdHeight,
+      rectTransform: mockupData.rectTransform,
+      spineTransform: mockupData.spineTransform,
     });
     const [spin, setSpin] = useState({
       ifSpin: mockupData.ifSpin,
@@ -88,6 +87,8 @@ const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
           ifSpin: spin.ifSpin,
           spinWidth: spin.spinWidth,
           imageUrl: url,
+          rectTransform: size.rectTransform,
+          spineTransform: size.spineTransform,
           editImage: createWhiteImage(size.width, size.height)
         }
         

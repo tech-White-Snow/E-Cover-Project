@@ -93,37 +93,51 @@ const getMockupData = async (filename) => {
     const psdWidth = psd_data.width;
     const psdHeight = psd_data.height;
 
-    let width, height, spin_width, ifSpin = false;
-    if(psd_data.linkedFiles) {
-      let psb_data;
-      //console.log(psd_data.linkedFiles)
-      psd_data.linkedFiles.map((linked, index)=>{
-        if(typeof linked.name === 'string' && linked.name.includes('Rectangle')) 
-          psb_data = linked.data;
+    let width, height, spin_width=0, ifSpin = false;
+    //console.log(psd_data.linkedFiles)
+    let spine, rect, rectTransform, spineTransform;
+    if(psd_data.children){
+      psd_data.children.map((child, index)=>{
+        if(child.name && child.name==='mm_img:Your Image')  {rect = child;}
+        if(child.name && child.name==='mm_img:Spine')  {spine = child;}
+        //console.log('each_child ===== ', index, child)
+        if(child.children) child.children.map((subchild) => {
+          if(subchild.name && subchild.name==='mm_img:Your Image')  {rect = subchild;}
+          if(subchild.name && subchild.name==='mm_img:Spine')  {spine = subchild;}
+        })
       })
-      if(psb_data){
-        const psb = readPsd(psb_data);
-        width = psb.width;
-        height = psb.height;
-        if(psb.children){
-          psb.children.map((child, index)=>{
-            if(child.name == "Spin") {
-              ifSpin = true;
-              spin_width = child.right - child.left;
-            }
-          })
-        }
-      }
     }
+    if(rect){
+      width = rect.placedLayer.width;
+      height = rect.placedLayer.height;
+      rectTransform = {
+        transform: rect.placedLayer.transform,
+        perTransform: rect.placedLayer.nonAffineTransform,
+        layerWidth: rect.right - rect.left,
+        layerHeight: rect.bottom - rect.top
+      };
+    }
+    if(spine){
+      spin_width = spine.placedLayer.width;
+      ifSpin = true;
+      spineTransform = {
+        transform: spine.placedLayer.transform,
+        perTransform: spine.placedLayer.nonAffineTransform,
+        layerWidth: spine.right - spine.left,
+        layerHeight: spine.bottom - spine.top
+      };
+    }      
 
     const resData = {
       success: true,
-      width: width,
+      width: width+spin_width,
       height: height,
       psdWidth: psdWidth,
       psdHeight: psdHeight,
       ifSpin: ifSpin,
       spinWidth: spin_width,
+      rectTransform,
+      spineTransform,
       // thumbnail: psd_data.canvas.toDataURL(),
       //thumbnail: Buffer.from(imageData).toString('base64')                              
     };
@@ -167,32 +181,33 @@ router.get('/mockup/:mockup', async (req, res) => {
     const psdWidth = psd_data.width;
     const psdHeight = psd_data.height;
 
-    let width, height, spin_width, ifSpin = false;
+    let width, height, spin_width=0, ifSpin = false;
     if(psd_data.linkedFiles) {
       let psb_data;
+      let psb_spine;
       //console.log(psd_data.linkedFiles)
       psd_data.linkedFiles.map((linked, index)=>{
         if(typeof linked.name === 'string' && linked.name.includes('Rectangle')) 
           psb_data = linked.data;
+        if(typeof linked.name === 'string' && linked.name.includes('Spine')) 
+          psb_spine = linked.data;
       })
       if(psb_data){
         const psb = readPsd(psb_data);
         width = psb.width;
         height = psb.height;
-        if(psb.children){
-          psb.children.map((child, index)=>{
-            if(child.name == "Spin") {
-              ifSpin = true;
-              spin_width = child.right - child.left;
-            }
-          })
-        }
+      }
+      if(psb_spine){
+        const spine = readPsd(psb_spine);
+        spin_width = spine.width;
+        ifSpin = true;
       }
     }
 
+    console.log(width, spin_width);
     const resData = {
       success: true,
-      width: width,
+      width: width+spin_width,
       height: height,
       psdWidth: psdWidth,
       psdHeight: psdHeight,
@@ -263,7 +278,7 @@ router.post('/upload-image', auth , uploadImage.single('file'), async (req, res)
   // console.log(fileStream );
   // const s3params = {
   //   Bucket: BUCKET,
-  //   Key: image.originalname,
+  //   Key: image.layeralname,
   //   Body: fileStream,
   // };
   // s3Content.upload(s3params, async function(err, data) {
@@ -288,7 +303,6 @@ router.get('/all-upload-image', auth, async (req, res) => {
   const user = await User.findById(userID);
   res.json(user.images);
   //  const imagesData = [];
-
   // user.images.forEach( async (image, index) => {
   //   await request({ url: image.url, encoding: null }, (error, response, body) => {
   //     if (!error && response.statusCode === 200) {
@@ -310,9 +324,9 @@ router.get('/all-upload-image', auth, async (req, res) => {
 router.post('/render-image', auth , async (req, res) => {
   try {
     // const {imageData, group, filename} = req.body;
-    const {imageData, name} = req.body;
+    const {rectImage, spineImage, name, ifSpin} = req.body;
     console.log(" ----- ", name);
-    const result = await replacedImage(imageData, name);
+    const result = await replacedImage(rectImage, spineImage, name, ifSpin);
     //console.log(result, "-----")
     if(!(await result).ifSuccess) {
       res.json({ result: false, message: (await result).reason });
@@ -339,7 +353,7 @@ router.post('/render-image', auth , async (req, res) => {
 const getImageFromPSD = async () =>{
   try{
 
-    //const buffer_data = await fs.readFileSync('result_origin.png');
+    //const buffer_data = await fs.readFileSync('result_layer.png');
     const files = await imagemin(['mockupfiles/result_origin.png'], {
       plugins: [
         // imageminJpegtran(),
