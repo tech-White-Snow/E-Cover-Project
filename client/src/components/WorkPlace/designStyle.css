@@ -90,6 +90,7 @@
     transition-duration: 400ms;
 }
 .show-finalizepage {
+    overflow: auto;
     width: 400px;
     height: 87.3vh;
     background-color: #d6d6d6;
