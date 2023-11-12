@@ -1,3 +1,6 @@
 node_modules/
 client/node_modules/
 upload/
+client/src/utils/Constant.js
+mockupfiles/output_psd.psd
+mockupfiles/result_origin.png
