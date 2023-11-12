@@ -126,7 +126,7 @@ const FinalizePage = () => {
             // setRectImage(rectImage);
             const res = await axios.post(`${backendUrl}/api/ag-psd/render-image`, {spineImage, rectImage, name, ifSpin});
             
-            console.log(res.data);
+            //console.log(res.data);
             // const base64ImageData = `data:image/png;base64,${res.data.imageData}`;
         
             console.log('Rendered Image Size:', res.data.imageData.length, 'bytes');

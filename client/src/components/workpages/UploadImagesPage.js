@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadImage, getUploadImages } from "../../actions/uploadImage";
+import { uploadImage } from "../../actions/uploadImage";
 import UploadImageCard from "./subtools/UploadImageCard";
 import Spinner from "../layout/Spinner";
 
@@ -16,7 +16,6 @@ const UploadImagesPage = ({setBgImageSelected, setUploadImagesSelected, setBackg
 
     // }
     const {urls} = useSelector(state => state.uploadImage);
-    const {url} = useSelector(state => state.uploadImage);
     const {loading} = useSelector(state => state.uploadImage);
        
     return (

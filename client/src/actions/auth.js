@@ -81,7 +81,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     dispatch(loadUser());
-    dispatch(getUploadImages());    
+    //dispatch(getUploadImages());    
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

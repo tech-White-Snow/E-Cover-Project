@@ -20,10 +20,14 @@ export const getUploadImages = () => async (dispatch) => {
   dispatch({
     type: UPLOAD_IMAGE_LOADING
   });
-  const res = await axios.get(`${backendUrl}/api/ag-psd/all-upload-image`);
-  //console.log(res.data);
-  dispatch({
-    type: GET_UPLOAD_IMAGES,
-    payload: res.data
-  });
+  try{
+    const res = await axios.get(`${backendUrl}/api/ag-psd/all-upload-image`);
+    //console.log(res.data);
+    dispatch({
+      type: GET_UPLOAD_IMAGES,
+      payload: res.data
+    });
+  }catch(err){
+    console.log(err)
+  }
 }

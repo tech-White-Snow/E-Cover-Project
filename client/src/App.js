@@ -12,7 +12,9 @@ import DashBoard from './components/dashboard/Dashboard';
 
 // Redux
 import { Provider } from 'react-redux';
-import store from './store';
+import {persistor, store} from './store';
+import { PersistGate } from 'redux-persist/integration/react';
+
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
@@ -26,24 +28,24 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
-  
-
 
 
   return (
     <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Landing />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/dashboard' element={<DashBoard />} />
-            <Route path='/create-cover' element={<CreateCover />} />
-          </Routes>
-        </Fragment>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <Fragment>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<Landing />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/dashboard' element={<DashBoard />} />
+              <Route path='/create-cover' element={<CreateCover />} />
+            </Routes>
+          </Fragment>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 };

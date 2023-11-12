@@ -1,16 +1,16 @@
 import express from 'express';
 const router = express.Router();
-import axios from 'axios';
+//import axios from 'axios';
 //import sharp from 'sharp';
 import multer from 'multer';
 // import AWS from 'aws-sdk';
 import fs from 'fs';
 import auth from '../../middleware/auth.js';
 import User from '../../models/User.js';
-import path from 'path';
-import request from 'request';
+//import path from 'path';
+//import request from 'request';
 import replacedImage from '../../mockupfiles/change-smart-layer.js';
-import { writePsdBuffer, readPsd } from 'ag-psd';
+import { readPsd } from 'ag-psd';
 //import { createCanvas, Image } from 'canvas';
 //import imageminJpegtran from 'imagemin-jpegtran';
 import imagemin  from 'imagemin';
@@ -19,10 +19,10 @@ import imageminPngquant from 'imagemin-pngquant';
 // import imageminPngquant from 'imagemin-pngquant');
 
 
-import CircularJSON from 'circular-json';
+//import CircularJSON from 'circular-json';
 
 import initializeCanvas from "ag-psd/initialize-canvas.js";
-import { group } from 'console';
+//import { group } from 'console';
 
 // const AWS_ACCESS_KEY_ID = "AKIAVBHONSQBZMPWQAUF";
 // const AWS_SECRET_ACCESS_KEY = "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";

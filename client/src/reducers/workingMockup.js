@@ -11,9 +11,8 @@ function workingMockup(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case LOADING_MOCKUP :
-        return {...state, loading: true}
-    case LOADING_MOCKUP :
-        return {...state, rendered: true}
+        return {...state, loading: true, rendered: true}
+   
     case SELECT_MOCKUP :
         return {
           loading: false,

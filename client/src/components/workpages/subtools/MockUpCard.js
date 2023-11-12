@@ -105,7 +105,8 @@ const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
         <div >
             <img 
                 className = {ClassName}
-                src = {url} 
+                //src = {`https://fadaimageupload.s3.amazonaws.com/${mockup}.png`} 
+                src = {url}
                 alt="testimg" 
                 width={300} 
                 //height={200}  

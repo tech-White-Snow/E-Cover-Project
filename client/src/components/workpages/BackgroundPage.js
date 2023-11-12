@@ -25,7 +25,6 @@ const BackgroundPage = ({setBgImageSelected, setBackgroundSelected, setUploadIma
             document.getElementById('select-bg-class-stock').style.backgroundColor = '#525454';
             document.getElementById('select-bg-class-upload').style.backgroundColor = '#00baad';
         }
-        
     }
 
     useEffect(() => {
@@ -96,7 +95,7 @@ const BackgroundPage = ({setBgImageSelected, setBackgroundSelected, setUploadIma
             <div id="pick-color-board">
                 <input type="color" className="color-card-custom" onChange={e => setCustomColor(e.target.value)} />
                 <ColorCard color={customColor} setBgImageSelected={setBgImageSelected} setBackgroundSelected={setBackgroundSelected} />
-                {colors.map(color => <ColorCard color={color} setBgImageSelected={setBgImageSelected} setBackgroundSelected={setBackgroundSelected} />)}
+                {colors.map((color, key) => <ColorCard key={key} color={color} setBgImageSelected={setBgImageSelected} setBackgroundSelected={setBackgroundSelected} />)}
             </div>
             <div className="select-bg-class">
                 <div id="select-bg-class-library" onClick={bgFromLibrary}>LIBRARY</div>

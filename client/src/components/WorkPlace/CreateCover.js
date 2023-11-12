@@ -28,8 +28,12 @@ const CreateCover = () => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(getUploadImages());
-    dispatch(setMockupData(mockups));
+    try{
+      dispatch(getUploadImages());
+      dispatch(setMockupData(mockups));
+    }catch(err){
+      console.log(err);
+    }
     //console.log("_________+++++++++");
   },[]);
 
@@ -319,13 +323,13 @@ const CreateCover = () => {
       </div>
       <div className='flex h-full'>
         <div className='flex-col text-white left-toolbar'>
-          <div className='myicons justify-center text-center items-center' onClick={myCoversClicked}>
+          <div key={0} className='myicons justify-center text-center items-center' onClick={myCoversClicked}>
             <img src={mycoverImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='mycovers' />
             <small className='text-sky-600'>
               My Covers
             </small>
           </div>
-          <div className='myicons justify-center text-center items-center' onClick={mockupsClicked}>
+          <div key={1} className='myicons justify-center text-center items-center' onClick={mockupsClicked}>
             {/* <img src='https://app.myecovermaker.com/app/images/icons/mockups.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' /> */}
             <img src={mockupsImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='mockups' />
             <small className='text-sky-600'>
@@ -362,14 +366,14 @@ const CreateCover = () => {
               Stock Images
             </small>
           </div> */}
-          <div className='myicons justify-center text-center items-center' onClick={uploadImagesClicked}>
+          <div key={2} className='myicons justify-center text-center items-center' onClick={uploadImagesClicked}>
             {/* <img src='https://app.myecovermaker.com/app/images/icons/upload.png' style={{width: '35px', height: '35px', marginLeft: '30px'}} alt='mycovers' /> */}
             <img src={uploadImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='uploadimage' />
             <small className='text-sky-600'>
               Upload Images to Gallery
             </small>
           </div>
-          <div className='myicons justify-center text-center items-center' onClick={finalizeClicked}>
+          <div key={3} className='myicons justify-center text-center items-center' onClick={finalizeClicked}>
             {/* <img src='https://app.myecovermaker.com/app/images/icons/finalize.png' style={{width: '45px', height: '35px', marginLeft: '25px'}} alt='mycovers' /> */}
             <img src={finalizeImage} style={{width: '50px', height: '50px', marginLeft: '30px', borderRadius: '25px'}} alt='finalize' />
             <small className='text-sky-600'>

@@ -1,6 +1,8 @@
 import { SET_MOCKUPDATA } from '../actions/types';
 
-const initialState = [];
+const initialState = [
+  JSON.parse(localStorage.getItem("persist:ecover")).mockUpData
+];
 
 function mockUpData(state = initialState, action) {
   const { type, payload } = action;
