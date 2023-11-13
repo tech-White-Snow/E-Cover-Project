@@ -5,7 +5,6 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import Alert from './components/layout/Alert';
 import CreateCover from './components/WorkPlace/CreateCover';
 import DashBoard from './components/dashboard/Dashboard';
 
@@ -17,6 +16,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import Mycovers from './components/mycovers/Mycovers';
+import Mockups from './components/mockups/Mockups';
 
 //import logo from './logo.svg';
 
@@ -42,6 +43,8 @@ const App = () => {
               <Route path='/login' element={<Login />} />
               <Route path='/dashboard' element={<DashBoard />} />
               <Route path='/create-cover' element={<CreateCover />} />
+              <Route path='/mycovers' element={<Mycovers />} />
+              <Route path='/mockups' element={<Mockups />} />
             </Routes>
           </Fragment>
         </Router>

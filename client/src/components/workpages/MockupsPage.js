@@ -32,14 +32,13 @@ const MockupsPage = ({setMockupsSelected}) => {
             <div className="bg-library-page-body p-1">
                 { mockUpData.map((group, key) => {
                     return( 
-                        <div style={{ marginTop: '20px' }} key = {key}>
+                        <div style={{ marginTop: '20px' }}  key = {key}>
                         <Divider className="divider" textAlign="left">Mockup Group - {group.group}</Divider>
                         <div className="mockupGroup">
                         {group.mockups.map((mockup, key) => {
                             return (
-                                <div>
+                                <div  key = {key}>
                                     <MockUpCard 
-                                        key={key}
                                         mockup={mockup}
                                         mockupData={group.data[key]} 
                                         setMockupsSelected={setMockupsSelected} />

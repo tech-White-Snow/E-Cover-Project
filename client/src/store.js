@@ -30,6 +30,7 @@ import { persistReducer, persistStore } from "redux-persist";
 const rootPersistConfig = {
   key: "ecover",
   storage,
+  blacklist: ['uploadImage', 'editedImage', 'workingMockup.editImage'],
 };
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

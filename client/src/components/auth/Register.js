@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
@@ -13,6 +13,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password: '',
     password2: '',
   });
+  const alert = useSelector(state=>state.alert);
 
   const { name, email, password, password2 } = formData;
   const onChange = (e) =>
@@ -81,6 +82,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       </form>
       <p className='my-1'>
         Already have an account? <Link to='/login'>Login</Link>
+      </p>
+      <p style = {{color: 'red'}}>
+        {alert? alert.msg: ''}
       </p>
       </div>
     </Fragment>

@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import  {selectBackground}  from "../../../actions/background";
 
-const UploadImageCard = ({url, setBgImageSelected, setUploadImagesSelected,setBackgroundSelected, index}) => {
+const UploadImageCard = ({url, setBgImageSelected, setUploadImagesSelected, setBackgroundSelected}) => {
     
     const dispatch = useDispatch()
     const onClick = () => {

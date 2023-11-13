@@ -15,7 +15,8 @@ import User from '../../models/User.js';
 router.get('/', auth, async (req, res) => {
   try {
     console.log('Auth---')
-    const user = await User.findById(req.user.id).select('-password');
+    let user = await User.findById(req.user.id).select('-password');
+    user.images = [];
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -35,7 +36,7 @@ router.post(
   ],
 
   async (req, res) => {
-    console.log('asdf')
+    //console.log('asdf')
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });

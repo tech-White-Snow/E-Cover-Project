@@ -81,6 +81,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     dispatch(loadUser());
+
     //dispatch(getUploadImages());    
   } catch (err) {
     const errors = err.response.data.errors;
@@ -88,6 +89,7 @@ export const login = (email, password) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({ type: LOGIN_FAIL });
+
   }
 };
 
@@ -96,4 +98,5 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
+  localStorage.removeItem('token');
 };

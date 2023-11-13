@@ -1,15 +1,17 @@
 import React, { Fragment, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
-import './container.css'
+
+import Alert from '../layout/Alert';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const alert = useSelector(state=>state.alert);
 
   const { email, password } = formData;
   const onChange = (e) =>
@@ -26,6 +28,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
   return (
     <Fragment>
+      <Alert />
       <div className='container'>
       <h1 className='large text-primary'>Login</h1>
       <p className='lead'>
@@ -54,6 +57,9 @@ const Login = ({ login, isAuthenticated }) => {
       </form>
       <p className='my-1'>
         Don't have an account? <Link to='/register'>Sign Up</Link>
+      </p>
+      <p style = {{color: 'red'}}>
+        {alert? alert.msg: ''}
       </p>
       </div>
     </Fragment>

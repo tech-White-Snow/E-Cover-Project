@@ -162,17 +162,21 @@ const CreateCover = () => {
     setFinalizeSelected(!finalizeSelected);
     setBackgroundSelected(false);
     dispatch(getEditedImage());
-   
-    const div = document.querySelector('.FIE_text-tool-button');
 
-    //console.log(div); 
-    // Trigger the click event
-    const event = new MouseEvent('click', {
-      'view': window,
-      'bubbles': true,
-      'cancelable': true
-    });
-    if(div) div.dispatchEvent(event);
+    console.log(finalizeSelected)
+    if(finalizeSelected){
+    
+      const div = document.querySelector('.FIE_text-tool-button');
+
+      //console.log(div); 
+      // Trigger the click event
+      const event = new MouseEvent('click', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': true
+      });
+      if(div) div.dispatchEvent(event);
+    }
   }
 
   //Select Attributes
@@ -186,7 +190,7 @@ const CreateCover = () => {
 
   //Create default page
   const defaultPage = (
-    <DefaultPage bgImageSelected={bgImageSelected} />
+    <DefaultPage bgImageSelected={bgImageSelected}/>
   )
 
   //Create My Cover Page

@@ -111,7 +111,6 @@ const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
                 width={300} 
                 //height={200}  
                 onClick={onClick}
-                backgroundColor={"#dedede"}
             />
         </div>
     )

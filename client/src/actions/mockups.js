@@ -31,9 +31,7 @@ export const selectingMockup = (data) => (dispatch) =>{
 
 export const setMockupData = (mockups) => async (dispatch) => {
   try{
-    console.log("11")
     const res = await axios.post(`${backendUrl}/api/ag-psd/all-mockup`, {mockups});
-    console.log("dd");
     dispatch({
       type: SET_MOCKUPDATA,
       payload: res.data
