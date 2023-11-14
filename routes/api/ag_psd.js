@@ -15,6 +15,7 @@ import { readPsd } from 'ag-psd';
 //import imageminJpegtran from 'imagemin-jpegtran';
 import imagemin  from 'imagemin';
 import imageminPngquant from 'imagemin-pngquant';
+import MockupData from '../../models/MockupData.js';
 // import imagemin =  require('imagemin');
 // import imageminPngquant from 'imagemin-pngquant');
 
@@ -65,90 +66,90 @@ router.post('/bg-info', async (req, res) => {
 
 
 router.post('/all-mockup', async(req, res)=>{ 
-  let resData = []; 
-  for (let group of req.body.mockups) {
-    let group1 = {
-      group: group.group,
-      mockups: group.mockups,
-      data: []
-    };
-    let data1 = [];
-    for (let filename of group.mockups) { 
-      data1.push(await getMockupData(filename));
-      //resData.push(await getMockupData(filename)); 
-    }
-    group1.data = data1;
-    resData.push(group1);
-  } 
-  //console.log(resData);
+  // let resData = []; 
+  // for (let group of req.body.mockups) {
+  //   let group1 = {
+  //     group: group.group,
+  //     mockups: group.mockups,
+  //     data: []
+  //   };
+  //   let data1 = [];
+  //   for (let filename of group.mockups) { 
+  //     data1.push(await getMockupData(filename));
+  //     //resData.push(await getMockupData(filename)); 
+  //   }
+  //   group1.data = data1;
+  //   resData.push(group1);
+  // } 
+  const resData = await MockupData.find({});
   res.json(resData);
 });
 
-const getMockupData = async (filename) => {
-  try{
-    const buffer_data = await fs.readFileSync(`mockupfiles/psd/${filename}.psd`);
-    const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
-    //console.log("get psd image --- ", psd_data.imageResources)
+// const getMockupData = async (filename) => {
+//   try{
+//     const buffer_data = await fs.readFileSync(`mockupfiles/psd/${filename}.psd`);
+//     const psd_data = await readPsd(buffer_data, {skipThumbnail: false});
+//     //console.log("get psd image --- ", psd_data.imageResources)
 
-    const psdWidth = psd_data.width;
-    const psdHeight = psd_data.height;
+//     const psdWidth = psd_data.width;
+//     const psdHeight = psd_data.height;
 
-    let width, height, spin_width=0, ifSpin = false;
-    //console.log(psd_data.linkedFiles)
-    let spine, rect, rectTransform, spineTransform;
-    if(psd_data.children){
-      psd_data.children.map((child, index)=>{
-        if(child.name && child.name==='mm_img:Your Image')  {rect = child;}
-        if(child.name && child.name==='mm_img:Spine')  {spine = child;}
-        //console.log('each_child ===== ', index, child)
-        if(child.children) child.children.map((subchild) => {
-          if(subchild.name && subchild.name==='mm_img:Your Image')  {rect = subchild;}
-          if(subchild.name && subchild.name==='mm_img:Spine')  {spine = subchild;}
-        })
-      })
-    }
-    if(rect){
-      width = rect.placedLayer.width;
-      height = rect.placedLayer.height;
-      rectTransform = {
-        transform: rect.placedLayer.transform,
-        perTransform: rect.placedLayer.nonAffineTransform,
-        layerWidth: rect.right - rect.left,
-        layerHeight: rect.bottom - rect.top
-      };
-    }
-    if(spine){
-      spin_width = spine.placedLayer.width;
-      ifSpin = true;
-      spineTransform = {
-        transform: spine.placedLayer.transform,
-        perTransform: spine.placedLayer.nonAffineTransform,
-        layerWidth: spine.right - spine.left,
-        layerHeight: spine.bottom - spine.top
-      };
-    }      
+//     let width, height, spin_width=0, ifSpin = false;
+//     //console.log(psd_data.linkedFiles)
+//     let spine, rect, rectTransform, spineTransform;
+//     if(psd_data.children){
+//       psd_data.children.map((child, index)=>{
+//         if(child.name && child.name==='mm_img:Your Image')  {rect = child;}
+//         if(child.name && child.name==='mm_img:Spine')  {spine = child;}
+//         //console.log('each_child ===== ', index, child)
+//         if(child.children) child.children.map((subchild) => {
+//           if(subchild.name && subchild.name==='mm_img:Your Image')  {rect = subchild;}
+//           if(subchild.name && subchild.name==='mm_img:Spine')  {spine = subchild;}
+//         })
+//       })
+//     }
+//     if(rect){
+//       width = rect.placedLayer.width;
+//       height = rect.placedLayer.height;
+//       rectTransform = {
+//         transform: rect.placedLayer.transform,
+//         perTransform: rect.placedLayer.nonAffineTransform,
+//         layerWidth: rect.right - rect.left,
+//         layerHeight: rect.bottom - rect.top
+//       };
+//     }
+//     if(spine){
+//       spin_width = spine.placedLayer.width;
+//       ifSpin = true;
+//       spineTransform = {
+//         transform: spine.placedLayer.transform,
+//         perTransform: spine.placedLayer.nonAffineTransform,
+//         layerWidth: spine.right - spine.left,
+//         layerHeight: spine.bottom - spine.top
+//       };
+//     }      
 
-    const resData = {
-      success: true,
-      width: width+spin_width,
-      height: height,
-      psdWidth: psdWidth,
-      psdHeight: psdHeight,
-      ifSpin: ifSpin,
-      spinWidth: spin_width,
-      rectTransform,
-      spineTransform,
-      // thumbnail: psd_data.canvas.toDataURL(),
-      //thumbnail: Buffer.from(imageData).toString('base64')                              
-    };
+//     const resData = {
+//       success: true,
+//       width: width+spin_width,
+//       height: height,
+//       psdWidth: psdWidth,
+//       psdHeight: psdHeight,
+//       ifSpin: ifSpin,
+//       spinWidth: spin_width,
+//       rectTransform,
+//       spineTransform,
+//       // thumbnail: psd_data.canvas.toDataURL(),
+//       //thumbnail: Buffer.from(imageData).toString('base64')                              
+//     };
 
-    //console.log("----   ", resData);
-    return resData;
-  } catch (err){
-    console.log("error ------", err.message);
-    return null;
-  }
-}
+//     //console.log("----   ", resData);
+//     return resData;
+//   } catch (err){
+//     console.log("error ------", err.message);
+//     return null;
+//   }
+// }
 
 router.get('/mockup/:mockup', async (req, res) => {
   const filename = req.params.mockup;

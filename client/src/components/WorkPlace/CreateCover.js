@@ -163,8 +163,8 @@ const CreateCover = () => {
     setBackgroundSelected(false);
     dispatch(getEditedImage());
 
-    console.log(finalizeSelected)
-    if(finalizeSelected){
+    //console.log(finalizeSelected)
+    //if(!finalizeSelected){
     
       const div = document.querySelector('.FIE_text-tool-button');
 
@@ -176,7 +176,7 @@ const CreateCover = () => {
         'cancelable': true
       });
       if(div) div.dispatchEvent(event);
-    }
+   // }
   }
 
   //Select Attributes

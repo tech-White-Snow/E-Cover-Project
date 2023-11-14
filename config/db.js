@@ -1,5 +1,8 @@
 import mongoose  from 'mongoose'
 import config    from 'config'
+import MockupData from '../models/MockupData.js';
+import Mockups from './mockups.js';
+
 const db = config.get('mongoURI')
 
 const connectDB = async () => {
@@ -15,6 +18,9 @@ const connectDB = async () => {
 
     console.log('MongoDB connected')
 
+    await MockupData.deleteMany({});
+    await MockupData.create(Mockups);
+  
   } catch (err) {
 
     console.error(err.message)

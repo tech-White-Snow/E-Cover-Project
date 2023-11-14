@@ -91,10 +91,7 @@ const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
           spineTransform: size.spineTransform,
           editImage: createWhiteImage(size.width, size.height)
         }
-        
-          //console.log(createWhiteImage(width, height))
-      
-        //localStorage.setItem('selectedMockup', JSON.stringify(selectedMockup));
+
         dispatch(selectingMockup(selectedMockup));
     }
 

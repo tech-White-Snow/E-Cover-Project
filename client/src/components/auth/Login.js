@@ -4,8 +4,6 @@ import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 
-import Alert from '../layout/Alert';
-
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -28,7 +26,6 @@ const Login = ({ login, isAuthenticated }) => {
   }
   return (
     <Fragment>
-      <Alert />
       <div className='container'>
       <h1 className='large text-primary'>Login</h1>
       <p className='lead'>
