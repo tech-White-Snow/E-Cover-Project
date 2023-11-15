@@ -326,6 +326,7 @@ router.post('/render-image', auth , async (req, res) => {
   try {
     // const {imageData, group, filename} = req.body;
     const {rectImage, spineImage, name, ifSpin} = req.body;
+
     console.log(" ----- ", name);
     const result = await replacedImage(rectImage, spineImage, name, ifSpin);
     //console.log(result, "-----")

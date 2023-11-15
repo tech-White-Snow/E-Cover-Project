@@ -3,9 +3,8 @@ import Perspective from 'perspectivejs';
 const getPerspectiveImage = async (imageData, width, start, end, height, transform) => {
   try {
     const image = await getTransformedImage(imageData, start, end, height, transform);
-    // console.log(image);
-
-    if (!transform.perTransform) {
+    
+    if (!transform.perTransform.length) {
       console.log("No transform");
       return image;
     }
