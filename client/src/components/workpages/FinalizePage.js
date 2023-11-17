@@ -316,8 +316,8 @@ const FinalizePage = () => {
                     >Render Mockup</Button>
                     {rendered && isImg ? save : ""}
 
-                    {/* <img src = {rectImage1} style = {{maxWidth: '150px'}}></img>
-                    // <img src = {spineImage1} style = {{maxWidth: '150px'}}></img> */}
+                    {/* <img src = "https://m.aplus.io/u/378231/ig7mm.jpg" style = {{maxWidth: '150px'}}></img> */}
+                    {/* <img src = {spineImage1} style = {{maxWidth: '150px'}}></img> */}
                 </div>                
             </div>
         </div>
