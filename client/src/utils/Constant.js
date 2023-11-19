@@ -1,5 +1,5 @@
-export const backendUrl = "http://localhost:5000";
-export const PUBLIC_URL = "http://localhost:3000";
+export const backendUrl = "http://108.163.159.66:5000";
+export const PUBLIC_URL = "http://108.163.159.66:3000";
 
 export const mockups = [
     {
