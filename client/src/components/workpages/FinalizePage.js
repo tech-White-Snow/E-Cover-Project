@@ -139,9 +139,40 @@ const FinalizePage = () => {
         }
     }
 
+    const getWhiteBackgroundImage = (imageData) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = `data:image/jpeg;base64,${imageData}`;
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext('2d');
+        
+              // Set the background color to white
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+              // Draw the image on the canvas
+              ctx.drawImage(img, 0, 0);
+              // Convert the canvas content to a data URL with white background
+              const newImageUrl = canvas.toDataURL('image/jpeg');
+        
+              // Convert the data URL to a File and resolve the promise
+              const file = convertDataUrlToFile(newImageUrl, 'rendered.jpg');
+              resolve(file);
+            };
+        
+            img.onerror = (error) => {
+              reject(error);
+            };
+        });
+    }
     const saveJPG = async () =>{
         const link = document.createElement('a');
-        const file = convertDataUrlToFile(`data:image/jpeg;base64,${renderedImage}`, "rendered.jpg");
+        const file = await getWhiteBackgroundImage(renderedImage); 
+        //const file = convertDataUrlToFile(`data:image/jpeg;base64,${renderedImage}`, "rendered.jpg");
         try {
             await Resizer.imageFileResizer(
               file,
