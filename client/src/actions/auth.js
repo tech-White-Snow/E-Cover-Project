@@ -57,7 +57,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   } catch (err) {
     console.log(err);
 
-    if (err.response.data) {
+    if (err.response) {
       err.response.data.errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({ type: REGISTER_FAIL });
@@ -87,7 +87,7 @@ export const login = (email, password) => async (dispatch) => {
     //dispatch(getUploadImages());    
   } catch (err) {
     console.log(err);
-    if (err.response.data) {
+    if (err.response) {
       err.response.data.errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({ type: LOGIN_FAIL });
