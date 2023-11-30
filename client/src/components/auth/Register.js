@@ -41,7 +41,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <p className='' style={{marginRight: "5px"}}>Please contact with administrator: </p>
         <a className='text-primary' href="mailto: me@marklingmail.com">me@marklingmail.com</a>
       </div>
-      <form className='form' onSubmit={(e) => onSubmit(e)}>
+      {/* <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='text'
@@ -83,7 +83,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
-      </form>
+      </form> */}
       <p className='my-1'>
         Already have an account? <Link to='/login'>Login</Link>
       </p>

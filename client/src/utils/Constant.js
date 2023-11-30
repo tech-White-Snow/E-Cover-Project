@@ -1,5 +1,5 @@
-export const backendUrl = "https://abundanceauthority.com";
-export const PUBLIC_URL = "https://abundanceauthority.com";
+export const backendUrl = process.env.REACT_APP_BACKEND_URL;
+export const PUBLIC_URL = process.env.REACT_APP_FRONTEND_URL;
 
 export const mockups = [
     {
