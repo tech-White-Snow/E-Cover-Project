@@ -55,9 +55,10 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       dispatch(getUploadImages());  
     }  
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    console.log(err);
+
+    if (err.response.data.errors) {
+      err.response.data.errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({ type: REGISTER_FAIL });
   }
@@ -85,9 +86,9 @@ export const login = (email, password) => async (dispatch) => {
 
     //dispatch(getUploadImages());    
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    console.log(err);
+    if (err.response.data.errors) {
+      err.response.data.errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({ type: LOGIN_FAIL });
   }
