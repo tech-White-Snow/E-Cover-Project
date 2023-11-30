@@ -1,5 +1,5 @@
-export const backendUrl = "https://abundanceauthority.com/";
-export const PUBLIC_URL = "https://abundanceauthority.com/";
+export const backendUrl = "https://abundanceauthority.com";
+export const PUBLIC_URL = "https://abundanceauthority.com";
 
 export const mockups = [
     {
