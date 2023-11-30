@@ -46,12 +46,14 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   try {
     const res = await axios.post(`${backendUrl}/api/users`, body, config);
 
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data,
-    });
-    dispatch(loadUser());
-    dispatch(getUploadImages());    
+    if(res.data){
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(loadUser());
+      dispatch(getUploadImages());  
+    }  
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -88,7 +90,6 @@ export const login = (email, password) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({ type: LOGIN_FAIL });
-
   }
 };
 

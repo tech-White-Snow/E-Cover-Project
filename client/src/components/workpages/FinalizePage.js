@@ -3,7 +3,7 @@ import './ImagePagesStyle.css'
 import './FinalizePage.css'
 import { useDispatch, useSelector } from "react-redux";
 import { render_start, render_end } from "../../actions/render";
-import { Button, Slider } from '@mui/material';
+import { Button, Slider, Box, Grid, Paper } from '@mui/material';
 import Spinner from "../layout/Spinner";
 import axios from 'axios';
 import { backendUrl } from "../../utils/Constant";
