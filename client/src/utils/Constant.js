@@ -1,5 +1,5 @@
-export const backendUrl = "198.71.48.106";
-export const PUBLIC_URL = "198.71.48.106";
+export const backendUrl = "http://198.71.48.106";
+export const PUBLIC_URL = "http://198.71.48.106";
 
 export const mockups = [
     {
