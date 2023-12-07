@@ -67,7 +67,7 @@ const ImagePreview = ({ imageUrl }) => {
             alignItems: 'center',
           }}
         >
-          <img src={imageUrl} alt="Preview" style={{ maxWidth: '93%', maxHeight: '93%', width: 'auto', height: 'auto', margin: 'auto' }} />
+          <img src={imageUrl} alt="Preview" style={{ maxWidth: '93%', maxHeight: '800px', width: 'auto', height: 'auto', margin: 'auto' }} />
           <Button variant="outlined"
             style={{
                 position: 'absolute',

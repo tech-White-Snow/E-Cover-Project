@@ -3,13 +3,14 @@ import './ImagePagesStyle.css'
 import './FinalizePage.css'
 import { useDispatch, useSelector } from "react-redux";
 import { render_start, render_end } from "../../actions/render";
-import { Button, Slider, Box, Grid, Paper } from '@mui/material';
+import { Button } from '@mui/material';
 import Spinner from "../layout/Spinner";
 import axios from 'axios';
 import { backendUrl } from "../../utils/Constant";
 import ImagePreview from "./subtools/ImagePreview";
 import Resizer from 'react-image-file-resizer';
 import getPerspectiveImage from './subtools/imageTransform';
+import ReSizeImage from "./subtools/ResizeImage";
 
 const FinalizePage = () => {
     const {
@@ -38,8 +39,15 @@ const FinalizePage = () => {
     const result = useSelector(state => state.render_start);
 
     const [isImg, setIsImg] = useState(false);
-    const [valueSlider, setValueSlider] = useState(1);
-   
+    const [imageSize, setImageSize] = useState({
+        width: psdWidth,
+        height: psdHeight
+    })
+
+    const updateImageSize = (newSize) => {
+        setImageSize(newSize);
+    }
+
     const dispatch = useDispatch(); 
 
     useEffect(()=>{
@@ -54,7 +62,7 @@ const FinalizePage = () => {
                 8000,
                 8000,
                 "JPEG",
-                90,
+                100,
                 0,
                 (uri) => {
                     //console.log(uri);
@@ -74,16 +82,10 @@ const FinalizePage = () => {
     useEffect(()=>{
         setIsImg(false);
     }, [imageUrl]);
-    
-    const handleSliderChange = (event, newValue) =>{
-        if (typeof newValue === 'number') {
-            setValueSlider(newValue);
-          }
-    }
 
-    const valueLabelFormat = (value) =>{
-        return `X ${value}`
-    }
+    useEffect(()=>{
+        console.log(imageSize);
+    }, [imageSize])
 
     const convertDataUrlToFile = (dataUrl, filename) => {
         const arr = dataUrl.split(',');
@@ -176,8 +178,8 @@ const FinalizePage = () => {
         try {
             await Resizer.imageFileResizer(
               file,
-              valueSlider*psdWidth,
-              valueSlider*psdHeight,
+              imageSize.width,
+              imageSize.height,
               "JPEG",
               100,
               0,
@@ -189,8 +191,8 @@ const FinalizePage = () => {
                 document.body.removeChild(link);
               },
               "base64",
-              valueSlider*psdWidth,
-              valueSlider*psdHeight,
+              imageSize.width,
+              imageSize.height,
             );
         } catch (err) {
             link.href = `data:image/jpeg;base64,${renderedImage}`;
@@ -223,8 +225,8 @@ const FinalizePage = () => {
         try {
             await Resizer.imageFileResizer(
               file,
-              valueSlider*psdWidth,
-              valueSlider*psdHeight,
+              imageSize.width,
+              imageSize.height,
               "PNG",
               100,
               0,
@@ -236,8 +238,8 @@ const FinalizePage = () => {
                 document.body.removeChild(link);
               },
               "base64",
-              valueSlider*psdWidth,
-              valueSlider*psdHeight,
+              imageSize.width,
+              imageSize.height,
             );
         } catch (err) {
             link.href = `data:image/png;base64,${renderedImage}`;
@@ -262,19 +264,11 @@ const FinalizePage = () => {
     )
     const save = (
         <div className="save-image">  
-           <div style = {{width: '80%', margin: 'auto', marginTop: '40px'}}>
-                <Slider
-                    padding="0px"
-                    value={valueSlider}
-                    defaultValue={1}
-                    min={0.5}
-                    step={0.1}
-                    max={2}
-                    // scale={calculateValue}
-                    getAriaValueText={valueLabelFormat}
-                    valueLabelFormat={valueLabelFormat}
-                    onChange={handleSliderChange}
-                    valueLabelDisplay="on"
+           <div style = {{width: '80%', margin: 'auto', marginTop: '20px', marginBottom: '20px'}}>
+                <ReSizeImage 
+                    width = {psdWidth}
+                    height = {psdHeight}
+                    setSize = {updateImageSize}
                 />
             </div>
             <Button

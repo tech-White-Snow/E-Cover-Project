@@ -360,7 +360,7 @@ const getImageFromPSD = async () =>{
       plugins: [
         // imageminJpegtran(),
         imageminPngquant({
-          quality: [0.7, 0.9]
+          quality: [0.9, 1]
         })
       ]
     });

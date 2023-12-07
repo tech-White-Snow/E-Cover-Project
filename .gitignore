@@ -2,6 +2,5 @@ node_modules/
 client/node_modules/
 client/.env
 upload/
-client/src/utils/
 mockupfiles/output_psd.psd
 mockupfiles/result_origin.png
