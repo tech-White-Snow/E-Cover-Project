@@ -10,7 +10,7 @@ const MockupsPage = ({setMockupsSelected}) => {
     const mockUpData = useSelector(state=>state.mockUpData);
     
     // useEffect(()=>{
-    //     console.log("object ==== ")
+    //     console.log("object  ==== ")
     //     async function getMockup() {
     //         try{
     //             const res = await axios.post(`${backendUrl}/api/ag-psd/all-mockup`, {mockups});

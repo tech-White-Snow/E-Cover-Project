@@ -25,6 +25,13 @@ const UserSchema = new mongoose.Schema({
         {
             url: String
         }
+    ],
+    covers: [
+        {
+            renderedImage: String,
+            designState: String,
+            mockup: String
+        }
     ]
 });
 

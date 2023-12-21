@@ -23,6 +23,7 @@ import MockupData from '../../models/MockupData.js';
 //import CircularJSON from 'circular-json';
 
 import initializeCanvas from "ag-psd/initialize-canvas.js";
+import { CLIENT_RENEG_WINDOW } from 'tls';
 //import { group } from 'console';
 
 // const AWS_ACCESS_KEY_ID = "AKIAVBHONSQBZMPWQAUF";
@@ -300,9 +301,14 @@ router.post('/upload-image', auth , uploadImage.single('file'), async (req, res)
 });
 
 router.get('/all-upload-image', auth, async (req, res) => {
-  const userID = req.user.id;
-  const user = await User.findById(userID);
-  res.json(user.images);
+  try{  
+    const userID = req.user.id;
+    const user = await User.findById(userID);
+    res.json(user.images);
+  }catch(err){
+    console.log("error ------", err.message);
+    res.status(500).send('Server error');
+  }
   //  const imagesData = [];
   // user.images.forEach( async (image, index) => {
   //   await request({ url: image.url, encoding: null }, (error, response, body) => {
@@ -384,6 +390,156 @@ const getImageFromPSD = async () =>{
     })
   }
 }
+
+router.post('/save-cover', auth , async (req, res) => {
+  try {
+
+    const {userId, renderedImage, designState, mockup} = req.body;
+    const user = await User.findById(userId);
+    
+    if (user.covers === null) {
+      user.covers = [];
+    } else if (user.covers.length >= 10) {
+      user.covers.shift(); // Remove the first element
+    }
+
+    // let annotation = designState.annotations;
+    // designState.annotations = {};
+    // let index = 0;
+    // Object.entries(annotation).map(([key, value]) => { 
+    //   // Return the modified item
+    //   index++;
+    //   const id = `image-${index}`;
+    //   value.id = id;
+    //   value.gallery = [];
+    //   designState.annotations = {
+    //     ...designState.annotations,
+    //     [id]: {
+    //       stroke: value.stroke,
+    //       strokeWidth: value.stroke,
+    //       shadowOffsetX: value.stroke,
+    //       shadowOffsetY: value.stroke,
+    //       shadowBlur: value.stroke,
+    //       shadowColor: value.stroke,
+    //       shadowOpacity: value.stroke,
+    //       opacity: value.stroke,
+    //       disableUpload: value.stroke,
+    //       gallery: value.gallery,
+    //       name: value.name,
+    //       id: `image-${i}`,
+    //       image: value.image,
+    //       x: value.x,
+    //       y: value.y,
+    //       width: value.width,
+    //       height: value.height,
+    //       rotation: value.rotation,
+    //       scaleX: value.scaleX,
+    //       scaleY: value.scaleY
+    //     },
+    //   };
+    // });
+
+    // if(index < 15){
+    //   for(let i=index+1; i<=15; i++){
+    //     const id = `image-${i}`;
+    //     designState.annotations = {
+    //       ...designState.annotations,
+    //       [id]: {
+    //         stroke: '#000000',
+    //         strokeWidth: 0,
+    //         shadowOffsetX: 0,
+    //         shadowOffsetY: 0,
+    //         shadowBlur: 0,
+    //         shadowColor: '#000000',
+    //         shadowOpacity: 1,
+    //         opacity: 1,
+    //         disableUpload: false,
+    //         gallery: [],
+    //         name: 'Image',
+    //         id: `image-${i}`,
+    //         image: 'a',
+    //         x: 0,
+    //         y: 0,
+    //         width: 0,
+    //         height: 0
+    //       },
+    //     };
+    //   }
+    // }
+    
+    const stringState = JSON.stringify(designState);
+    const stringMockup = JSON.stringify(mockup);
+
+    user.covers.push({ renderedImage, designState: stringState, mockup: stringMockup, });
+  
+    await user.save();
+   
+
+    res.json({ message: 'Save successful'});
+
+  } catch(err) {
+    console.log("error ------", err.message);
+    res.status(500).send('Server error');
+  }
+  //console.log(user.id);
+});
+
+router.get('/get-covers/:userid', auth, async (req, res) => {
+  try{  
+    const userID = req.params.userid;
+    const user = await User.findById(userID);
+    const covers = [];
+    user.covers.map((cover, index) => {
+      covers.push({
+          _id: cover._id,
+          renderedImage: cover.renderedImage,
+          designState: JSON.parse(cover.designState),
+          mockup: JSON.parse(cover.mockup),
+      });
+    })
+    res.json(covers);
+  }catch(err){
+    console.log("error ------", err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+router.delete('/cover/:userId', auth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { coverId } = req.body;
+    
+    // Find the user by userId
+    const user = await User.findById(userId);
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Find the index of the cover item with the given coverId
+    const coverIndex = user.covers.findIndex(
+      (cover) => cover._id.toString() === coverId
+    );
+
+    // Check if the cover item exists
+    if (coverIndex === -1) {
+      return res.status(404).json({ message: 'Cover item not found' });
+    }
+
+    // Remove the cover item from the user's schema
+    user.covers.splice(coverIndex, 1);
+
+    // Save the updated user
+    await user.save();
+
+    res.json({ message: 'Cover item deleted successfully' });
+
+  } catch (err) {
+    console.error('Error deleting cover item:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 //module.exports = router;
 export default router;

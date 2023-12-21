@@ -54,6 +54,10 @@ const CreateCover = () => {
   const[stockImagesSelected, setStockImagesSelected] = useState(false);
   const[uploadImagesSelected, setUploadImagesSelected] = useState(false);
   
+  const[loadPreDesign, setLoadPreDesign] = useState({
+    renderedImage: null, 
+    designState: {},
+  })
 
   //Transform pages actions
   const myCoversClicked = () => {
@@ -178,6 +182,9 @@ const CreateCover = () => {
       if(div) div.dispatchEvent(event);
    // }
   }
+  const clickDefaultPage = () => {
+    setFinalizeSelected(false);
+  }
 
   //Select Attributes
   const[bgImageSelected, setBgImageSelected] = useState(0);
@@ -190,14 +197,22 @@ const CreateCover = () => {
 
   //Create default page
   const defaultPage = (
-    <DefaultPage bgImageSelected={bgImageSelected}/>
+    <DefaultPage 
+      bgImageSelected={bgImageSelected} 
+      loadPreDesign={loadPreDesign}
+      onClick={clickDefaultPage}
+    />
   )
 
   //Create My Cover Page
   const myCoverPage = (
     myConversSelected === true ? (
       <div className='show-extrapage'>
-        <MyCoverPage />
+        <MyCoverPage 
+          setMyCoversSelected = {setMyConversSelected} 
+          setLoadPreDesign = {setLoadPreDesign}
+        />
+
       </div>
     ) : (
       <div className='hidden-extrapage'>
@@ -311,11 +326,17 @@ const CreateCover = () => {
   const finalizePage = (
     finalizeSelected === true ? (
       <div className='show-finalizepage'>
-        <FinalizePage bgImageSelected = {bgImageSelected} />
+        <FinalizePage 
+          bgImageSelected = {bgImageSelected} 
+          loadPreDesign = {loadPreDesign}
+        />
       </div>
     ) : (
       <div className='hidden-finalizepage'>
-        <FinalizePage bgImageSelected = {bgImageSelected} />
+        <FinalizePage 
+          bgImageSelected = {bgImageSelected} 
+          loadPreDesign = {loadPreDesign}
+        />
       </div>
     )
   )

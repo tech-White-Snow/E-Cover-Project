@@ -1,9 +1,10 @@
-import { SET_EDITEDIMAGE, GET_EDITEDIMAGE, SET_CURRENTSTATE } from '../actions/types';
+import { SET_EDITEDIMAGE, GET_EDITEDIMAGE, SET_CURRENTSTATE, TOGGLE_PLUGCOVER } from '../actions/types';
 
 const initialState = {
   edited: false,
   img: null,
-  currentDesignState: null
+  currentDesignState: null,
+  plugGetCovers: false,
 };
 
 function editedImage(state = initialState, action) {
@@ -16,7 +17,6 @@ function editedImage(state = initialState, action) {
         img: payload
       }
     case SET_CURRENTSTATE :
-      console.log(payload);
       return { 
         ...state,
         currentDesignState: payload
@@ -26,6 +26,11 @@ function editedImage(state = initialState, action) {
         ...state,
         edited: true
       }  
+    case TOGGLE_PLUGCOVER:
+      return{
+        ...state,
+        plugGetCovers: !state.plugGetCovers
+      }
     default : 
         return state;
   }

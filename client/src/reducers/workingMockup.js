@@ -12,11 +12,9 @@ function workingMockup(state = initialState, action) {
   switch (type) {
     case LOADING_MOCKUP :
         return {...state, loading: true, rendered: true}
-   
+        
     case SELECT_MOCKUP :
         return {
-          loading: false,
-          rendered: false,
           ...payload
         };
     default : 

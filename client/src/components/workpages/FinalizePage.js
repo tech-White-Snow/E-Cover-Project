@@ -11,8 +11,9 @@ import ImagePreview from "./subtools/ImagePreview";
 import Resizer from 'react-image-file-resizer';
 import getPerspectiveImage from './subtools/imageTransform';
 import ReSizeImage from "./subtools/ResizeImage";
+import {togglePlugCover} from "../../actions/editedImage"
 
-const FinalizePage = () => {
+const FinalizePage = ({loadPreDesign}) => {
     const {
         imageUrl, 
         Selected, 
@@ -24,9 +25,11 @@ const FinalizePage = () => {
         width,
         height,
         rectTransform,
-        spineTransform
+        spineTransform,
+        editImage
     } = useSelector(state=>state.workingMockup);
     
+    const {_id} = useSelector(state=>state.auth.user);
     // const [rectImage1, setRectImage] = useState(null);
     // const [spineImage1, setSpineImage] = useState(null);
     const [renderedImage, setRenderedImage] = useState(null);
@@ -34,7 +37,8 @@ const FinalizePage = () => {
     const [changedImage, setChangedImage] = useState({
         img: '',
     });
-    const editedImage = useSelector(state=>state.editedImage);
+    const [displaySaveCover, setDisplaySaveCover] = useState(false);
+    const {img, currentDesignState} = useSelector(state=>state.editedImage);
 
     const result = useSelector(state => state.render_start);
 
@@ -51,8 +55,8 @@ const FinalizePage = () => {
     const dispatch = useDispatch(); 
 
     useEffect(()=>{
-        if(editedImage.img){
-            const file = convertDataUrlToFile(editedImage.img, "edited.jpg");
+        if(img){
+            const file = convertDataUrlToFile(img, "edited.jpg");
             //console.log(file);
             // setChangedImage({
             //     img: editedImage.img})
@@ -77,15 +81,20 @@ const FinalizePage = () => {
                 console.log(err);
             }
         }
-    },[editedImage]);
+    },[img]);
 
     useEffect(()=>{
         setIsImg(false);
     }, [imageUrl]);
 
     useEffect(()=>{
-        console.log(imageSize);
-    }, [imageSize])
+        if(loadPreDesign.renderedImage){
+            setRenderedImage(loadPreDesign.renderedImage);
+            setDisplaySaveCover(true);
+            setRendered(true);
+            setIsImg(true);
+        }
+    }, [loadPreDesign.renderedImage]);
 
     const convertDataUrlToFile = (dataUrl, filename) => {
         const arr = dataUrl.split(',');
@@ -103,6 +112,7 @@ const FinalizePage = () => {
     const render = () => {
         rendering();
     }
+
     const rendering = async () =>{
         try{
             dispatch(render_start());
@@ -133,11 +143,47 @@ const FinalizePage = () => {
         
             console.log('Rendered Image Size:', res.data.imageData.length, 'bytes');
             setRenderedImage(res.data.imageData);
+            setDisplaySaveCover(true);
             dispatch(render_end());
             setRendered(true);
             setIsImg(true);
         }catch(err){
             console.log(err);
+            dispatch(render_end());
+        }
+    }
+
+    const saveCover = async () =>{
+        const mockup = {
+            imageUrl, 
+            Selected, 
+            name, 
+            psdWidth, 
+            psdHeight, 
+            spinWidth, 
+            ifSpin,
+            width,
+            height,
+            rectTransform,
+            spineTransform,
+            editImage
+        };
+        const sendData = {
+            userId: _id,
+            renderedImage: renderedImage,
+            designState: currentDesignState,
+            mockup,
+        };
+
+        try{
+            dispatch(render_start());
+            const res = await axios.post(`${backendUrl}/api/ag-psd/save-cover`, sendData);
+            dispatch(render_end());
+            setDisplaySaveCover(false);
+            dispatch(togglePlugCover());
+        }catch(err){
+            console.log(err);
+            dispatch(render_end());
         }
     }
 
@@ -262,46 +308,76 @@ const FinalizePage = () => {
     const final_mockup = (
         <ImagePreview imageUrl={`data:image/png;base64,${renderedImage}`} />
     )
+
     const save = (
-        <div className="save-image">  
-           <div style = {{width: '80%', margin: 'auto', marginTop: '20px', marginBottom: '20px'}}>
-                <ReSizeImage 
-                    width = {psdWidth}
-                    height = {psdHeight}
-                    setSize = {updateImageSize}
-                />
-            </div>
-            <Button
+        <div>
+            <Button 
                 variant="contained" 
                 color="success"
-                className="save-button"
+                className="render-button"
                 style={{
-                    margin: "0px 10px",
                     padding: '2px 15px',
                     fontSize: "15px",
                     color: 'white',
                     borderRadius: '8px',
+                    marginRight: '20px'
                 }}
-                onClick={saveJPG}
-            >
-                Save as JPG
-            </Button>
-            <Button
-                variant="contained" 
-                color="success"
-                className="save-button"
-                style={{
-                    margin: "0px 10px",
-                    padding: '2px 15px',
-                    fontSize: "15px",
-                    color: 'white',
-                    borderRadius: '8px',
-                }}
-                onClick={savePNG}
-            >
-                Save as PNG
-            </Button>
+                onClick={render}
+            >Rerender Mockup</Button>
             
+            {displaySaveCover ? <Button 
+                variant="contained" 
+                color="success"
+                className="render-button"
+                style={{
+                    padding: '2px 15px',
+                    fontSize: "15px",
+                    color: 'white',
+                    borderRadius: '8px',
+                }}
+                onClick={saveCover}
+            >Save Cover</Button> : '' }
+
+            <div className="save-image">  
+            <div style = {{width: '80%', margin: 'auto', marginTop: '20px', marginBottom: '20px'}}>
+                    <ReSizeImage 
+                        width = {psdWidth}
+                        height = {psdHeight}
+                        setSize = {updateImageSize}
+                    />
+                </div>
+                <Button
+                    variant="contained" 
+                    color="success"
+                    className="save-button"
+                    style={{
+                        margin: "0px 10px",
+                        padding: '2px 15px',
+                        fontSize: "15px",
+                        color: 'white',
+                        borderRadius: '8px',
+                    }}
+                    onClick={saveJPG}
+                >
+                    Save as JPG
+                </Button>
+                <Button
+                    variant="contained" 
+                    color="success"
+                    className="save-button"
+                    style={{
+                        margin: "0px 10px",
+                        padding: '2px 15px',
+                        fontSize: "15px",
+                        color: 'white',
+                        borderRadius: '8px',
+                    }}
+                    onClick={savePNG}
+                >
+                    Save as PNG
+                </Button>
+                
+            </div>
         </div>
     );
     return (
@@ -327,7 +403,7 @@ const FinalizePage = () => {
                     )}
                 </div>
                 <div style={{textAlign: 'center'}}>
-                   <Button 
+                    {rendered && isImg ? save : <Button 
                         variant="contained" 
                         color="success"
                         className="render-button"
@@ -338,8 +414,7 @@ const FinalizePage = () => {
                             borderRadius: '8px',
                         }}
                         onClick={render}
-                    >Render Mockup</Button>
-                    {rendered && isImg ? save : ""}
+                    >Render Mockup</Button>}
 
                     {/* <img src = "https://m.aplus.io/u/378231/ig7mm.jpg" style = {{maxWidth: '150px'}}></img> */}
                     {/* <img src = {spineImage1} style = {{maxWidth: '150px'}}></img> */}

@@ -5,7 +5,7 @@ import Spinner from '../layout/Spinner';
 
 import ImageEditor from "../imageeditor/ImageEditor";
 
-const DefaultPage = ({bgImageSelected}) => {
+const DefaultPage = ({bgImageSelected, loadPreDesign}) => {
     const [muWidth, setMuWidth] = useState(0);
     const [muHeight, setMuHeight] = useState(0);
     let bgWidth;
@@ -88,10 +88,10 @@ const DefaultPage = ({bgImageSelected}) => {
         </div>
     )
     return (
-        <div style = {{width: '100%', heigh: '100%'}}>
+        <div style = {{width: '100%', heigh: '100%'}} >
             
             {/* {loadedPage} */}
-            <ImageEditor />
+            <ImageEditor loadPreDesign={loadPreDesign}/>
         </div>
     )
 }

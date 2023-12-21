@@ -66,7 +66,7 @@ const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
         context.lineTo(spin.spinWidth, size.height); // Ending point
         context.stroke();
 
-        context.font = '24px Arial'; // Set the font size and type
+        context.font = '15px Arial'; // Set the font size and type
         context.fillStyle = 'black'; // Set the text color
         context.textBaseline = 'top'; // Set the vertical alignment
         context.fillText(`Spine ${spin.spinWidth}px`, spin.spinWidth, 5); // Draw the text on the canvas
@@ -78,6 +78,8 @@ const MockUpCard = ({mockup, mockupData, setMockupsSelected}) => {
         setMockupsSelected(false);
         //dispatch(selectMockUp(url));
         const selectedMockup = {
+          loading: false,
+          rendered: false,
           Selected: true,
           name: mockup,
           width: size.width,

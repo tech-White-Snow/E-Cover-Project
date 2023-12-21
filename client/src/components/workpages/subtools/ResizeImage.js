@@ -71,7 +71,7 @@ export default function ReSizeImage(props) {
                         </MenuItem>
                         {sizePixels.map((value, index)=>{
                             if(value < width) {
-                                return <MenuItem value={value} index={index}>{value}</MenuItem>
+                                return <MenuItem value={value} key={index}>{value}</MenuItem>
                             }
                         })}
                     </Select>

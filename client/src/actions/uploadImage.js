@@ -9,7 +9,7 @@ export const uploadImage = (image) => async (dispatch) => {
   const formData = new FormData();
   formData.append('file', image);
   const res = await axios.post(`${backendUrl}/api/ag-psd/upload-image`, formData);
-  console.log(res.data.url);
+  //console.log(res.data.url);
   dispatch({
     type: UPLOAD_IMAGE,
     payload: res.data.url

@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import FilerobotImageEditor, { TABS, TOOLS} from 'react-filerobot-image-editor';
-import {getCurrentImgDataFnRef} from 'react-filerobot-image-editor';
+import FilerobotImageEditor, { TABS, TOOLS} from '@dannyboy66/react-filerobot-image-editor';
+import {getCurrentImgDataFnRef} from '@dannyboy66/react-filerobot-image-editor';
 import './ImageEditor.css';
 
 import logo from './logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentState, setEditedImage } from '../../actions/editedImage';
+import { setEditedImage, setCurrentState } from '../../actions/editedImage';
 
-function ImageEditor() {
+function ImageEditor({loadPreDesign}) {
     const editedImage = useRef();
     const refEditor = useRef();
  
     const {Selected, width, height} = useSelector(state=>state.workingMockup);
     const {edited, currentDesignState} = useSelector(state=>state.editedImage);
     const mockup = useSelector(state=>state.workingMockup);
-    const Gallery = useSelector(state=>state.uploadImage.urls);
+    //const Gallery = useSelector(state=>state.uploadImage.urls);
 
     const image = new Image();
     image.width = 200; // Set the desired width
@@ -31,7 +31,7 @@ function ImageEditor() {
     //   const canvas = document.createElement('canvas');
     //   canvas.width = 80; // Desired thumbnail width
     //   canvas.height = (image.height * canvas.width) / image.width; // Calculate height based on original aspect ratio
-      
+
     //   // Resize original image to thumbnail size
     //   const ctx = canvas.getContext('2d');
     //   ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -47,19 +47,24 @@ function ImageEditor() {
         {
           originalUrl: logo, // The url of the image in original size to be added in canvas
           previewUrl: logo, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+        },
+        {
+          originalUrl: "https://scaleflex.cloudimg.io/v7/demo/spencer-davis-unsplash.jpg",
+          previewUrl: "https://scaleflex.cloudimg.io/v7/demo/spencer-davis-unsplash.jpg",
         }
       ];
-      Gallery.map((image, key)=>{
-        gallery = [
-          ...gallery,
-          {
-            originalUrl: image.url, // The url of the image in original size to be added in canvas
-            previewUrl: image.url, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
-          }
-        ];
-      })
+      // Gallery.map((image, key)=>{
+      //   gallery = [
+      //     ...gallery,
+      //     {
+      //       originalUrl: image.url, // The url of the image in original size to be added in canvas
+      //       previewUrl: image.url, // The url of the image to be used as preview in gallery list (for less data consuming & better performance).
+      //     }
+      //   ];
+      // })
       setEditorGallery(gallery);
-    }, [Gallery]);
+      //setEditorGallery([]);
+    }, []);
 
     const dispatch = useDispatch();
   
@@ -68,10 +73,12 @@ function ImageEditor() {
       if(edited){
         if(editedImage != null && editedImage.current){
           const imageBase64 = editedImage?.current({}).imageData.imageBase64;
+          const currentDesignState = editedImage?.current({}).designState;
           const edited = new Image();
           edited.src = imageBase64;
           edited.alt = "Edited image";
           dispatch(setEditedImage(imageBase64));
+          dispatch(setCurrentState(currentDesignState));
           if(refEditor.current)  refEditor.current.setActiveTab(null);
           //console.log(refEditor);
           // console.log(refEditor.current.sel());
@@ -166,6 +173,7 @@ function ImageEditor() {
               uploadWatermark: 'From local',
               annotateTab: 'Draw',
             }}
+            loadableDesignState={loadPreDesign.designState}
           />
         )}
       </div>

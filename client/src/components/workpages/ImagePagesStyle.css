@@ -12,8 +12,6 @@
     margin-left: 15px;
 }
 .image-card {
-    width: 175px;
-    height: 110px;
     margin: 3px;
 }
 .image-card:hover {
@@ -281,7 +279,7 @@
 }
 
 .image-card{
-    padding: 5px!important;
+    padding: 5px;
 }
 
 .css-187mznn-MuiSlider-root{

@@ -12,10 +12,10 @@ import routerProfile from './routes/api/profile.js';
 import routerPSD from './routes/api/ag_psd.js';
 
 // Parse URL-encoded request body
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
 
 // Parse JSON bodies
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json({ limit: '500mb' }));
 
 app.use(cors());
 

@@ -12,13 +12,17 @@ canvas{
 }
 
 .FIE_tabs{
-    display: none;
+    display: none!important;
     position: absolute;
     z-index: 100;
 }
 
 .FIE_topbar-save-button{
-    /* display: none!important; */
+    display: none!important;
+}
+
+.empXwa{
+    padding: 0px!important;
 }
 
 .FIE_topbar-close-button{
@@ -34,7 +38,7 @@ canvas{
 }
 
 .SfxLabel-text{
-    color: white;
+    color: #bbbbbb;
 }
 
 .gkDkOj {
@@ -48,7 +52,7 @@ canvas{
     height: 80px!important;
 }
 
-.jrRyTH {
+.FIE_topbar {
     padding: 0px!important;
 }
 
@@ -56,8 +60,17 @@ canvas{
     padding: 0px!important;
 }
 
-.hRHTOm{
+.FIE_tool-options-wrapper{
     margin: auto!important;
+}
+
+.FIE_tools-bar{
+    padding: 0!important;
+}
+
+.FIE_tool-options-wrapper > div{
+    margin-top: 0px!important;
+    padding: 0!important;
 }
 
 .FIE_topbar-save-wrapper{
